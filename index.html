@@ -330,7 +330,10 @@ details.kd div{font-size:12.5px;color:var(--ink-2);margin-top:4px;max-width:60ch
 .fchip:hover{border-color:var(--c1)}
 .fchip .x{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:var(--surface-3);color:var(--ink-2);font-size:11px;line-height:1}
 .fchip.clear{background:transparent;border-style:dashed;color:var(--ink-2);padding:2px 10px}
-.cards.hero{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.cards.hero{grid-template-columns:repeat(auto-fit,minmax(176px,1fr))}
+.kc-foot{flex-wrap:wrap;row-gap:4px}
+.kc-foot .grow{min-width:0}
+.kc-foot svg.spark{margin-left:auto}
 .kcard.hero{min-height:172px;padding:15px 17px 12px}
 .kcard.hero .kc-name{font-size:14px;color:var(--ink)}
 .kcard.hero .kc-val{font-size:34px;margin-top:8px}
@@ -360,6 +363,44 @@ details.kd div{font-size:12.5px;color:var(--ink-2);margin-top:4px;max-width:60ch
 .ki-row code{font-size:12px}
 .ki-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .copy-area{width:100%;min-height:240px;border:1px solid var(--line-strong);border-radius:10px;padding:10px;background:var(--surface-2);color:var(--ink);font:inherit;font-size:13.5px;line-height:1.6;resize:vertical}
+
+/* ---------- Phase 2: workflow · SPC · drill · persona · ความเห็น ---------- */
+.chip.spc{background:color-mix(in srgb,var(--c7) 14%,transparent);color:var(--c7);font-weight:600}
+.chip.new{background:var(--accent-soft);color:var(--accent-ink);font-weight:700}
+.wf-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.wf-row:empty{display:none}
+.bi-act{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.link-btn.primary{background:var(--navy-fill);border-color:var(--navy-fill);color:#fff}
+.link-btn.primary:hover{filter:brightness(1.12);background:var(--navy-fill)}
+.brief-item.closed{opacity:.72}
+details.closed-list summary{padding:10px 17px;border-top:1px solid var(--line);cursor:pointer;font-size:13px;color:var(--ink-2)}
+.hot-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 12px}
+.hot-form label,.persona-owner label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--ink-2)}
+.hot-form .full{grid-column:1/-1}
+.hot-form input,.hot-form select,.hot-form textarea,.persona-owner select{border:1px solid var(--line-strong);border-radius:8px;padding:6px 8px;background:var(--surface);color:var(--ink);font:inherit;font-size:13.5px;min-width:0}
+.form-err{color:var(--bad-ink);margin:0;font-size:13px}
+.ki-form{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:flex-end;margin-top:8px}
+.ki-form label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--ink-3)}
+.ki-form input{width:110px;border:1px solid var(--line-strong);border-radius:8px;padding:5px 8px;background:var(--surface);color:var(--ink)}
+tr.row-act{cursor:pointer}
+tr.row-act:hover td{background:var(--info-soft)}
+.op-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:12px}
+.op-list h4{margin:0 0 6px;font-size:13px}
+.op-list ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink-2)}
+.op-list li{margin:3px 0}
+.drill-hint{color:var(--c1)}
+.cm-btn{display:none !important}
+.can-comment .cm-btn{display:inline-flex !important}
+.rail .rail-home{border:1px solid var(--line);margin-bottom:6px;padding:8px 9px}
+.rail .rail-home .cell-sub{font-weight:400}
+.persona-opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;cursor:pointer}
+.persona-opt:has(input:checked){border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy)}
+.persona-opt > span{display:flex;flex-direction:column;gap:2px}
+.persona-opt input{margin-top:4px;accent-color:var(--navy-fill)}
+.persona-owner{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 8px}
+.persona-form:not(:has(input[value="owner"]:checked)) .persona-owner{display:none}
+.bnav{display:none}
+.bbadge{position:absolute;top:2px;right:calc(50% - 22px);min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--bad);color:#fff;font-size:10.5px;font-weight:700;line-height:16px;text-align:center}
 
 /* ---------- responsive ---------- */
 @media (max-width:1180px){
@@ -411,6 +452,27 @@ details.kd div{font-size:12.5px;color:var(--ink-2);margin-top:4px;max-width:60ch
   body{background:#fff}
   .panel,.kcard,.brief{break-inside:avoid;box-shadow:none}
 }
+
+/* ---------- Phase 2: มือถือ — เมนูล่าง · ตัวกรองแบบพับ · KPI หลักแบบปัด ---------- */
+@media (max-width:860px){
+  .bnav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:45;background:var(--surface);border-top:1px solid var(--line);padding:4px 4px calc(4px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 20px rgba(10,14,40,.08)}
+  .bnav button{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:none;color:var(--ink-2);font-size:11px;padding:6px 2px;cursor:pointer}
+  .bnav button svg{width:20px;height:20px}
+  main{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .toast{bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+  .rail{display:none}
+  body.rail-open .rail{display:block;position:fixed;left:0;right:0;top:auto;bottom:calc(58px + env(safe-area-inset-bottom,0px));max-height:70vh;height:auto;overflow:auto;z-index:44;border-top:1px solid var(--line);border-bottom:0;box-shadow:0 -12px 30px rgba(10,14,40,.18);padding:10px 12px 14px}
+  body.rail-open .rail .rail-group,body.rail-open .rail .rail-note{display:block}
+  body.rail-open .rail button{width:100%;white-space:normal}
+  .fbar .f,.fbar .toggle{display:none}
+  .fbar.open .f,.fbar.open .toggle{display:flex}
+  #btn-print{display:none}
+  .cards.hero{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:78%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+  .cards.hero .kcard{scroll-snap-align:start}
+  .hot-form,.op-grid{grid-template-columns:minmax(0,1fr)}
+  .bi-act{justify-content:flex-start}
+}
+@media print{ .bnav{display:none !important} }
 </style>
 </head>
 <body>
@@ -426,6 +488,7 @@ details.kd div{font-size:12.5px;color:var(--ink-2);margin-top:4px;max-width:60ch
   </div>
   <div class="tb-actions">
     <button type="button" class="net-pill" id="net-status" hidden></button>
+    <button class="tb-btn cm-btn" id="btn-comment" type="button" data-tip="ให้ความเห็นต่อหน้านี้ (เก็บ requirement สำหรับ BRD)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg><span>ความเห็น</span></button>
     <span class="proto-badge" id="proto-badge" data-tip="ต้นแบบ: ข้อมูลทุกชุดเป็น Mock ตาม schema และ seed ยอดรวมจาก PDF — นำเข้า CSV จริงได้ที่หน้า Data Hub">Prototype · Mock Data</span>
     <button class="tb-btn" id="btn-print" type="button" data-tip="พิมพ์ / บันทึกเป็น PDF สำหรับประชุม">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/></svg><span>PDF</span>
@@ -462,6 +525,13 @@ details.kd div{font-size:12.5px;color:var(--ink-2);margin-top:4px;max-width:60ch
   <main id="main" tabindex="-1"></main>
 </div>
 
+<nav class="bnav" id="bnav" aria-label="เมนูมือถือ">
+  <button type="button" data-bnav="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>หน้าแรก</button>
+  <button type="button" data-bnav="hotissue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>Hot Issue<span class="bbadge" id="bnav-hot" hidden></span></button>
+  <button type="button" data-bnav="filters"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 8v6l-4-2v-4z"/></svg>ตัวกรอง</button>
+  <button type="button" data-bnav="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>หัวข้อ</button>
+  <button type="button" data-bnav="ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.4A8 8 0 1 1 21 12z"/></svg>ถาม AI</button>
+</nav>
 <aside class="chat" id="chat" aria-label="CQA AI Assistant" inert>
   <div class="chat-head">
     <div>
@@ -612,6 +682,13 @@ U.parseCSV = text => {
   return rows.filter(r => r.some(x => x !== ""));
 };
 
+/* id ที่ใช้เป็นชื่อเอกสารได้ (a-z0-9) จากข้อความใดๆ — FNV-1a 32-bit ×2 */
+U.hashId = s => {
+  let h1 = 0x811c9dc5, h2 = 0x01000193;
+  for (let i = 0; i < s.length; i++) { const c = s.charCodeAt(i); h1 = Math.imul(h1 ^ c, 16777619) >>> 0; h2 = Math.imul(h2 ^ (c + i), 2246822519) >>> 0; }
+  return "h" + h1.toString(16).padStart(8, "0") + h2.toString(16).padStart(8, "0");
+};
+
 CQA.U = U;
 
 /* ---------- Shared state: Target · Action items · Wave answers ----------
@@ -639,6 +716,26 @@ const Shared = CQA.Shared = {
     this.q[name] = (this.q[name] || Promise.resolve()).then(run);   // เขียนทีละครั้งต่อเอกสาร
     return this.q[name];
   },
+  /* collection: เอกสารละ 1 เรื่อง (เช่น สถานะ Hot Issue) — คนละเรื่องไม่เขียนทับกัน */
+  cols: {},
+  col(name) {
+    if (!this.cols[name]) { try { const s = globalThis.localStorage && localStorage.getItem(this.key("col." + name)); this.cols[name] = s ? JSON.parse(s) : {}; } catch (e) { this.cols[name] = {}; } }
+    return this.cols[name];
+  },
+  setDoc(name, id, value) {
+    const c = Object.assign({}, this.col(name), { [id]: value });
+    this.cols[name] = c;
+    try { localStorage.setItem(this.key("col." + name), JSON.stringify(c)); } catch (e) { /* storage unavailable */ }
+    if (!this.db || this.readOnly) return Promise.resolve(false);
+    const ref = this.db.collection(name).doc(id), body = { value: copy(value), updated_at: new Date().toISOString() }, qk = name + "/" + id;
+    const run = () => ref.set(body).then(() => true).catch(e => {
+      if (e && ["invalid_argument", "not_granted", "revoked", "capability_disabled", "capability_removed"].includes(e.code)) { this.readOnly = true; this.emit("readonly"); }
+      else this.emit("error");
+      return false;
+    });
+    this.q[qk] = (this.q[qk] || Promise.resolve()).then(run);
+    return this.q[qk];
+  },
   on(fn) { this.fns.push(fn); },
   emit(n) { this.fns.forEach(f => { try { f(n); } catch (e) { /* listener error */ } }); },
   async connect() {
@@ -654,6 +751,17 @@ const Shared = CQA.Shared = {
         const v = snap.exists ? (snap.data() || {}).value : null;
         this.mem[name] = copy(v) || {};
         try { localStorage.setItem(this.key(name), JSON.stringify(this.mem[name])); } catch (e) { /* storage unavailable */ }
+        this.emit(name);
+      }, () => { this.emit("error"); });
+    });
+    ["hot"].forEach(name => {
+      let q = db.collection(name);
+      try { q = q.limit(500); } catch (e) { /* default page */ }
+      q.onSnapshot(qs => {
+        const m = {};
+        qs.docs.forEach(d => { const b = d.data(); if (b && b.value) m[d.id] = copy(b.value); });
+        this.cols[name] = m;
+        try { localStorage.setItem(this.key("col." + name), JSON.stringify(m)); } catch (e) { /* storage unavailable */ }
         this.emit(name);
       }, () => { this.emit("error"); });
     });
@@ -1664,6 +1772,18 @@ E.delta = (id, ctx) => {
   if (a.value == null || b.value == null) return null;
   return { cur: a.value, prev: b.value, ym: a.key, pm: b.key, pct: b.value ? (a.value - b.value) / Math.abs(b.value) : null, diff: a.value - b.value };
 };
+/* SPC: เดือนล่าสุดอยู่นอก ค่าเฉลี่ย ± 2σ ของเดือนก่อนหน้า (ต้องมี ≥ 4 เดือนอ้างอิง)
+   เป็นสัญญาณ "ผิดปกติทางสถิติ" แยกจากสีสถานะ (ไม่ต้องมี Target) */
+E.spc = (id, ctx) => {
+  const t = E.trend(id, ctx).filter(x => x.value != null && isFinite(x.value));
+  if (t.length < 5) return null;
+  const base = t.slice(0, -1).map(x => x.value), last = t[t.length - 1];
+  const mean = base.reduce((a, b) => a + b, 0) / base.length;
+  const sd = Math.sqrt(base.reduce((a, b) => a + (b - mean) ** 2, 0) / (base.length - 1));
+  if (!(sd > 0)) return null;
+  const lo = mean - 2 * sd, hi = mean + 2 * sd;
+  return { flag: last.value > hi || last.value < lo, side: last.value > hi ? "high" : last.value < lo ? "low" : "", mean, sd, lo, hi, last: last.value, ym: last.key, n: base.length, z: (last.value - mean) / sd };
+};
 /* lookup index ของ dimension เช่น E.index("dim_store","store_id") */
 E.index = (ds, key) => {
   const ck = "I|" + ds + "|" + key;
@@ -1921,18 +2041,23 @@ UI.hbars = (items, opts = {}) => {
 };
 
 /* ---------- panel / table ---------- */
-UI.panel = (title, hint, body, actions, cls) => `<section class="panel ${cls || ""}"><div class="panel-head"><div><h3>${title}</h3>${hint ? `<p class="hint">${hint}</p>` : ""}</div>${actions ? `<div class="head-actions">${actions}</div>` : ""}</div>${body}</section>`;
+UI.panel = (title, hint, body, actions, cls) => {
+  const cv = /<canvas id="([^"]+)"/.exec(body || "");
+  const tools = (cv ? `<button type="button" class="btn sm ghost" data-act="ai-chart:${cv[1]}" data-tip="ให้ AI อธิบายกราฟนี้และบอกสิ่งที่ควรทำ">อธิบายกราฟ</button>` : "") + `<button type="button" class="btn sm ghost cm-btn" data-act="comment" data-tip="ปักความเห็นที่ส่วนนี้ (เก็บ requirement สำหรับ BRD)">ความเห็น</button>`;
+  return `<section class="panel ${cls || ""}" data-comment-target><div class="panel-head"><div><h3>${title}</h3>${hint ? `<p class="hint">${hint}</p>` : ""}</div><div class="head-actions">${actions || ""}${tools}</div></div>${body}</section>`;
+};
 UI.box = (id, size) => `<div class="chart-box ${size || ""}"><canvas id="${id}" role="img"></canvas></div>`;
 UI.table = (cols, rows, opts = {}) => {
   if (!rows.length) return `<div class="empty">${opts.empty || "ไม่มีข้อมูลในงวดนี้"}</div>`;
   const cell = (c, r) => { const v = typeof c.v === "function" ? c.v(r) : r[c.v]; return c.html ? v : esc(c.fmt ? c.fmt(v) : v); };
-  return `<div class="tablewrap"${opts.maxh ? ` style="max-height:${opts.maxh}px"` : ""}><table class="data"><thead><tr>${cols.map(c => `<th class="${c.r ? "r" : c.c ? "c" : ""}">${c.h}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${cols.map(c => `<td class="${c.r ? "r" : c.c ? "c" : ""}${c.nowrap ? " nowrap" : ""}">${cell(c, r)}</td>`).join("")}</tr>`).join("")}</tbody>${opts.foot ? `<tfoot><tr>${opts.foot.map((f, i) => `<td class="${cols[i] && cols[i].r ? "r" : ""}">${f}</td>`).join("")}</tr></tfoot>` : ""}</table></div>`;
+  return `<div class="tablewrap"${opts.maxh ? ` style="max-height:${opts.maxh}px"` : ""}><table class="data"><thead><tr>${cols.map(c => `<th class="${c.r ? "r" : c.c ? "c" : ""}">${c.h}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr${opts.rowAct ? ` class="row-act" data-act="${esc(opts.rowAct(r))}" tabindex="0" title="คลิกเพื่อดูรายละเอียด"` : ""}>${cols.map(c => `<td class="${c.r ? "r" : c.c ? "c" : ""}${c.nowrap ? " nowrap" : ""}">${cell(c, r)}</td>`).join("")}</tr>`).join("")}</tbody>${opts.foot ? `<tfoot><tr>${opts.foot.map((f, i) => `<td class="${cols[i] && cols[i].r ? "r" : ""}">${f}</td>`).join("")}</tr></tfoot>` : ""}</table></div>`;
 };
 /* heat-cell (sequential, หนึ่ง hue) */
 UI.heat = (v, max, fmt) => { const a = max ? U.clamp(v / max, 0, 1) : 0; return `<span class="hc" style="background:color-mix(in srgb, var(--c1) ${Math.round(a * 55)}%, transparent);${a > 0.6 ? "color:#fff" : ""}">${fmt ? fmt(v) : U.fmtValue(v)}</span>`; };
 
 /* ---------- เหตุผลที่ KPI "ต้องดู" (โหมดเฉพาะเรื่องที่ต้องดู) ---------- */
-UI.reasons = (k, res, d, hot) => {
+UI.spcChip = (k, sp) => sp && sp.flag ? `<span class="chip spc" data-tip="${esc(`${U.monLabel(sp.ym)} = ${UI.fv(k, sp.last)} อยู่นอกช่วงปกติ (ค่าเฉลี่ย ${sp.n} เดือนก่อนหน้า ${UI.fv(k, sp.mean)} ± 2σ = ${UI.fv(k, sp.lo)}–${UI.fv(k, sp.hi)}) — สัญญาณทางสถิติ ไม่ใช่สถานะตาม Target`)}">◆ ผิดปกติ ±2σ</span>` : "";
+UI.reasons = (k, res, d, hot, sp) => {
   const out = [], st = CQA.statusOf(k, res.value);
   if (!res.lowN && ["bad", "warn", "miss"].includes(st.cls)) out.push({ cls: st.cls === "warn" ? "warn" : "bad", t: { bad: "หลุดเป้า", warn: "ใกล้เกณฑ์", miss: "ไม่ถึงเป้า" }[st.cls] });
   if (k.dir !== "info" && d && d.pct != null && isFinite(d.pct) && Math.abs(d.pct) >= 0.1 && ((d.pct > 0) === (k.dir === "down"))) {
@@ -1940,6 +2065,7 @@ UI.reasons = (k, res, d, hot) => {
     if (!small || Math.abs(d.diff) >= 2) out.push({ cls: "bad", t: small ? `${d.diff > 0 ? "เพิ่มขึ้น" : "ลดลง"} ${U.nf(Math.abs(d.diff))} ${k.unit} เทียบเดือนก่อน` : `แย่ลง ${U.nf(Math.abs(d.pct) * 100, 0)}% เทียบเดือนก่อน` });
   }
   if (hot) out.push({ cls: "bad", t: `Hot Issue ${hot} เรื่อง` });
+  if (sp && sp.flag && k.dir !== "info") out.push({ cls: "spc", t: "ผิดปกติทางสถิติ (±2σ)" });
   return out;
 };
 
@@ -1949,19 +2075,19 @@ UI.kcard = (id, o = {}) => {
   const st = CQA.App.state, dim = st.wave !== "all" && String(k.wave) !== st.wave;
   if (st.realOnly && res.mock) return "";
   const tr = o.spark === false ? null : KPI.trend(k, ctx), d = KPI.delta(k, ctx);
-  const why = UI.reasons(k, res, d, o.hot || 0);
+  const sp = KPI.spc(k, ctx), why = UI.reasons(k, res, d, o.hot || 0, sp);
   if (o.focus && !why.length) return "";
   const valTxt = res.empty && k.dir !== "info" && res.value == null ? "–" : UI.fv(k, res.value);
   const target = CQA.TH.get(k.id), size = o.size || "compact";
   const ctxLine = o.ctx ? o.ctx(res) : (k.dir === "info" ? UI.periodText(k) : `เป้า ${target ? UI.fv(k, target.target) : "—"} · ${UI.periodText(k)}`);
-  const sp = size === "hero" ? { w: 104, h: 32 } : { w: 76, h: 24 };
-  return `<div class="kcard ${size}${dim ? " dim" : ""}" role="button" tabindex="0" data-go="${o.go || ""}" aria-label="${esc((o.title || k.name) + " " + valTxt + " " + k.unit)}">
+  const spk = size === "hero" ? { w: 104, h: 32 } : { w: 76, h: 24 };
+  return `<div class="kcard ${size}${dim ? " dim" : ""}" role="button" tabindex="0" data-go="${o.go || ""}" data-comment-target aria-label="${esc((o.title || k.name) + " " + valTxt + " " + k.unit)}">
     <div class="kc-top"><span class="kc-name">${esc(o.title || k.name)}</span>${UI.assumed(k)}${UI.infoBtn(k.id)}${UI.statusDot(k, res.value, res)}</div>
     <div class="kc-val${res.lowN ? " lown" : ""}">${valTxt}<span class="kc-unit">${esc(o.unit || k.unit)}</span></div>
     <div class="kc-ctx">${ctxLine}</div>
     ${o.extra ? o.extra(res) : ""}
     ${(o.focus || o.showWhy) && why.length ? `<div class="kc-why">${why.map(w => `<span class="chip ${w.cls}">${esc(w.t)}</span>`).join("")}</div>` : ""}
-    <div class="kc-foot"><span>${UI.delta(k, d)}</span><span class="grow">${size === "hero" ? "" : esc(k.freq) + " · "}${UI.mockTag(res.mock)} ${UI.nChip(res)}${UI.scopeNote(res)}${res.hidden ? ` <span class="chip dash" data-tip="ซ่อนตามสิทธิ์ (Restricted)">ซ่อน ${res.hidden}</span>` : ""}</span>${tr ? UI.spark(tr.map(x => x.value), sp) : ""}</div>
+    <div class="kc-foot"><span>${UI.delta(k, d)}</span><span class="grow">${k.dir !== "info" ? UI.spcChip(k, sp) : ""}${size === "hero" ? "" : esc(k.freq) + " · "}${UI.mockTag(res.mock)} ${UI.nChip(res)}${UI.scopeNote(res)}${res.hidden ? ` <span class="chip dash" data-tip="ซ่อนตามสิทธิ์ (Restricted)">ซ่อน ${res.hidden}</span>` : ""}</span>${tr ? UI.spark(tr.map(x => x.value), spk) : ""}</div>
   </div>`;
 };
 UI.gapCard = (title, why, o = {}) => o.focus ? "" : `<div class="kcard compact gap" tabindex="0" data-tip="${esc(why)}"><div class="kc-top"><span class="kc-name">${esc(title)}</span><span class="chip dash">Gap</span></div><div class="kc-val">ยังไม่มีข้อมูล</div><div class="kc-ctx">${esc(why)}</div></div>`;
@@ -1972,7 +2098,7 @@ UI.tile = (id, o = {}) => {
   if (CQA.App.state.realOnly && res.mock) return "";
   return `<div class="kpi"><div class="k-top"><span class="k-label">${esc(o.title || k.name)} <span class="muted small">${k.id}</span></span>${UI.assumed(k)}${UI.infoBtn(k.id)}${UI.statusDot(k, res.value, res)}</div>
     <div class="k-value${res.lowN ? " lown" : ""}">${res.value == null ? "–" : UI.fv(k, res.value)}<span class="k-unit">${esc(k.unit)}</span></div>
-    <div class="k-foot">${o.foot ? o.foot(res) : UI.periodText(k)}${d ? " · " + UI.delta(k, d) : ""} ${UI.mockTag(res.mock)} ${UI.nChip(res)}${UI.scopeNote(res)}${res.hidden ? `<span class="chip dash" data-tip="ซ่อนตามสิทธิ์ (Restricted)">ซ่อน ${res.hidden}</span>` : ""}</div></div>`;
+    <div class="k-foot">${o.foot ? o.foot(res) : UI.periodText(k)}${d ? " · " + UI.delta(k, d) : ""} ${k.dir !== "info" && !o.noDelta ? UI.spcChip(k, KPI.spc(k, ctx)) : ""}${UI.mockTag(res.mock)} ${UI.nChip(res)}${UI.scopeNote(res)}${res.hidden ? `<span class="chip dash" data-tip="ซ่อนตามสิทธิ์ (Restricted)">ซ่อน ${res.hidden}</span>` : ""}</div></div>`;
 };
 
 /* ---------- modal ---------- */
@@ -1990,7 +2116,7 @@ UI.closeModal = () => { const m = UI.$("#modal"); if (m.hidden) return; m.hidden
 /* ---------- KPI info: นิยาม · สูตร · ที่มา · ความสดของข้อมูล ---------- */
 UI.kinfo = id => {
   const k = CQA.KPI_BY_ID[id], ctx = CQA.App.ctx(), res = KPI.value(k, ctx), c = M.CONTENTS.find(x => x.id === k.content) || {};
-  const topic = M.TOPICS.find(t => t.no === k.topic) || {}, th = CQA.TH.get(k.id);
+  const topic = M.TOPICS.find(t => t.no === k.topic) || {}, th = CQA.TH.get(k.id), sp = KPI.spc(k, ctx), ro = CQA.Shared.mode === "shared" && CQA.Shared.readOnly;
   const dss = [k.num.ds].concat(k.den && k.den.ds !== k.num.ds ? [k.den.ds] : []);
   const row = (a, b) => `<div class="ki-row"><span>${a}</span><div>${b}</div></div>`;
   const body = `<div class="ki-head"><div class="ki-val${res.lowN ? " lown" : ""}">${res.value == null ? "–" : UI.fv(k, res.value)} <span class="kc-unit">${esc(k.unit)}</span></div>
@@ -2003,7 +2129,9 @@ UI.kinfo = id => {
     ${row("ต้นทาง", `${esc(c.source || "—")} <span class="muted">· ${esc(c.stype || "")} · แสดงผล ${esc(c.display || "")}</span>`)}
     ${row("Data owner · ผู้จัดทำ", `${esc(c.owner || "— ยังไม่ระบุ")} · ${esc(c.dashBy || "—")}`)}
     ${row("Dataset · ความสด", dss.map(ds => { const m = CQA.store.meta(ds); return `<div><code>${ds}</code> ${UI.mockTag(m.is_mock)} <span class="muted small">${esc(m.source || "")} · โหลด ${esc(m.loaded_at || "—")} · ${U.nf(CQA.store.rows(ds).length)} แถว</span></div>`; }).join(""))}
-    ${row("Target", k.dir === "info" ? "ข้อมูลประกอบ (ไม่มีสีสถานะ)" : (th ? `${UI.fv(k, th.target)}${th.tolerance != null ? ` · tolerance ${th.tolerance}` : ""}${th.source === "demo" ? " (เป้าสาธิต)" : ""} · ${UI.statusText(k, res.value)}` : "ยังไม่มี — Data owner ตั้งได้ที่ KPI Catalog"))}
+    ${row("Target", k.dir === "info" ? "ข้อมูลประกอบ (ไม่มีสีสถานะ)" : `${th ? `${UI.fv(k, th.target)}${th.tolerance != null ? ` · tolerance ${th.tolerance}` : ""}${th.source === "demo" ? " (เป้าสาธิต)" : ""} · ${UI.statusText(k, res.value)}` : "ยังไม่มี"}
+      ${ro ? `<div class="muted small">บัญชีของคุณดูได้อย่างเดียว</div>` : `<form class="ki-form" data-thform="${k.id}"><label>Target <input type="number" step="any" id="ki-target" value="${th && th.target != null ? th.target : ""}" placeholder="${k.dir === "down" ? "ไม่เกิน" : "ไม่ต่ำกว่า"}"></label><label>Tolerance <input type="number" step="0.01" min="0" id="ki-tol" value="${th && th.tolerance != null ? th.tolerance : ""}" placeholder="เช่น 0.1"></label><button type="submit" class="btn sm primary">บันทึก Target</button>${th ? `<button type="button" class="btn sm ghost" data-thclear="${k.id}">ลบ</button>` : ""}<span class="muted small">${CQA.Shared.mode === "shared" ? "บันทึกให้ทั้งทีม" : "บันทึกในเบราว์เซอร์นี้"} · tolerance 0.1 = ยอมให้เกินเป้า 10% ก่อนเป็นสีแดง</span></form>`}`)}
+    ${k.dir === "info" ? "" : row("แนวโน้มผิดปกติ (SPC)", sp ? `${sp.flag ? `<span class="chip spc">◆ ผิดปกติ ±2σ</span> ` : `<span class="chip neutral">อยู่ในช่วงปกติ</span> `}<span class="muted small">${U.monLabel(sp.ym)} = ${UI.fv(k, sp.last)} · ช่วงปกติจาก ${sp.n} เดือนก่อนหน้า ${UI.fv(k, sp.lo)}–${UI.fv(k, sp.hi)} (เฉลี่ย ${UI.fv(k, sp.mean)})</span>` : `<span class="muted small">ข้อมูลรายเดือนยังไม่พอ (ต้อง ≥ 5 เดือน)</span>`)}
     ${k.ask ? row("ต้องยืนยัน", `<span class="d-bad">${esc(k.ask)}</span>`) : ""}
     <div class="ki-actions"><button type="button" class="btn sm primary" data-modal-go="${topic.page || "overview"}">ไปหน้ารายละเอียด</button><button type="button" class="btn sm" data-modal-go="catalog">ตั้ง Target ที่ KPI Catalog</button></div>`;
   UI.openModal(`${k.id} · ${k.name}`, body, true);
@@ -2031,6 +2159,15 @@ UI.pageHead = (topicNos, title, desc, actions) => {
    Charts (Chart.js) — thin marks, 4px rounded ends, 2px lines, hover tooltips
    ===================================================================== */
 const charts = new Map();
+/* drill-down: คลิกจุด/แท่งเพื่อกรองทั้ง dashboard (type = "bu" | "month") */
+UI.drill = (id, type, keys) => {
+  const c = charts.get(id); if (!c) return;
+  c.options.onClick = (e, els) => { if (els.length && keys[els[0].index] != null) CQA.App.drill(type, keys[els[0].index]); };
+  c.options.onHover = (e, els) => { e.native.target.style.cursor = els.length ? "pointer" : "default"; };
+  c.update("none");
+  const hint = c.canvas.closest(".panel") && c.canvas.closest(".panel").querySelector(".hint");
+  if (hint && !hint.querySelector(".drill-hint")) hint.insertAdjacentHTML("beforeend", ` <span class="drill-hint">· คลิก${type === "bu" ? "แท่ง BU" : "เดือน"}เพื่อกรอง</span>`);
+};
 UI.destroyCharts = () => { charts.forEach(c => c.destroy()); charts.clear(); };
 UI.applyChartDefaults = () => {
   if (!globalThis.Chart) return;
@@ -2119,11 +2256,13 @@ UI.bar = (id, labels, series, o = {}) => {
         legend: { display: series.length > 1 && o.legend !== false },
         tooltip: { callbacks: { label: c => ` ${c.dataset.label ? c.dataset.label + ": " : ""}${fmt(c.parsed[horiz ? "x" : "y"])}${o.unit ? " " + o.unit : ""}` } },
         endLabels: o.labels === false ? null : (o.labels || (horiz && series.length === 1) ? { fmt, stackTotal: stacked } : null),
+        hlines: o.lines && !horiz ? { lines: o.lines } : null,
       },
       scales: horiz
         ? { x: axis(t, { stacked, cb: o.pct ? v => v + "%" : (v => U.compact(v)), max: o.max }), y: axis(t, { stacked, grid: false }) }
         : { x: axis(t, { stacked, grid: false }), y: axis(t, { stacked, cb: o.pct ? v => v + "%" : (v => U.compact(v)), max: o.max, smax: o.smax, int: o.int }) },
       onClick: o.onClick ? (e, els) => { if (els.length) o.onClick(els[0].index); } : undefined,
+      onHover: o.onClick ? (e, els) => { e.native.target.style.cursor = els.length ? "pointer" : "default"; } : undefined,
     },
   });
 };
@@ -2135,6 +2274,8 @@ UI.line = (id, labels, series, o = {}) => {
       pointRadius: s.points != null ? s.points : (labels.length > 40 ? 0 : 3), pointHoverRadius: 5, pointBackgroundColor: s.pointColors || s.color || t.c[i], pointBorderColor: t.surface, pointBorderWidth: 2, borderDash: s.dash || [] })) },
     options: {
       interaction: { mode: "index", intersect: false },
+      onClick: o.onClick ? (e, els) => { if (els.length) o.onClick(els[0].index); } : undefined,
+      onHover: o.onClick ? (e, els) => { e.native.target.style.cursor = els.length ? "pointer" : "default"; } : undefined,
       plugins: {
         legend: { display: series.length > 1 },
         tooltip: { callbacks: { label: c => ` ${c.dataset.label ? c.dataset.label + ": " : ""}${c.parsed.y == null ? "–" : fmt(c.parsed.y)}${o.unit ? " " + o.unit : ""}` } },
@@ -2182,6 +2323,30 @@ UI.download = async (filename, data, mime) => {
   } catch (e) { UI.toast("ดาวน์โหลดไม่ได้ในมุมมองนี้"); }
 };
 UI.csvBtn = (id, label) => `<button type="button" class="btn sm" data-act="${id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>${esc(label || "CSV")}</button>`;
+
+/* ---------- Org profile: คลิกแถวหน่วยงานเพื่อดูรายละเอียด ---------- */
+UI.orgProfile = code => {
+  const o = KPI.org(code); if (!o) return;
+  const base = CQA.App.ctx(), ctx = Object.assign({}, base, { bu: "all", org: code });
+  const ids = ["K10", "K09", "K12", "K11", "K07", "K25", "K30", "K43", "K44", "K45"];
+  const krow = id => { const k = CQA.KPI_BY_ID[id], v = KPI.value(k, ctx), d = KPI.delta(k, ctx); if (v.value == null || (v.empty && !v.den)) return ""; return `<tr><td>${esc(k.name)} <span class="muted small">${k.id}</span></td><td class="r"><b class="${v.lowN ? "muted" : ""}">${UI.fv(k, v.value)}</b> <span class="muted small">${esc(k.unit)}</span></td><td class="r">${UI.delta(k, d)}</td><td>${UI.nChip(v)}${UI.statusDot(k, v.value, v)}</td></tr>`; };
+  const S = (ds, date, where) => ({ ds, agg: "count", field: date, where, period: "flow", date });
+  const cps = KPI.rows(S("fact_complaint", "received_date"), ctx).sort((a, b) => b.received_date.localeCompare(a.received_date)).slice(0, 6);
+  const ncOpen = KPI.agg({ ds: "fact_ncr", agg: "count", field: "ncr_id", where: { status: "Open" }, period: "asof", date: "issue_date" }, ctx);
+  const aud = KPI.rows(S("fact_audit", "audit_date"), ctx).sort((a, b) => b.audit_date.localeCompare(a.audit_date)).slice(0, 5);
+  const inc = KPI.select(S("fact_incident", "incident_date"), ctx);
+  const list = (title, rows, fmt, empty) => `<div class="op-list"><h4>${title}</h4>${rows.length ? `<ul>${rows.map(r => `<li>${fmt(r)}</li>`).join("")}</ul>` : `<p class="muted small">${empty}</p>`}</div>`;
+  const body = `<div class="ki-meta" style="margin-bottom:10px"><span class="chip info">${esc(o.bu)}</span><span class="chip neutral">${esc(o.market)}</span><span class="chip neutral">${esc(o.plant_type)}</span><span class="chip outline">${esc(o.province)} · ภาค${esc(o.region)}</span><span class="muted small">${esc(CQA.H.periodLabel())}</span></div>
+    <div class="tablewrap"><table class="data"><thead><tr><th>KPI ของหน่วยงานนี้</th><th class="r">ค่า</th><th class="r">เทียบเดือนก่อน</th><th></th></tr></thead><tbody>${ids.map(krow).join("")}</tbody></table></div>
+    <p class="small muted" style="margin:8px 0 0">NCR ที่ยังเปิด ณ วันที่รายงาน: <b>${U.nf(ncOpen)}</b> ใบ</p>
+    <div class="op-grid">
+      ${list("Complaint ล่าสุด", cps, r => `${U.dateTH(r.received_date)} · ${esc(r.objective)} · ${esc(r.nature)} <span class="muted">· ${esc(r.source_channel)}</span>`, "ไม่มีในงวดนี้")}
+      ${list("การตรวจล่าสุด", aud, r => `${U.dateTH(r.audit_date)} · ${esc(r.audit_type)} · ${r.result === "Pass" ? "ผ่าน" : `<b class="d-bad">ไม่ผ่าน</b>`} <span class="muted">· Critical ${r.critical_count} · Major ${r.major_count}</span>`, "ไม่มีในงวดนี้")}
+      ${list("Incident ในงวด", inc.rows.slice(0, 5), r => `${U.dateTH(r.incident_date)} · ${r.incident_type === "Negative" ? `<b class="d-bad">Negative</b>` : "Positive"} · ${esc(r.title || r.category)}`, inc.hidden ? `ซ่อน ${inc.hidden} เรื่อง (Restricted)` : "ไม่มีในงวดนี้")}
+    </div>
+    <div class="ki-actions"><button type="button" class="btn sm primary" data-modal-act="filter-org:${code}">กรองทั้ง dashboard ด้วยหน่วยงานนี้</button><button type="button" class="btn sm" data-modal-go="complaint">ไปหน้า Complaint</button></div>`;
+  UI.openModal(`${o.org_code} · ${o.org_name}`, body, true);
+};
 })(globalThis.CQA = globalThis.CQA || {});
 
 /* ==== 08a_pages.js ==== */
@@ -2207,6 +2372,7 @@ H.orgName = code => { const o = KPI.org(code); return o ? o.org_name : code; };
 H.buOf = code => { const o = KPI.org(code); return o ? o.bu : "—"; };
 H.ago = d => { const n = U.diffDays(d.slice(0, 10), H.ctx().asOf); return n <= 0 ? "วันนี้" : n === 1 ? "เมื่อวาน" : n + " วันก่อน"; };
 H.seg = (key, opts, cur) => `<div class="seg" role="group">${opts.map(([v, l]) => `<button type="button" data-set="${key}:${v}" aria-pressed="${String(cur) === String(v)}">${esc(l)}</button>`).join("")}</div>`;
+H.tline = id => { const th = CQA.TH.get(id); return th && th.target != null ? [{ y: th.target, label: "เป้า " + th.target + (th.source === "demo" ? " (สาธิต)" : ""), color: UI.tok().ok }] : null; };
 H.periodLabel = () => { const st = CQA.App.state; return st.period === "ytd" ? "YTD ม.ค.–" + U.monLabel(H.ctx().to.slice(0, 7)) : U.monLabel(st.period); };
 
 /* =====================================================================
@@ -2221,31 +2387,31 @@ CQA.SEV_RULES = [
 ];
 const briefRaw = () => {
   const ctx = H.ctx(), asOf = ctx.asOf, ym = ctx.to.slice(0, 7), mctx = KPI.monthCtx(ctx, ym), items = [];
-  const add = o => items.push(o);
+  const add = o => { o.id = U.hashId(o.key || o.title); items.push(o); };
   /* 1) Pathogen ใน Cooked (30 วันล่าสุดของงวด) — LSP เป็น indicator → ระดับสูง */
   const c30 = Object.assign({}, ctx, { from: U.addDays(asOf, -29), to: asOf });
   const det = KPI.rows(H.S("fact_pathogen_result", "count", "sample_id", { where: { result: "Detected", product_group: "Cooked" }, period: "flow", date: "test_date" }), c30);
   const dg = new Map(); det.forEach(r => { const k = r.org_code + "|" + r.pathogen; if (!dg.has(k)) dg.set(k, []); dg.get(k).push(r); });
   dg.forEach((rs, k) => { const [org, pat] = k.split("|"); const last = rs.map(r => r.test_date).sort().pop();
-    add({ sev: pat === "LSP" ? "high" : "crit", bu: H.buOf(org), title: `ผลตรวจ Pathogen — พบ ${pat} ในผลิตภัณฑ์ Cooked ${rs.length} ตัวอย่าง`, body: `${H.orgName(org)} · ล่าสุด ${U.dateTH(last)} · ทวนสอบ lot ที่เกี่ยวข้องและทำ environmental swab ซ้ำ`, trend: "▲ พบใหม่", when: H.ago(last), date: last, owner: "K. JITCHAWALEE · QA โรงงาน", go: "pathogen" }); });
+    add({ key: `pathogen|${org}|${pat}|${last.slice(0, 7)}`, sev: pat === "LSP" ? "high" : "crit", bu: H.buOf(org), title: `ผลตรวจ Pathogen — พบ ${pat} ในผลิตภัณฑ์ Cooked ${rs.length} ตัวอย่าง`, body: `${H.orgName(org)} · ล่าสุด ${U.dateTH(last)} · ทวนสอบ lot ที่เกี่ยวข้องและทำ environmental swab ซ้ำ`, trend: "▲ พบใหม่", when: H.ago(last), date: last, owner: "K. JITCHAWALEE · QA โรงงาน", go: "pathogen" }); });
   /* 2) CCP 7 วันล่าสุด */
   const c7 = Object.assign({}, ctx, { from: U.addDays(asOf, -6), to: asOf }), p7 = Object.assign({}, ctx, { from: U.addDays(asOf, -13), to: U.addDays(asOf, -7) });
   const oosSpec = H.num("K38");
   const now7 = KPI.group(oosSpec, c7, "ccp_point"), prev7 = KPI.group(oosSpec, p7, "ccp_point");
   now7.forEach((n, pt) => { if (n < 2) return; const pv = prev7.get(pt) || 0, crit = ["Metal Detector", "Core Temperature"].includes(pt);
     const last = KPI.rows(oosSpec, c7).filter(r => r.ccp_point === pt).map(r => r.check_datetime).sort().pop();
-    add({ sev: crit ? "crit" : "high", bu: "CHICKEN", title: `${H.orgName("CK07")} — ${pt} หลุดเกณฑ์ ${n} ครั้งใน 7 วัน (CCP)`, body: `7 วันก่อนหน้า ${pv} ครั้ง · ตรวจสอบเครื่องและสินค้าย้อนหลังถึงการ verify ครั้งก่อน`, trend: n > pv ? "▲ เพิ่มขึ้นจากสัปดาห์ก่อน" : "▼ ลดลง", when: H.ago(last), date: last.slice(0, 10), owner: "K.Kanyarat · QA Line 7", go: "ccp:" + pt }); });
+    add({ key: `ccp|${pt}|${asOf}`, sev: crit ? "crit" : "high", bu: "CHICKEN", title: `${H.orgName("CK07")} — ${pt} หลุดเกณฑ์ ${n} ครั้งใน 7 วัน (CCP)`, body: `7 วันก่อนหน้า ${pv} ครั้ง · ตรวจสอบเครื่องและสินค้าย้อนหลังถึงการ verify ครั้งก่อน`, trend: n > pv ? "▲ เพิ่มขึ้นจากสัปดาห์ก่อน" : "▼ ลดลง", when: H.ago(last), date: last.slice(0, 10), owner: "K.Kanyarat · QA Line 7", go: "ccp:" + pt }); });
   /* 3) Negative incident ที่ยังเปิด (เคารพสิทธิ์ Restricted) */
   const negSel = KPI.select(H.num("K07"), ctx);
   negSel.rows.forEach(r => { const sv = { Critical: "crit", High: "high", Medium: "med", Low: "info" }[r.severity] || "med";
-    add({ sev: sv, bu: H.buOf(r.org_code), title: r.title || `Negative incident: ${r.category}`, body: `${H.orgName(r.org_code)} · ${r.market}${r.country && r.market === "Export" ? " (" + r.country + ")" : ""} · สาเหตุ ${r.category} · เปิดมาแล้ว ${U.diffDays(r.incident_date, asOf)} วัน`, trend: "เปิดอยู่", when: H.ago(r.incident_date), date: r.incident_date, owner: "QA โรงงาน · CQA", go: "hotissue", restricted: r.sensitivity === "Restricted" }); });
+    add({ key: `inc|${r.incident_id}`, sev: sv, bu: H.buOf(r.org_code), title: r.title || `Negative incident: ${r.category}`, body: `${H.orgName(r.org_code)} · ${r.market}${r.country && r.market === "Export" ? " (" + r.country + ")" : ""} · สาเหตุ ${r.category} · เปิดมาแล้ว ${U.diffDays(r.incident_date, asOf)} วัน`, trend: "เปิดอยู่", when: H.ago(r.incident_date), date: r.incident_date, owner: "QA โรงงาน · CQA", go: "hotissue", restricted: r.sensitivity === "Restricted" }); });
   /* 4) Retail % C/D เพิ่มต่อเนื่อง */
   const st = KPI.index("dim_store", "store_id"), ms = H.months();
   if (ms.length >= 3) {
     const byBu = m => new Map(KPI.series("K27", KPI.monthCtx(ctx, m), r => (st.get(r.store_id) || {}).bu).map(x => [x.key, x.value]));
     const a = byBu(ms[ms.length - 3]), b = byBu(ms[ms.length - 2]), c = byBu(ms[ms.length - 1]);
     c.forEach((v, bu) => { if (v != null && b.get(bu) != null && a.get(bu) != null && v > b.get(bu) && b.get(bu) > a.get(bu) && v - a.get(bu) > 3)
-      add({ sev: "high", bu: "Retail", title: `ช่องทาง ${bu} — สัดส่วนจุดขายเกรด C/D เพิ่มต่อเนื่อง 2 เดือน`, body: `${U.monLabel(ms[ms.length - 3])} ${U.nf(a.get(bu), 1)}% → ${U.monLabel(ms[ms.length - 2])} ${U.nf(b.get(bu), 1)}% → ${U.monLabel(ym)} ${U.nf(v, 1)}% · ทบทวนแผนตรวจซ้ำและ coaching ร้านเกรด D`, trend: "▲ เพิ่มขึ้นจากเดือนก่อน", when: U.monLabel(ym), date: U.monthEnd(ym), owner: "K. PENPAKA · Retail QA", go: "audit:retail" }); });
+      add({ key: `retail|${bu}|${ym}`, sev: "high", bu: "Retail", title: `ช่องทาง ${bu} — สัดส่วนจุดขายเกรด C/D เพิ่มต่อเนื่อง 2 เดือน`, body: `${U.monLabel(ms[ms.length - 3])} ${U.nf(a.get(bu), 1)}% → ${U.monLabel(ms[ms.length - 2])} ${U.nf(b.get(bu), 1)}% → ${U.monLabel(ym)} ${U.nf(v, 1)}% · ทบทวนแผนตรวจซ้ำและ coaching ร้านเกรด D`, trend: "▲ เพิ่มขึ้นจากเดือนก่อน", when: U.monLabel(ym), date: U.monthEnd(ym), owner: "K. PENPAKA · Retail QA", go: "audit:retail" }); });
   }
   /* 5) SCAR rate กลุ่มวัตถุดิบ */
   const sup = KPI.index("dim_supplier", "supplier_id"), mg = r => (sup.get(r.supplier_id) || {}).material_group || "—";
@@ -2253,57 +2419,105 @@ const briefRaw = () => {
     const rate = (m) => new Map(KPI.series("K23", KPI.monthCtx(ctx, m), mg).map(x => [x.key, x.value]));
     const cur = rate(ym), hist = ms.slice(-4, -1).map(rate);
     cur.forEach((v, g) => { const base = U.avg(hist.map(h => h.get(g)).filter(x => x != null)); if (v != null && base && v > base * 1.3 && v > 5)
-      add({ sev: "med", bu: "Supplier", title: `กลุ่มวัตถุดิบ${g} — SCAR rate สูงขึ้น เฝ้าระวังใกล้ชิด`, body: `${U.monLabel(ym)} ${U.nf(v, 1)}% เทียบเฉลี่ย 3 เดือนก่อน ${U.nf(base, 1)}% · นัด Supplier review และเพิ่มการสุ่มตรวจรับ`, trend: "▲ สูงขึ้นเล็กน้อย", when: U.monLabel(ym), date: U.monthEnd(ym), owner: "CQA RM", go: "supplier:scar" }); });
+      add({ key: `scar|${g}|${ym}`, sev: "med", bu: "Supplier", title: `กลุ่มวัตถุดิบ${g} — SCAR rate สูงขึ้น เฝ้าระวังใกล้ชิด`, body: `${U.monLabel(ym)} ${U.nf(v, 1)}% เทียบเฉลี่ย 3 เดือนก่อน ${U.nf(base, 1)}% · นัด Supplier review และเพิ่มการสุ่มตรวจรับ`, trend: "▲ สูงขึ้นเล็กน้อย", when: U.monLabel(ym), date: U.monthEnd(ym), owner: "CQA RM", go: "supplier:scar" }); });
   }
   /* 6) Complaint rate */
   const d10 = KPI.delta("K10", ctx);
   if (d10 && d10.pct > 0.1) {
     const byBu = KPI.series("K10", mctx, "bu").filter(x => x.value != null).sort((a, b) => b.num - a.num)[0];
-    add({ sev: "med", bu: byBu ? byBu.key : "All", title: `Complaint rate ${U.monLabel(ym)} สูงขึ้น ${U.nf(d10.pct * 100, 1)}%`, body: `${U.nf(d10.cur, 2)} เทียบ ${U.nf(d10.prev, 2)} ฉบับ/1,000 VOL${byBu ? ` · BU ที่มีเรื่องมากสุด ${byBu.key} (${U.nf(byBu.num)} ฉบับ)` : ""}`, trend: "▲ เพิ่มขึ้นจากเดือนก่อน", when: U.monLabel(ym), date: U.monthEnd(ym), owner: "Data owner Complaint", go: "complaint" });
+    add({ key: `complaint|${ym}`, sev: "med", bu: byBu ? byBu.key : "All", title: `Complaint rate ${U.monLabel(ym)} สูงขึ้น ${U.nf(d10.pct * 100, 1)}%`, body: `${U.nf(d10.cur, 2)} เทียบ ${U.nf(d10.prev, 2)} ฉบับ/1,000 VOL${byBu ? ` · BU ที่มีเรื่องมากสุด ${byBu.key} (${U.nf(byBu.num)} ฉบับ)` : ""}`, trend: "▲ เพิ่มขึ้นจากเดือนก่อน", when: U.monLabel(ym), date: U.monthEnd(ym), owner: "Data owner Complaint", go: "complaint" });
   }
   /* 7) External audit critical (เดือนล่าสุด) */
   const k26 = KPI.value("K26", mctx).value;
-  if (k26 > 0) add({ sev: "high", bu: "Factory", title: `External audit พบ Critical finding ${k26} ข้อ (${U.monLabel(ym)})`, body: "ติดตาม CAPA ภายใน 30 วันและแจ้ง CB/ลูกค้า", trend: "", when: U.monLabel(ym), date: U.monthEnd(ym), owner: "K. PENPAKA", go: "audit:factory" });
+  if (k26 > 0) add({ key: `audit|${ym}`, sev: "high", bu: "Factory", title: `External audit พบ Critical finding ${k26} ข้อ (${U.monLabel(ym)})`, body: "ติดตาม CAPA ภายใน 30 วันและแจ้ง CB/ลูกค้า", trend: "", when: U.monLabel(ym), date: U.monthEnd(ym), owner: "K. PENPAKA", go: "audit:factory" });
   /* 8) RA Hot issue */
   const raOpen = KPI.rows(H.num("K15"), ctx);
   if (raOpen.length) { const g = {}; raOpen.forEach(r => { g[r.group] = (g[r.group] || 0) + 1; });
-    add({ sev: "med", bu: "RA", title: `RA Hot issue ที่ยังเปิด ${raOpen.length} เรื่อง`, body: Object.entries(g).map(([k, v]) => `${k} ${v}`).join(" · ") + " · ประเมินผลกระทบฉลาก/สูตรก่อนวันบังคับใช้", trend: "เปิดอยู่", when: H.ago(raOpen.map(r => r.case_date).sort().pop()), date: raOpen.map(r => r.case_date).sort().pop(), owner: "ทีม RA", go: "ra" }); }
+    add({ key: `ra|${raOpen.map(r => r.case_id).sort().pop()}`, sev: "med", bu: "RA", title: `RA Hot issue ที่ยังเปิด ${raOpen.length} เรื่อง`, body: Object.entries(g).map(([k, v]) => `${k} ${v}`).join(" · ") + " · ประเมินผลกระทบฉลาก/สูตรก่อนวันบังคับใช้", trend: "เปิดอยู่", when: H.ago(raOpen.map(r => r.case_date).sort().pop()), date: raOpen.map(r => r.case_date).sort().pop(), owner: "ทีม RA", go: "ra" }); }
   /* 9) Certificate ใกล้หมดอายุ */
   const soon = KPI.rows(H.S("fact_certificate", "count", "cert_id", { where: { expiry_date: { gte: asOf, lte: U.addDays(asOf, 60) } }, period: "stock" }), ctx);
-  if (soon.length) add({ sev: "info", bu: "All", title: `Certificate หมดอายุภายใน 60 วัน ${soon.length} ฉบับ`, body: [...new Set(soon.map(c => c.certificate_name))].slice(0, 4).join(", ") + " · เตรียมนัด audit ต่ออายุ", trend: "", when: "ภายใน 60 วัน", date: asOf, owner: "QA โรงงาน", go: "network" });
+  if (soon.length) add({ key: `cert|${asOf.slice(0, 7)}`, sev: "info", bu: "All", title: `Certificate หมดอายุภายใน 60 วัน ${soon.length} ฉบับ`, body: [...new Set(soon.map(c => c.certificate_name))].slice(0, 4).join(", ") + " · เตรียมนัด audit ต่ออายุ", trend: "", when: "ภายใน 60 วัน", date: asOf, owner: "QA โรงงาน", go: "network" });
   /* 10) Lab expense > forecast */
   const le = KPI.series("K40", mctx, "lab_id").filter(x => x.value > 105);
   le.forEach(x => { const lab = (CQA.LOOKUP.labs.find(l => l.lab_id === x.key) || {}).lab_name || x.key;
-    add({ sev: "info", bu: "Lab", title: `${lab} ค่าใช้จ่ายสูงกว่า Forecast ${U.nf(x.value - 100, 1)}% (${U.monLabel(ym)})`, body: "ทบทวนแผนสุ่มตรวจและสัญญาสารเคมี", trend: "▲", when: U.monLabel(ym), date: U.monthEnd(ym), owner: "K. JITCHAWALEE", go: "lab" }); });
+    add({ key: `lab|${x.key}|${ym}`, sev: "info", bu: "Lab", title: `${lab} ค่าใช้จ่ายสูงกว่า Forecast ${U.nf(x.value - 100, 1)}% (${U.monLabel(ym)})`, body: "ทบทวนแผนสุ่มตรวจและสัญญาสารเคมี", trend: "▲", when: U.monLabel(ym), date: U.monthEnd(ym), owner: "K. JITCHAWALEE", go: "lab" }); });
   items.sort((a, b) => SEV[a.sev][1] - SEV[b.sev][1] || (b.date || "").localeCompare(a.date || ""));
   return { items, hidden: negSel.hidden };
 };
 /* memo ต่อ context + version ข้อมูล (header, rail, overview เรียกซ้ำในรอบเดียว) */
 let briefKey = null, briefVal = null;
 CQA.brief = () => { const k = JSON.stringify(H.ctx()) + "|" + KPI.ver; if (k !== briefKey) { briefKey = k; briefVal = briefRaw(); } return briefVal; };
-CQA.briefLevel = () => { const it = CQA.brief().items, c = it.filter(i => i.sev === "crit").length, h = it.filter(i => i.sev === "high").length; return { crit: c, high: h, cls: c ? "bad" : h ? "warn" : "ok", label: c ? "ต้องเร่งแก้ไข" : h ? "เฝ้าระวัง" : "ปกติ" }; };
-H.briefHTML = (limit, urgentOnly) => {
-  const b = CQA.brief(), all = urgentOnly ? b.items.filter(i => i.sev === "crit" || i.sev === "high") : b.items;
-  const list = limit ? all.slice(0, limit) : all;
-  const crit = b.items.filter(i => i.sev === "crit").length;
-  return `<section class="brief" aria-labelledby="brief-h">
-    <div class="brief-head"><h2 id="brief-h"><span class="dot ${crit ? "bad" : "gray"}" aria-hidden="true"></span>Hot Issue — ต้องเร่งแก้ไข</h2>
-      <span class="small muted">${urgentOnly ? `แสดงเฉพาะวิกฤต/สูง ${all.length} จาก ${b.items.length} เรื่อง` : `${b.items.length} เรื่อง`} · เรียงตามความรุนแรง <span class="chip dash" data-tip="${esc(CQA.SEV_RULES.map(r => r[0] + ": " + r[1]).join(" | "))}">เกณฑ์ความรุนแรง: Proposed</span></span></div>
-    ${list.length ? list.map(it => `<div class="brief-item">
+CQA.briefLevel = () => { const it = CQA.openItems(), c = it.filter(i => i.sev === "crit").length, h = it.filter(i => i.sev === "high").length; return { crit: c, high: h, cls: c ? "bad" : h ? "warn" : "ok", label: c ? "ต้องเร่งแก้ไข" : h ? "เฝ้าระวัง" : "ปกติ" }; };
+/* ---------- Hot Issue workflow: ยังไม่รับทราบ → รับทราบ → มอบหมาย → ปิด (บันทึกร่วมกันทั้งทีม) ---------- */
+const WF = { new: ["ยังไม่รับทราบ", "neutral"], ack: ["รับทราบแล้ว", "info"], assigned: ["มอบหมายแล้ว", "warn"], closed: ["ปิดแล้ว", "ok"] };
+CQA.WF = WF;
+CQA.wfOf = id => CQA.Shared.col("hot")[id] || null;
+CQA.wfStatus = id => (CQA.wfOf(id) || {}).status || "new";
+CQA.openItems = () => CQA.brief().items.filter(i => CQA.wfStatus(i.id) !== "closed");
+const wfRO = () => CQA.Shared.mode === "shared" && CQA.Shared.readOnly;
+const today = () => U.ymd(new Date());
+H.wfChips = it => {
+  const w = CQA.wfOf(it.id) || {}, st = w.status || "new", out = [];
+  if (st === "new" && CQA.App.newIds && CQA.App.newIds.has(it.id)) out.push(`<span class="chip new" data-tip="เกิดขึ้นใหม่ตั้งแต่ครั้งก่อนที่คุณเปิด dashboard">ใหม่</span>`);
+  if (st !== "new") out.push(`<span class="chip ${WF[st][1]}">${WF[st][0]}${w.owner ? ": " + esc(w.owner) : ""}${w.due && st !== "closed" ? " · ครบ " + U.dateTH(w.due) : ""}</span>`);
+  if (w.due && st !== "closed" && w.due < today()) out.push(`<span class="chip bad">เลยกำหนด</span>`);
+  if (w.note) out.push(`<span class="chip outline" data-tip="${esc(w.note)}">มีหมายเหตุ</span>`);
+  return out.join("");
+};
+const briefRow = (it, closed) => {
+  const st = CQA.wfStatus(it.id), ro = wfRO();
+  return `<div class="brief-item${closed ? " closed" : ""}">
       <span class="sev ${it.sev}">${SEV[it.sev][0]}</span>
       <span class="butag" title="${esc(it.bu)}">${esc(it.bu)}</span>
-      <div><h4>${esc(it.title)}${it.restricted ? ` <span class="chip bad" data-tip="ข้อมูล Restricted — เห็นเฉพาะผู้มีสิทธิ์">Restricted</span>` : ""}</h4><p>${esc(it.body)}</p></div>
+      <div><h4>${esc(it.title)}${it.restricted ? ` <span class="chip bad" data-tip="ข้อมูล Restricted — เห็นเฉพาะผู้มีสิทธิ์">Restricted</span>` : ""}</h4><p>${esc(it.body)}</p><div class="wf-row">${H.wfChips(it)}</div></div>
       <span class="trend ${/▲/.test(it.trend) ? "d-bad" : "muted"}">${esc(it.trend)}<span class="cell-sub" style="text-align:right">${esc(it.when)}</span></span>
-      <button type="button" class="link-btn" data-go="${it.go}">ดู</button></div>`).join("") : `<div class="empty">ไม่มีเรื่องเร่งด่วนในขอบเขตที่เลือก</div>`}
+      <div class="bi-act">${st === "new" && !ro && !closed ? `<button type="button" class="link-btn primary" data-act="hot-ack:${it.id}" data-tip="บันทึกว่ารับทราบแล้ว (ทั้งทีมเห็น)">รับทราบ</button>` : ""}<button type="button" class="link-btn" data-act="hot-edit:${it.id}">${ro ? "สถานะ" : "จัดการ"}</button><button type="button" class="link-btn" data-go="${it.go}">ดู</button></div></div>`;
+};
+H.briefHTML = (limit, urgentOnly, opts = {}) => {
+  const b = CQA.brief(), open = b.items.filter(i => CQA.wfStatus(i.id) !== "closed"), closed = b.items.filter(i => CQA.wfStatus(i.id) === "closed");
+  const pool = urgentOnly ? open.filter(i => i.sev === "crit" || i.sev === "high") : open;
+  const list = limit ? pool.slice(0, limit) : pool;
+  const crit = open.filter(i => i.sev === "crit").length, nNew = open.filter(i => CQA.App.newIds && CQA.App.newIds.has(i.id) && CQA.wfStatus(i.id) === "new").length;
+  const nAssigned = open.filter(i => CQA.wfStatus(i.id) === "assigned").length, nOver = open.filter(i => { const w = CQA.wfOf(i.id); return w && w.due && w.due < today(); }).length;
+  return `<section class="brief" aria-labelledby="brief-h">
+    <div class="brief-head"><h2 id="brief-h"><span class="dot ${crit ? "bad" : "gray"}" aria-hidden="true"></span>Hot Issue — ต้องเร่งแก้ไข</h2>
+      <span class="small muted">${urgentOnly ? `วิกฤต/สูง ${pool.length} จาก ${open.length} เรื่องที่เปิดอยู่` : `เปิดอยู่ ${open.length} เรื่อง`}${nNew ? ` · <b class="d-bad">ใหม่ ${nNew}</b>` : ""} · มอบหมายแล้ว ${nAssigned}${nOver ? ` · <b class="d-bad">เลยกำหนด ${nOver}</b>` : ""} · ปิดแล้ว ${closed.length} ${CQA.saveScope ? CQA.saveScope() : ""} <span class="chip dash" data-tip="${esc(CQA.SEV_RULES.map(r => r[0] + ": " + r[1]).join(" | "))}">เกณฑ์ความรุนแรง: Proposed</span></span></div>
+    ${list.length ? list.map(it => briefRow(it, false)).join("") : `<div class="empty">ไม่มีเรื่องที่ต้องดำเนินการในขอบเขตที่เลือก</div>`}
     ${b.hidden ? `<div class="restricted-note">🔒 ซ่อน Negative incident ${b.hidden} เรื่อง (Restricted) ตามสิทธิ์ของบทบาทปัจจุบัน</div>` : ""}
-    ${limit && all.length > limit ? `<div class="restricted-note"><button type="button" class="link-btn" data-go="hotissue">ดูทั้งหมด ${b.items.length} เรื่อง</button></div>` : ""}
+    ${limit && pool.length > limit ? `<div class="restricted-note"><button type="button" class="link-btn" data-go="hotissue">ดูทั้งหมด ${open.length} เรื่อง</button></div>` : ""}
+    ${opts.showClosed && closed.length ? `<details class="closed-list"><summary>เรื่องที่ปิดแล้ว (${closed.length})</summary>${closed.map(it => briefRow(it, true)).join("")}</details>` : ""}
   </section>`;
+};
+/* หน้าต่างจัดการเรื่อง */
+CQA.hotEdit = id => {
+  const it = CQA.brief().items.find(i => i.id === id) || Object.assign({ title: id, body: "" }, CQA.wfOf(id));
+  const w = CQA.wfOf(id) || {}, ro = wfRO();
+  const people = [...new Set(M.PEOPLE.map(p => p[0]).concat(CQA.brief().items.map(i => i.owner)).concat(Object.values(CQA.Shared.col("hot")).map(x => x.owner)).filter(Boolean))];
+  const opt = (v, l) => `<option value="${v}"${(w.status || "new") === v ? " selected" : ""}>${l}</option>`;
+  const dis = ro ? " disabled" : "";
+  const body = `<p style="margin:0 0 2px"><span class="sev ${it.sev || "info"}">${SEV[it.sev || "info"][0]}</span> <b>${esc(it.title)}</b></p><p class="hint" style="margin:0 0 12px">${esc(it.body || "")} · ผู้รับผิดชอบที่ระบบเสนอ: ${esc(it.owner || "—")}</p>
+    <form class="hot-form" data-hotform="${id}">
+      <label>สถานะ <select id="hf-status"${dis}>${opt("new", "ยังไม่รับทราบ")}${opt("ack", "รับทราบแล้ว")}${opt("assigned", "มอบหมายผู้รับผิดชอบ")}${opt("closed", "ปิดเรื่อง")}</select></label>
+      <label>ผู้รับผิดชอบ <input id="hf-owner" list="hf-people" value="${esc(w.owner || "")}" placeholder="ชื่อหรือทีม"${dis}><datalist id="hf-people">${people.map(p => `<option value="${esc(p)}">`).join("")}</datalist></label>
+      <label>กำหนดเสร็จ <input type="date" id="hf-due" value="${esc(w.due || "")}"${dis}></label>
+      <label class="full">หมายเหตุ / ผลการดำเนินการ <textarea id="hf-note" rows="3" placeholder="เช่น สั่งกักสินค้า lot 0926 แล้ว รอผลตรวจซ้ำ"${dis}>${esc(w.note || "")}</textarea></label>
+      <p class="form-err full" id="hf-err" hidden></p>
+      <div class="ki-actions full">${ro ? "" : `<button type="submit" class="btn sm primary">บันทึก</button>`}<button type="button" class="btn sm" data-modal-close>ปิดหน้าต่าง</button><span class="muted small">${w.updated ? "อัปเดตล่าสุด " + new Date(w.updated).toLocaleString("th-TH") + " · " : ""}${CQA.Shared.mode === "shared" ? (ro ? "ดูอย่างเดียว" : "บันทึกให้ทั้งทีม") : "บันทึกในเบราว์เซอร์นี้"}</span></div>
+    </form>`;
+  UI.openModal("จัดการ Hot Issue", body);
+};
+CQA.hotSave = (id, f) => {
+  if (f.status === "assigned" && !f.owner) return "ต้องระบุผู้รับผิดชอบเมื่อมอบหมาย";
+  if (f.status === "closed" && !f.note) return "ต้องใส่หมายเหตุหรือผลการดำเนินการก่อนปิดเรื่อง";
+  const it = CQA.brief().items.find(i => i.id === id) || {}, prev = CQA.wfOf(id) || {};
+  CQA.Shared.setDoc("hot", id, Object.assign({}, prev, f, { title: it.title || prev.title || "", sev: it.sev || prev.sev || "", key: it.key || prev.key || "", updated: new Date().toISOString() }));
+  return null;
 };
 
 /* ---------- สรุปเป็นข้อความ (คัดลอกไปวางใน LINE / อีเมล) ---------- */
 const SEV_SHORT = { crit: "วิกฤต", high: "สูง", med: "ปานกลาง", info: "แจ้ง" };
 CQA.briefText = () => {
-  const ctx = H.ctx(), lv = CQA.briefLevel(), items = CQA.brief().items.slice(0, 5);
+  const ctx = H.ctx(), lv = CQA.briefLevel(), items = CQA.openItems().slice(0, 5);
   const kv = id => { const k = CQA.KPI_BY_ID[id], v = KPI.value(k, ctx), d = KPI.delta(k, ctx); return `${k.name} ${v.value == null ? "–" : UI.fv(k, v.value)}${k.unit === "%" ? "%" : " " + k.unit}${d && d.pct != null && isFinite(d.pct) ? ` (${d.pct >= 0 ? "▲" : "▼"}${U.nf(Math.abs(d.pct) * 100, 1)}% MoM)` : ""}`; };
   const link = globalThis.claude ? M.LINKS.artifact : (/^https?:/.test(location.href) ? location.origin + location.pathname : M.LINKS.github);
   return [
@@ -2311,7 +2525,7 @@ CQA.briefText = () => {
     `ข้อมูลถึง ${U.dateTH(ctx.asOf)} · สถานะภาพรวม: ${lv.label} (วิกฤต ${lv.crit} · สูง ${lv.high})`,
     "",
     "เรื่องเร่งด่วน:",
-    ...(items.length ? items.map((it, i) => `${i + 1}) [${SEV_SHORT[it.sev]}] ${it.title} — ${it.owner}`) : ["- ไม่มีเรื่องเร่งด่วน"]),
+    ...(items.length ? items.map((it, i) => { const w = CQA.wfOf(it.id) || {}; return `${i + 1}) [${SEV_SHORT[it.sev]}] ${it.title} — ${w.owner || it.owner}${w.status && w.status !== "new" ? ` (${CQA.WF[w.status][0]}${w.due ? " ครบ " + U.dateTH(w.due) : ""})` : ""}`; }) : ["- ไม่มีเรื่องเร่งด่วน"]),
     "",
     "ตัวชี้วัดหลัก:",
     ...M.HERO.map(([id]) => "- " + kv(id)),
@@ -2338,7 +2552,7 @@ P.overview = { title: "ภาพรวมผู้บริหาร", render(el
   const pat = id => KPI.value("K43", H.withWhere(ctx, "fact_pathogen_result", { pathogen: id })).value;
   const costT = KPI.value("K46", ctx);
   /* Hot Issue ระดับวิกฤต/สูง ที่ผูกกับการ์ด (ใช้เป็นเหตุผล "ต้องดู") */
-  const urgent = CQA.brief().items.filter(i => i.sev === "crit" || i.sev === "high");
+  const urgent = CQA.openItems().filter(i => i.sev === "crit" || i.sev === "high");
   const hotOf = go => urgent.filter(i => i.go === go || i.go.startsWith(go + ":")).length;
   const C = (id, o) => UI.kcard(id, Object.assign({ hot: hotOf(o.go), focus }, o));
   const sec = (title, note, cards) => { const html = cards.filter(Boolean).join(""); return html ? `<div class="section"><h2>${title}</h2><span class="muted">${note}</span></div><div class="cards">${html}</div>` : ""; };
@@ -2422,6 +2636,7 @@ P.network = { title: "เครือข่าย", topics: [1], render(el) {
   + `<div class="grid g-12">${UI.panel("Certificate ที่ยังมีผล แยกหมวด", "K05 ณ วันที่รายงาน (p.15)", UI.hbars(H.sorted(certCat).map(([k, v]) => ({ label: k, value: v })), { fmt: U.nf }))}
      ${UI.panel(`Certificate หมดอายุภายใน 90 วัน <span class="chip warn">${soon.length} ฉบับ</span>`, "เสนอ: แจ้งเตือนล่วงหน้า 60/90 วัน (ประเด็นที่ต้องยืนยันของ K05)", UI.table([{ h: "หมดอายุ", v: r => U.dateTH(r.expiry_date), nowrap: 1 }, { h: "อีก (วัน)", v: r => U.diffDays(ctx.asOf, r.expiry_date), r: 1 }, { h: "มาตรฐาน", v: "certificate_name" }, { h: "หมวด", v: "category" }, { h: "หน่วยงาน", v: r => H.orgName(r.org_code) }], soon, { maxh: 300 }), UI.csvBtn("dl-cert", "CSV"))}</div>`;
   UI.bar("ch-org", bus, [{ label: "ภายในประเทศ", data: bus.map(b => byBuMkt.get(b + "|ภายในประเทศ") || 0), color: t.c[0] }, { label: "ส่งออกและภายในประเทศ", data: bus.map(b => byBuMkt.get(b + "|ส่งออกและภายในประเทศ") || 0), color: t.c[1] }], { horizontal: true, stacked: true, fmt: U.nf, labels: true });
+  UI.drill("ch-org", "bu", bus);
   const sb = H.sorted(stBu); UI.bar("ch-store", sb.map(x => x[0]), [{ label: "จุดขาย", data: sb.map(x => x[1]) }], { horizontal: true, fmt: U.nf });
   const bizs = [...new Set([...vLg.keys()].map(k => k.split("|")[1]))];
   UI.bar("ch-lg", lgs.map(l => l + " · " + (lgReg[l] || "")), bizs.map((b, i) => ({ label: b, data: lgs.map(l => vLg.get(l + "|" + b) || 0), color: t.c[i] })), { stacked: true, fmt: U.nf, labels: true });
@@ -2440,14 +2655,15 @@ P.hotissue = { title: "Hot Issue", topics: [2], render(el) {
   const list = sel.rows.slice().sort((a, b) => b.incident_date.localeCompare(a.incident_date));
   el.innerHTML = UI.pageHead([2], "Hot Issue", "Incident ของแต่ละโรงงาน · เรื่องด่วนทั้งดี (Positive) และต้องเร่งแก้ไข (Negative) · ข้อมูล Negative บางส่วนเป็น <b>Restricted</b>", `<button type="button" class="btn sm primary" data-act="copy-brief">คัดลอกสรุป</button>`)
   + UI.strip([UI.tile("K06"), UI.plainTile("Negative — Domestic / Export", `${U.nf(dom.value)} / ${U.nf(exp.value)}`, "เรื่อง", "ตลาดที่ได้รับผลกระทบ (p.17)"), UI.tile("K07"), UI.tile("K08")])
-  + H.briefHTML(0)
+  + H.briefHTML(0, false, { showClosed: true })
   + `<div class="grid g-2" style="margin-top:14px">${UI.panel("Negative แยกสาเหตุ", "K06 แยก Cause", UI.hbars(H.sorted(KPI.group(neg, ctx, "category")).map(([k, v]) => ({ label: k, value: v, color: t.c[1] })), { fmt: U.nf }))}
      ${UI.panel("Negative แยก BU", "K06 แยก BU", UI.hbars(H.sorted(KPI.group(neg, ctx, "bu")).map(([k, v]) => ({ label: k, value: v, color: t.c[1] })), { fmt: U.nf }))}</div>`
   + `<div class="grid g-21">${UI.panel("แนวโน้มรายเดือน", "Negative เทียบ Positive (YTD)", UI.box("ch-inc"))}
      ${UI.panel("Positive แยกประเภท", "K08 แยก Category (p.18)", UI.hbars(H.sorted(KPI.group(pos, ctx, "category")).map(([k, v]) => ({ label: k, value: v, color: t.c[2] })), { fmt: U.nf }))}</div>`
   + UI.panel(`รายการ Incident ในงวด <span class="chip neutral">${list.length} เรื่อง</span>${sel.hidden ? ` <span class="chip bad">🔒 ซ่อน ${sel.hidden} เรื่อง (Restricted)</span>` : ""}`, "ระดับความรุนแรงเป็น field ที่เสนอเพิ่ม (Proposed) เพื่อเรียงลำดับ Hot issue",
-      UI.table([{ h: "วันที่", v: r => U.dateTH(r.incident_date), nowrap: 1 }, { h: "ประเภท", v: r => r.incident_type === "Negative" ? `<span class="chip bad">Negative</span>` : `<span class="chip ok">Positive</span>`, html: 1 }, { h: "หัวเรื่อง", v: r => `${esc(r.title)}<span class="cell-sub">${esc(H.orgName(r.org_code))} · ${esc(H.buOf(r.org_code))}</span>`, html: 1 }, { h: "สาเหตุ / ประเภท", v: "category" }, { h: "ตลาด", v: r => r.market + (r.market === "Export" ? " · " + r.country : "") }, { h: "ความรุนแรง", v: "severity" }, { h: "สถานะ", v: r => r.status === "Open" ? `<span class="chip warn">เปิด ${U.diffDays(r.incident_date, ctx.asOf)} วัน</span>` : `<span class="chip neutral">ปิดแล้ว</span>`, html: 1 }, { h: "การเข้าถึง", v: r => r.sensitivity === "Restricted" ? "🔒 Restricted" : "Internal" }], list, { maxh: 420 }));
+      UI.table([{ h: "วันที่", v: r => U.dateTH(r.incident_date), nowrap: 1 }, { h: "ประเภท", v: r => r.incident_type === "Negative" ? `<span class="chip bad">Negative</span>` : `<span class="chip ok">Positive</span>`, html: 1 }, { h: "หัวเรื่อง", v: r => `${esc(r.title)}<span class="cell-sub">${esc(H.orgName(r.org_code))} · ${esc(H.buOf(r.org_code))}</span>`, html: 1 }, { h: "สาเหตุ / ประเภท", v: "category" }, { h: "ตลาด", v: r => r.market + (r.market === "Export" ? " · " + r.country : "") }, { h: "ความรุนแรง", v: "severity" }, { h: "สถานะ", v: r => r.status === "Open" ? `<span class="chip warn">เปิด ${U.diffDays(r.incident_date, ctx.asOf)} วัน</span>` : `<span class="chip neutral">ปิดแล้ว</span>`, html: 1 }, { h: "การเข้าถึง", v: r => r.sensitivity === "Restricted" ? "🔒 Restricted" : "Internal" }], list, { maxh: 420, rowAct: r => "org:" + r.org_code }));
   UI.bar("ch-inc", ms.map(U.monLabel), [{ label: "Negative", data: H.mapTo(negM, ms), color: t.c[1] }, { label: "Positive", data: H.mapTo(posM, ms), color: t.c[2] }], { fmt: U.nf });
+  UI.drill("ch-inc", "month", ms);
 } };
 
 /* =====================================================================
@@ -2475,10 +2691,13 @@ P.complaint = { title: "Complaint", topics: [3], render(el) {
       UI.table([{ h: "BU", v: "bu" }].concat(ms.map(m => ({ h: U.monLabel(m), v: r => r.m[m] || 0, r: 1, fmt: U.nf }))).concat([{ h: "YTD", v: "n", r: 1, fmt: U.nf }, { h: "VOL (ton)", v: "vol", r: 1, fmt: v => U.nf(v, 0) }, { h: "Rate", v: "rate", r: 1, fmt: v => U.nf(v, 2) }]),
         bus.map(b => ({ bu: b, m: Object.fromEntries(ms.map(m => [m, buMonth.get(b + "|" + m) || 0])), n: buYtd.get(b).num, vol: buYtd.get(b).den, rate: buYtd.get(b).value })),
         { foot: ["รวม"].concat(ms.map(m => U.nf(tr9.find(x => x.key === m) ? tr9.find(x => x.key === m).value : 0))).concat([U.nf(KPI.value("K10", yctx).num), U.nf(KPI.value("K10", yctx).den, 0), U.nf(KPI.value("K10", yctx).value, 2)]) }), UI.csvBtn("dl-complaint", "CSV"))
-  + UI.panel("10 หน่วยงานที่ Complaint rate สูงสุด", "เฉพาะหน่วยงานที่มี ≥ 5 เรื่องในงวด", UI.table([{ h: "หน่วยงาน", v: r => H.orgName(r.key) }, { h: "BU", v: r => H.buOf(r.key) }, { h: "Complaint", v: "num", r: 1, fmt: U.nf }, { h: "VOL (ton)", v: "den", r: 1, fmt: v => U.nf(v, 0) }, { h: "Rate", v: "value", r: 1, fmt: v => U.nf(v, 2) }], orgRate));
+  + UI.panel("10 หน่วยงานที่ Complaint rate สูงสุด", "เฉพาะหน่วยงานที่มี ≥ 5 เรื่องในงวด", UI.table([{ h: "หน่วยงาน", v: r => H.orgName(r.key) }, { h: "BU", v: r => H.buOf(r.key) }, { h: "Complaint", v: "num", r: 1, fmt: U.nf }, { h: "VOL (ton)", v: "den", r: 1, fmt: v => U.nf(v, 0) }, { h: "Rate", v: "value", r: 1, fmt: v => U.nf(v, 2) }], orgRate, { rowAct: r => "org:" + r.key }));
   UI.bar("ch-c-n", ms.map(U.monLabel), [{ label: "Complaint", data: tr9.map(x => x.value) }], { fmt: U.nf, labels: true });
+  UI.drill("ch-c-n", "month", ms);
   UI.line("ch-c-r", ms.map(U.monLabel), [{ label: "Complaint rate", data: tr10.map(x => x.value), fill: true }], { fmt: v => U.nf(v, 2), lines: CQA.TH.get("K10") ? [{ y: CQA.TH.get("K10").target, label: "เป้า", color: t.ok }] : null });
+  UI.drill("ch-c-r", "month", ms);
   UI.bar("ch-c-bu", buRate.map(x => x.key), [{ label: "Complaint rate", data: buRate.map(x => x.value) }], { horizontal: true, fmt: v => U.nf(v, 2) });
+  UI.drill("ch-c-bu", "bu", buRate.map(x => x.key));
   CQA.ACTS["dl-complaint"] = () => UI.download("complaint-bu-month.csv", U.toCSV([["bu"].concat(ms, ["ytd", "vol_ton", "rate"])].concat(bus.map(b => [b].concat(ms.map(m => buMonth.get(b + "|" + m) || 0), [buYtd.get(b).num, U.round(buYtd.get(b).den, 2), U.round(buYtd.get(b).value, 3)])))));
 } };
 
@@ -2497,11 +2716,13 @@ P.nc = { title: "Non conforming", topics: [4], render(el) {
   + UI.strip([UI.tile("K11"), UI.tile("K12", { foot: () => `<span data-tip="PDF card 14.47 ≠ ตาราง 14.52 — filter ต่างกัน (Known issue #3)">${UI.periodText(CQA.KPI_BY_ID.K12)} ⓘ</span>` }), UI.plainTile("NCR ที่ยังเปิด", U.nf(openN), "ใบ", "ณ วันที่รายงาน"), UI.plainTile("ปิดแล้ว (ในงวด)", U.nf(closed / (k11.value || 1) * 100, 1), "%", `${U.nf(closed)} จาก ${U.nf(k11.value)} ใบ`)])
   + `<div class="grid g-2">${UI.panel("NC rate รายเดือน", "K12 (YTD)", UI.box("ch-nc-r"))}${UI.panel("NCR แยก BU", "K11 · " + esc(H.periodLabel()), UI.box("ch-nc-bu"))}</div>`
   + `<div class="grid g-12">${UI.panel("NCR แยกประเภท", "field nature", UI.hbars(H.sorted(nat).map(([k, v]) => ({ label: k, value: v })), { fmt: U.nf }))}
-     ${UI.panel("10 หน่วยงานที่ NC rate สูงสุด", "เฉพาะหน่วยงานที่มี ≥ 20 ใบในงวด", UI.table([{ h: "หน่วยงาน", v: r => H.orgName(r.key) }, { h: "BU", v: r => H.buOf(r.key) }, { h: "NCR", v: "num", r: 1, fmt: U.nf }, { h: "VOL (kg)", v: "den", r: 1, fmt: v => U.compact(v) }, { h: "NC rate", v: "value", r: 1, fmt: v => U.nf(v, 2) }], orgRate))}</div>`
+     ${UI.panel("10 หน่วยงานที่ NC rate สูงสุด", "เฉพาะหน่วยงานที่มี ≥ 20 ใบในงวด", UI.table([{ h: "หน่วยงาน", v: r => H.orgName(r.key) }, { h: "BU", v: r => H.buOf(r.key) }, { h: "NCR", v: "num", r: 1, fmt: U.nf }, { h: "VOL (kg)", v: "den", r: 1, fmt: v => U.compact(v) }, { h: "NC rate", v: "value", r: 1, fmt: v => U.nf(v, 2) }], orgRate, { rowAct: r => "org:" + r.key }))}</div>`
   + UI.panel("NCR แยก BU × เดือน (YTD)", "ตามรูปแบบตาราง p.22", UI.table([{ h: "BU", v: "bu" }].concat(ms.map(m => ({ h: U.monLabel(m), v: r => r.m[m], r: 1, fmt: U.nf }))).concat([{ h: "YTD", v: "n", r: 1, fmt: U.nf }, { h: "Rate", v: "rate", r: 1, fmt: v => U.nf(v, 2) }]),
       bus.map(b => ({ bu: b, m: Object.fromEntries(ms.map(m => [m, buMonth.get(b + "|" + m) || 0])), n: buY.get(b).num, rate: buY.get(b).value })), { foot: ["รวม"].concat(ms.map(() => "")).concat([U.nf(KPI.value("K12", yctx).num), U.nf(KPI.value("K12", yctx).value, 2)]) }), UI.csvBtn("dl-nc", "CSV"));
-  UI.line("ch-nc-r", ms.map(U.monLabel), [{ label: "NC rate", data: tr12.map(x => x.value), fill: true }], { fmt: v => U.nf(v, 2), zero: false });
+  UI.line("ch-nc-r", ms.map(U.monLabel), [{ label: "NC rate", data: tr12.map(x => x.value), fill: true }], { fmt: v => U.nf(v, 2), zero: false, lines: H.tline("K12") });
+  UI.drill("ch-nc-r", "month", ms);
   const sb = H.sorted(buN); UI.bar("ch-nc-bu", sb.map(x => x[0]), [{ label: "NCR", data: sb.map(x => x[1]) }], { horizontal: true, fmt: U.nf });
+  UI.drill("ch-nc-bu", "bu", sb.map(x => x[0]));
   CQA.ACTS["dl-nc"] = () => UI.download("ncr-bu-month.csv", U.toCSV([["bu"].concat(ms, ["ytd", "nc_rate"])].concat(bus.map(b => [b].concat(ms.map(m => buMonth.get(b + "|" + m) || 0), [buY.get(b).num, U.round(buY.get(b).value, 3)])))));
 } };
 })(globalThis.CQA = globalThis.CQA || {});
@@ -2532,6 +2753,7 @@ P.ra = { title: "Regulatory Compliance", topics: [5], render(el) {
   + `<div class="grid g-2">${UI.panel("กฎระเบียบที่ Update", "K14 · นับตามวันมีผลบังคับใช้ (ต้องยืนยัน)", UI.table([{ h: "มีผล", v: r => U.dateTH(r.effective_date), nowrap: 1 }, { h: "กฎระเบียบ", v: "reg_name" }, { h: "ผลกระทบ", v: r => `<span class="chip ${r.impact_type === "Label" ? "info" : "neutral"}">${r.impact_type}</span>`, html: 1 }], regs))}
      ${UI.panel("ปริมาณงาน RA แยก BU × ประเภทงาน", "K16 YTD (p.25)", UI.box("ch-raw", "lg"))}</div>`;
   UI.bar("ch-raw", wbus, WT.map((w, i) => ({ label: w, data: wbus.map(b => wk.get(b + "|" + w) || 0), color: t.c[i] })), { horizontal: true, stacked: true, fmt: U.nf, labels: true });
+  UI.drill("ch-raw", "bu", wbus);
 } };
 
 /* =====================================================================
@@ -2574,7 +2796,9 @@ P.supplier = { title: "Supplier Performance", topics: [6], render(el) {
   el.innerHTML = UI.pageHead([6], "Supplier Performance", "จำนวน Supplier (SQM) · มาตรฐานรับรอง · SCAR rate (ต่อ PO) · Raw Material Risk % (QA16)", tabs) + (tab === "scar" ? partScar : tab === "rm" ? partRm : partSup);
   UI.bar("ch-risk", grps, ["High", "Medium", "Low"].map((lv, i) => ({ label: lv, data: grps.map(g => risk.get(g + "|" + lv) || 0), color: [t.c[1], t.c[3], t.c[0]][i] })), { horizontal: true, stacked: true, fmt: U.nf, labels: true });
   UI.bar("ch-scar-n", ms.map(U.monLabel), [{ label: "SCAR", data: tr22.map(x => x.value) }], { fmt: U.nf, labels: true });
+  UI.drill("ch-scar-n", "month", ms);
   UI.line("ch-scar-r", ms.map(U.monLabel), [{ label: "SCAR rate", data: tr23.map(x => x.value), fill: true }], { fmt: v => U.nf(v, 2) + "%", zero: false, lines: CQA.TH.get("K23") ? [{ y: CQA.TH.get("K23").target, label: "เป้า", color: t.ok }] : null });
+  UI.drill("ch-scar-r", "month", ms);
   UI.bar("ch-rm", cats, ["Low", "Medium", "High"].map((lv, i) => ({ label: lv, data: cats.map(c => rmCat.get(c + "|" + lv) || 0), color: [t.c[0], t.c[3], t.c[1]][i] })), { horizontal: true, stacked: true, fmt: U.nf, labels: true });
 } };
 
@@ -2600,9 +2824,10 @@ P.audit = { title: "Factory / Retail / LG", topics: [7], render(el) {
     + `<div class="grid g-2">${UI.panel("Finding แยกความรุนแรง", "External audit (p.32 — Mock)", UI.hbars(sev.map(([k, v], i) => ({ label: k, value: v, color: i < 2 ? t.c[1] : null })), { fmt: U.nf }))}
        ${UI.panel("% ผ่านแยกประเภทการตรวจ", "K25 แยก Audit type · นิยาม 'ผ่าน' ต้องยืนยัน", UI.hbars(byType.filter(x => x.den).map(x => ({ label: x.key, value: x.value, tip: `${x.num}/${x.den} ครั้ง` })), { fmt: v => U.nf(v, 1) + "%", max: 100 }))}</div>`
     + `<div class="grid g-2">${UI.panel("External audit pass rate รายเดือน", "K25 (YTD)", UI.box("ch-au-r", "sm"))}${UI.panel("Critical + Major แยก BU", "ในงวดที่เลือก", UI.box("ch-au-bu", "sm"))}</div>`
-    + UI.panel("การตรวจที่ไม่ผ่าน", "External audit ที่ result = Fail", UI.table([{ h: "วันที่", v: r => U.dateTH(r.audit_date), nowrap: 1 }, { h: "ประเภท", v: "audit_type" }, { h: "หน่วยงาน", v: r => H.orgName(r.org_code) }, { h: "BU", v: r => H.buOf(r.org_code) }, { h: "Critical", v: "critical_count", r: 1 }, { h: "Major", v: "major_count", r: 1 }, { h: "Minor", v: "minor_count", r: 1 }], fails));
-    after.push(() => { const tr = KPI.trend("K25", ctx); UI.line("ch-au-r", ms.map(U.monLabel), [{ label: "% ผ่าน", data: tr.map(x => x.value) }], { fmt: v => U.nf(v, 1) + "%", zero: false, max: 100 }); });
+    + UI.panel("การตรวจที่ไม่ผ่าน", "External audit ที่ result = Fail", UI.table([{ h: "วันที่", v: r => U.dateTH(r.audit_date), nowrap: 1 }, { h: "ประเภท", v: "audit_type" }, { h: "หน่วยงาน", v: r => H.orgName(r.org_code) }, { h: "BU", v: r => H.buOf(r.org_code) }, { h: "Critical", v: "critical_count", r: 1 }, { h: "Major", v: "major_count", r: 1 }, { h: "Minor", v: "minor_count", r: 1 }], fails, { rowAct: r => "org:" + r.org_code }));
+    after.push(() => { const tr = KPI.trend("K25", ctx); UI.line("ch-au-r", ms.map(U.monLabel), [{ label: "% ผ่าน", data: tr.map(x => x.value) }], { fmt: v => U.nf(v, 1) + "%", zero: false, max: 100, lines: H.tline("K25") }); UI.drill("ch-au-r", "month", ms); });
     after.push(() => UI.bar("ch-au-bu", bus, [{ label: "Critical", data: bus.map(b => buC.get(b) || 0), color: t.c[7] }, { label: "Major", data: bus.map(b => buF.get(b) || 0), color: t.c[1] }], { stacked: true, fmt: U.nf }));
+    after.push(() => UI.drill("ch-au-bu", "bu", bus));
   } else if (tab === "retail") {
     const sti = KPI.index("dim_store", "store_id"), sb = r => (sti.get(r.store_id) || {}).bu, stt = r => (sti.get(r.store_id) || {}).store_type;
     const latest = Object.assign({}, H.num("K27"), { where: null });
@@ -2707,7 +2932,9 @@ P.lab = { title: "Lab", topics: [11, 12], render(el) {
      ${UI.panel("ต้นทุนต่อตัวอย่างแยกธุรกิจ", "K42 · บาท/ตัวอย่าง", UI.hbars(cps.slice().sort((a, b) => b.value - a.value).map(x => ({ label: x.key, value: x.value, tip: `${U.nf(x.den)} ตัวอย่าง · ${U.nf(x.num / 1e6, 2)} ลบ.` })), { fmt: v => U.nf(v, 0) }))}</div>`
   + UI.panel("Lab cost service แยกธุรกิจ", "12.1 · จำนวนตัวอย่าง / Items / Costs (p.41)", UI.table([{ h: "BU", v: "key" }, { h: "ตัวอย่าง", v: "den", r: 1, fmt: U.nf }, { h: "Items", v: r => items.get(r.key) || 0, r: 1, fmt: U.nf }, { h: "ค่าตรวจ (บาท)", v: "num", r: 1, fmt: U.nf }, { h: "บาท/ตัวอย่าง", v: "value", r: 1, fmt: v => U.nf(v, 0) }, { h: "สัดส่วนค่าตรวจ", v: r => UI.heat(r.num / (k42.num || 1) * 100, 30, v => U.nf(v, 1) + "%"), r: 1, html: 1 }], cps, { foot: ["รวม", U.nf(k42.den), U.nf(itemsAll), U.nf(k42.num), U.nf(k42.value, 0), "100%"] }), UI.csvBtn("dl-lab", "CSV"));
   UI.bar("ch-lab-e", ms.map(U.monLabel), [{ label: "ค่าใช้จ่ายจริง", data: ms.map(m => (exp.get(m) || 0) / 1e6), color: t.c[0] }, { label: "Forecast", data: ms.map(m => (fc.get(m) || 0) / 1e6), color: t.muted }], { fmt: v => U.nf(v, 2), unit: "ลบ." });
+  UI.drill("ch-lab-e", "month", ms);
   UI.bar("ch-lab-s", ms.map(U.monLabel), ["Micro", "Chemical", "Physical"].map((x, i) => ({ label: x, data: ms.map(m => smpType.get(m + "|" + x) || 0), color: t.c[i] })), { stacked: true, fmt: U.nf });
+  UI.drill("ch-lab-s", "month", ms);
   CQA.ACTS["dl-lab"] = () => UI.download("lab-cost-by-bu.csv", U.toCSV([["bu", "samples", "items", "cost_thb", "cost_per_sample"]].concat(cps.map(r => [r.key, r.den, items.get(r.key) || 0, r.num, U.round(r.value, 2)]))));
 } };
 
@@ -2730,9 +2957,10 @@ P.pathogen = { title: "Pathogen", topics: [13], render(el) {
   + UI.strip([UI.tile("K43", { ctx, title: "รวมทุกเชื้อ" })].concat(PATH.map(tile)))
   + `<div class="grid g-2">${UI.panel("% ตรวจพบรายเดือน แยกเชื้อ", "K43 (YTD) · เดือนที่ตรวจน้อยกว่า 30 ตัวอย่างไม่แสดงจุด", UI.box("ch-pa-t"))}${UI.panel("% ตรวจพบ แยกกลุ่มผลิตภัณฑ์ × เชื้อ", "ชื่อย่อเชื้อตาม dashboard p.43 (ต้องยืนยัน) · เกณฑ์ alert ต่อเชื้อยังไม่กำหนด", UI.box("ch-pa-g"))}</div>`
   + UI.panel("% ตรวจพบแยกธุรกิจ × เชื้อ", "เซลล์เข้มขึ้น = % สูงขึ้น · ตัวเลขเล็ก = จำนวนตัวอย่างที่ตรวจ", UI.table([{ h: "BU", v: "bu" }].concat(PATH.map(([id]) => ({ h: id, v: r => { const x = buP.get(r.bu + "|" + id); return x && x.den ? (x.den < KPI.MIN_N ? `<span class="muted" data-tip="ตัวอย่างน้อยกว่า ${KPI.MIN_N} — ไม่เทียบสี">${U.nf(x.value, 2)}%</span>` : UI.heat(x.value, maxP, v => U.nf(v, 2) + "%")) + `<span class="cell-sub">n=${U.nf(x.den)}</span>` : `<span class="muted">–</span>`; }, r: 1, html: 1 }))), bus.map(bu => ({ bu }))))
-  + UI.panel(`ตัวอย่างที่ตรวจพบ <span class="chip bad">${det.length}</span>`, "ล่าสุดก่อน · Cooked = วิกฤตบน Decision brief", UI.table([{ h: "วันที่ตรวจ", v: r => U.dateTH(r.test_date), nowrap: 1 }, { h: "เชื้อ", v: "pathogen" }, { h: "กลุ่มผลิตภัณฑ์", v: r => r.product_group === "Cooked" ? `<span class="chip bad">Cooked</span>` : esc(r.product_group), html: 1 }, { h: "หน่วยงาน", v: r => H.orgName(r.org_code) }, { h: "BU", v: r => H.buOf(r.org_code) }, { h: "Sample", v: "sample_id" }], det, { maxh: 340 }));
+  + UI.panel(`ตัวอย่างที่ตรวจพบ <span class="chip bad">${det.length}</span>`, "ล่าสุดก่อน · Cooked = วิกฤตบน Decision brief", UI.table([{ h: "วันที่ตรวจ", v: r => U.dateTH(r.test_date), nowrap: 1 }, { h: "เชื้อ", v: "pathogen" }, { h: "กลุ่มผลิตภัณฑ์", v: r => r.product_group === "Cooked" ? `<span class="chip bad">Cooked</span>` : esc(r.product_group), html: 1 }, { h: "หน่วยงาน", v: r => H.orgName(r.org_code) }, { h: "BU", v: r => H.buOf(r.org_code) }, { h: "Sample", v: "sample_id" }], det, { maxh: 340, rowAct: r => "org:" + r.org_code }));
   const tr = PATH.map(([id]) => KPI.trend("K43", pc(id)).map(x => x.den != null && x.den < KPI.MIN_N ? Object.assign({}, x, { value: null }) : x));   // เดือนที่ n < 30 ไม่แสดง
-  UI.line("ch-pa-t", ms.map(U.monLabel), PATH.map(([id], i) => ({ label: id, data: tr[i].map(x => x.value) })), { fmt: v => U.nf(v, 2) + "%" });
+  UI.line("ch-pa-t", ms.map(U.monLabel), PATH.map(([id], i) => ({ label: id, data: tr[i].map(x => x.value) })), { fmt: v => U.nf(v, 2) + "%", lines: H.tline("K43") });
+  UI.drill("ch-pa-t", "month", ms);
   UI.bar("ch-pa-g", pgs, PATH.map(([id], i) => ({ label: id, data: pgs.map(g => gm.get(g + "|" + id) == null ? null : gm.get(g + "|" + id)), color: t.c[i] })), { fmt: v => U.nf(v, 2) + "%", labels: false });
 } };
 
@@ -2772,8 +3000,9 @@ P.people = { title: "People (FSQC)", topics: [15], render(el) {
   + UI.strip([UI.tile("K45", { noDelta: true }), UI.plainTile(`FSQC ปี ${ctx.year - 1 + 543}`, v0.value == null ? "–" : U.nf(v0.value, 2), "%", v0.value == null ? "" : `เปลี่ยนแปลง ${KPI.value("K45", ctx).value - v0.value >= 0 ? "+" : ""}${U.nf(KPI.value("K45", ctx).value - v0.value, 2)} จุด`), UI.plainTile("โรงงานที่ประเมิน", U.nf(facs), "โรงงาน", `<span data-tip="59 factory (p.48) ≠ 132 หน่วยงาน (p.10) — ต้องมี Org_code master (Known issue #6)">ต่างจาก 132 หน่วยงาน ⓘ</span>`), UI.plainTile("ผู้ตอบแบบประเมิน", U.nf(people), "คน", "")])
   + `<div class="grid g-2">${UI.panel("คะแนนแยกหมวด เทียบปีก่อน", "K45 แยก Category (p.48)", UI.box("ch-fs-cat"))}${UI.panel("คะแนนแยกธุรกิจ", "K45 แยก BU", UI.box("ch-fs-bu"))}</div>`
   + `<div class="grid g-2">${UI.panel("แยกระดับพนักงาน", "Band", UI.hbars(band.map(x => ({ label: x.key, value: x.value })), { fmt: v => U.nf(v, 1) + "%", max: 100 }))}${UI.panel("แยกอายุงาน", "Work age group", UI.hbars(age.map(x => ({ label: x.key, value: x.value })), { fmt: v => U.nf(v, 1) + "%", max: 100 }))}</div>`;
-  UI.bar("ch-fs-cat", cats, [{ label: "ปี " + (ctx.year - 1 + 543), data: cats.map(c => c0.get(c) == null ? null : U.round(c0.get(c), 2)), color: t.muted }, { label: "ปี " + (ctx.year + 543), data: cats.map(c => U.round(c1.get(c), 2)), color: t.c[0] }], { fmt: v => U.nf(v, 1) + "%", min: 0, smax: 100 });
+  UI.bar("ch-fs-cat", cats, [{ label: "ปี " + (ctx.year - 1 + 543), data: cats.map(c => c0.get(c) == null ? null : U.round(c0.get(c), 2)), color: t.muted }, { label: "ปี " + (ctx.year + 543), data: cats.map(c => U.round(c1.get(c), 2)), color: t.c[0] }], { fmt: v => U.nf(v, 1) + "%", min: 0, smax: 100, lines: H.tline("K45") });
   UI.bar("ch-fs-bu", bu.map(x => x.key), [{ label: "FSQC", data: bu.map(x => U.round(x.value, 2)) }], { horizontal: true, fmt: v => U.nf(v, 1) + "%", max: 100 });
+  UI.drill("ch-fs-bu", "bu", bu.map(x => x.key));
 } };
 
 /* =====================================================================
@@ -2793,8 +3022,11 @@ P.cost = { title: "Cost Reduction", topics: [16], render(el) {
   + `<div class="grid g-21">${UI.panel("เป้าหมาย vs ผลจริง แยกธุรกิจ", "ล้านบาท · " + esc(H.periodLabel()), UI.box("ch-co-bu", "lg"))}${UI.panel("แยกประเภทโครงการ", "Strategic / General", UI.table([{ h: "ประเภท", v: "key" }, { h: "เป้า", v: r => U.nf(r.den, 2), r: 1 }, { h: "จริง", v: r => U.nf(r.num, 2), r: 1 }, { h: "Achievement", v: r => U.nf(r.value, 1) + "%", r: 1 }], typ))}</div>`
   + UI.panel("โครงการทั้งหมด", "เรียงตามเป้าหมาย · " + esc(H.periodLabel()), UI.table([{ h: "โครงการ", v: r => `${esc((pIdx.get(r.key) || {}).project_name || r.key)}<span class="cell-sub">${r.key}</span>`, html: 1 }, { h: "BU", v: r => (pIdx.get(r.key) || {}).bu }, { h: "ประเภท", v: r => (pIdx.get(r.key) || {}).project_type === "Strategic" ? `<span class="chip info">Strategic</span>` : "General", html: 1 }, { h: "เป้า (ลบ.)", v: r => U.nf(r.den, 2), r: 1 }, { h: "จริง (ลบ.)", v: r => U.nf(r.num, 2), r: 1 }, { h: "Achievement", v: r => UI.heat(r.value, 120, v => U.nf(v, 1) + "%"), r: 1, html: 1 }], pj, { maxh: 420 }), UI.csvBtn("dl-cost", "CSV"));
   UI.bar("ch-co-m", ms.map(U.monLabel), [{ label: "เป้าหมาย", data: ms.map(m => tM.get(m) || 0), color: t.muted }, { label: "ผลจริง", data: ms.map(m => aM.get(m) || 0), color: t.c[0] }], { fmt: v => U.nf(v, 2), unit: "ลบ." });
+  UI.drill("ch-co-m", "month", ms);
   UI.line("ch-co-a", ms.map(U.monLabel), [{ label: "Achievement", data: KPI.trend("K46", ctx).map(x => x.value), fill: true }], { fmt: v => U.nf(v, 1) + "%", lines: CQA.TH.get("K46") ? [{ y: CQA.TH.get("K46").target, label: "เป้า", color: t.ok }] : null });
+  UI.drill("ch-co-a", "month", ms);
   UI.bar("ch-co-bu", bu.map(x => x.key), [{ label: "เป้าหมาย", data: bu.map(x => U.round(x.den, 2)), color: t.muted }, { label: "ผลจริง", data: bu.map(x => U.round(x.num, 2)), color: t.c[0] }], { horizontal: true, fmt: v => U.nf(v, 2), labels: false });
+  UI.drill("ch-co-bu", "bu", bu.map(x => x.key));
   CQA.ACTS["dl-cost"] = () => UI.download("cost-projects.csv", U.toCSV([["project_id", "project_name", "bu", "type", "target_mb", "actual_mb", "achievement_pct"]].concat(pj.map(r => { const p = pIdx.get(r.key) || {}; return [r.key, p.project_name, p.bu, p.project_type, U.round(r.den, 2), U.round(r.num, 2), U.round(r.value, 1)]; }))));
 } };
 })(globalThis.CQA = globalThis.CQA || {});
@@ -2972,8 +3204,32 @@ const A = {
     return ["**ความพร้อมของข้อมูล**", `- Dataset ที่ยังเป็น Mock ${nm}/26 · KPI ที่มี Target ${CQA.TH.count()}/47`, `- KPI ที่นิยามยัง Assumed: ${as.join(", ")}`, "- Gap: DC และ Lab utilization ยังไม่มี dataset", "- ลำดับงานที่แนะนำ: " + M.ACTION_ORDER].join("\n");
   },
 };
+/* อธิบายกราฟจากข้อมูลที่วาดอยู่จริง (โหมดพื้นฐาน) */
+const localChart = c => {
+  const lines = [`**${c.title}**${c.hint ? " — " + c.hint : ""}`];
+  c.series.forEach(sr => {
+    const pts = sr.data.map((v, i) => [c.labels[i], v]).filter(p => p[1] != null && isFinite(p[1]));
+    if (!pts.length) return;
+    const mx = pts.reduce((a, b) => b[1] > a[1] ? b : a), mn = pts.reduce((a, b) => b[1] < a[1] ? b : a);
+    const first = pts[0], last = pts[pts.length - 1], ch = first[1] ? (last[1] - first[1]) / Math.abs(first[1]) : null;
+    lines.push(`- ${sr.label || "ค่า"}: สูงสุด ${mx[0]} = ${U.nf(mx[1], 2)} · ต่ำสุด ${mn[0]} = ${U.nf(mn[1], 2)}` + (c.time && pts.length > 1 ? ` · ล่าสุด ${last[0]} = ${U.nf(last[1], 2)} (${ch == null ? "–" : (ch >= 0 ? "▲" : "▼") + U.nf(Math.abs(ch) * 100, 1) + "%"} เทียบ ${first[0]})` : ""));
+  });
+  if (!c.time && c.series.length === 1) { const top = c.labels.map((l, i) => [l, c.series[0].data[i]]).filter(p => p[1] != null).sort((a, b) => b[1] - a[1]).slice(0, 3); lines.push(`- 3 อันดับแรก: ${top.map(p => `${p[0]} (${U.nf(p[1], 2)})`).join(", ")}`); }
+  const pg = CQA.App.state.page, base = A[{ complaint: "complaint", nc: "nc", supplier: "supplier", ccp: "ccp", lab: "lab", pathogen: "lab", audit: "audit", ra: "ra", cost: "cost", people: "people", digital: "people" }[pg]];
+  if (base) { const rec = base().split("\n").filter(l => /^แนะนำ/.test(l)); if (rec.length) lines.push(rec[0]); }
+  lines.push("คลิกแท่งหรือเดือนบนกราฟเพื่อกรองทั้ง dashboard ได้");
+  return lines.join("\n");
+};
+A.hot = () => {
+  const open = CQA.openItems(), un = open.filter(i => CQA.wfStatus(i.id) === "new"), over = open.filter(i => { const w = CQA.wfOf(i.id); return w && w.due && w.due < U.ymd(new Date()); });
+  return [`**Hot Issue ที่เปิดอยู่ ${open.length} เรื่อง** (${scope()})`,
+    ...open.slice(0, 5).map(i => { const w = CQA.wfOf(i.id) || {}; return `- [${{ crit: "วิกฤต", high: "สูง", med: "ปานกลาง", info: "แจ้ง" }[i.sev]}] ${i.title} — ${w.owner ? "ผู้รับผิดชอบ " + w.owner : "ยังไม่มอบหมาย"}${w.due ? " ครบ " + U.dateTH(w.due) : ""}`; }),
+    `ยังไม่รับทราบ ${un.length} เรื่อง · เลยกำหนด ${over.length} เรื่อง`,
+    un.length ? `แนะนำ: มอบหมายผู้รับผิดชอบให้ "${un[0].title}" ก่อน` : "แนะนำ: ติดตามเรื่องที่ใกล้ครบกำหนด"].join("\n");
+};
 const local = q => {
   const s = q.toLowerCase();
+  if (/hot ?issue|ผู้รับผิดชอบ|มอบหมาย|เลยกำหนด|วิกฤต/.test(s)) return A.hot();
   if (/complaint|ร้องเรียน/.test(s)) return A.complaint();
   if (/\bnc\b|ncr|non.?conform/.test(s)) return A.nc();
   if (/supplier|scar|วัตถุดิบ|raw material/.test(s)) return A.supplier();
@@ -3003,13 +3259,27 @@ const context = () => {
   return {
     asOf: ctx.asOf, updated: M.UPDATED, data: "mock (seed จาก PDF)", view: { page: CQA.PAGES[CQA.App.state.page].title, period: H.periodLabel(), scope: CQA.App.scopeText() },
     kpis: CQA.KPIS.map(k => { const v = KPI.value(k, ctx), d = KPI.delta(k, ctx), s = CQA.statusOf(k, v.value); return { id: k.id, name: k.name, value: v.value == null ? null : +v.value.toFixed(3), unit: k.unit, direction: k.dir, confidence: k.conf, wave: k.wave, status: s.label, momPct: d && d.pct != null ? +(d.pct * 100).toFixed(1) : null, mock: v.mock }; }),
-    hotIssues: CQA.brief().items.slice(0, 10).map(i => ({ severity: i.sev, bu: i.bu, title: i.title, detail: i.body, owner: i.owner })),
+    hotIssues: CQA.brief().items.slice(0, 12).map(i => { const w = CQA.wfOf(i.id) || {}; return { severity: i.sev, bu: i.bu, title: i.title, detail: i.body, suggestedOwner: i.owner, status: (CQA.WF[w.status || "new"] || [""])[0], assignedTo: w.owner || null, due: w.due || null, note: w.note || null }; }),
     dataIssues: M.ISSUES.map(i => ({ no: i.no, issue: i.issue, impact: i.impact })),
     gaps: ["DC count", "Lab utilization"], actionOrder: M.ACTION_ORDER,
   };
 };
 
 const chat = { turns: [], busy: false, ctl: null, sample: null, mode: "checking", ready: Promise.resolve() };
+const SUGGEST_BY_PAGE = {
+  overview: ["สรุปเรื่องที่ต้องตัดสินใจวันนี้", "KPI หลักตัวไหนน่าห่วงที่สุด", "เรื่องไหนยังไม่มีผู้รับผิดชอบ"],
+  hotissue: ["เรื่องวิกฤตมีอะไรบ้าง ใครรับผิดชอบ", "เรื่องไหนเลยกำหนดแล้ว", "สรุป Hot Issue สำหรับประชุมเช้า"],
+  complaint: ["ทำไม Complaint rate เดือนล่าสุดสูงขึ้น", "BU ไหน Complaint rate สูงสุด", "Food Safety complaint เป็นอย่างไร"],
+  nc: ["NC rate แนวโน้มเป็นอย่างไร", "BU ไหนมี NCR มากที่สุด"],
+  supplier: ["Supplier กลุ่มไหนน่าห่วง", "SCAR rate เดือนล่าสุดเป็นอย่างไร", "Raw Material Risk สรุปให้หน่อย"],
+  ccp: ["CCP Line 7 ต้องทำอะไรก่อน", "จุดไหนหลุดเกณฑ์บ่อยที่สุด"],
+  audit: ["สรุปผล Audit โรงงาน จุดขาย และรถ LG", "ช่องทางไหนมีจุดขายเกรด C/D มาก"],
+  lab: ["ค่าใช้จ่าย Lab เทียบ Forecast เป็นอย่างไร", "ต้นทุนต่อตัวอย่าง BU ไหนสูงสุด"],
+  pathogen: ["ตรวจพบเชื้ออะไรบ้างในผลิตภัณฑ์ Cooked", "Pathogen แนวโน้มเป็นอย่างไร"],
+  cost: ["Cost reduction ขาดเป้าเท่าไร", "โครงการไหน achievement ต่ำสุด"],
+  catalog: ["KPI ไหนยังไม่พร้อมใช้จริง", "ควรตั้ง Target ตัวไหนก่อน"],
+  hub: ["KPI ไหนยังไม่พร้อมใช้จริง", "dataset ไหนควรเชื่อมข้อมูลจริงก่อน"],
+};
 const SUGGEST = ["สรุปเรื่องที่ต้องตัดสินใจวันนี้", "ทำไม Complaint rate เดือนล่าสุดสูงขึ้น", "Supplier กลุ่มไหนน่าห่วง", "CCP Line 7 ต้องทำอะไรก่อน", "KPI ไหนยังไม่พร้อมใช้จริง"];
 const ERR = { rate_limited: "ใช้งาน AI ถี่เกินไป ลองอีกครั้งภายหลัง", session_expired: "กรุณาเข้าสู่ระบบ Claude ใหม่", prompt_too_large: "บทสนทนายาวเกินไป ล้างประวัติแล้ว ถามใหม่ได้เลย", empty_completion: "ไม่ได้รับคำตอบ ลองถามให้เจาะจงขึ้น" };
 const HIDE = ["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed", "unavailable"];
@@ -3029,15 +3299,15 @@ const meta = t => `<span class="meta">${esc(t)}</span>`;
 const add = (role, content, html) => { const d = document.createElement("div"); d.className = "msg " + role; if (html) d.innerHTML = content; else d.textContent = content; $("#chat-log").appendChild(d); $("#chat-log").scrollTop = 1e9; return d; };
 const busy = b => { chat.busy = b; $("#chat-send").disabled = b; $("#chat-stop").hidden = !(b && chat.mode === "ai"); $$(".sugg").forEach(x => { x.disabled = b; }); };
 
-async function send(text) {
+async function send(text, extra) {
   const q = (text || "").trim(); if (!q || chat.busy) return;
   add("user", q); $("#chat-input").value = "";
   const bubble = add("ai", '<span class="muted">กำลังคิด…</span>', true);
   busy(true);
   if (chat.mode === "checking") await chat.ready;
-  if (!chat.sample) { bubble.innerHTML = md(local(q)) + meta("ตอบจากกฎพื้นฐานบนข้อมูลหน้านี้ (ไม่ได้ใช้ AI)"); busy(false); return; }
+  if (!chat.sample) { bubble.innerHTML = md(extra && extra.chart ? localChart(extra.chart) : local(q)) + meta("ตอบจากกฎพื้นฐานบนข้อมูลหน้านี้ (ไม่ได้ใช้ AI)"); busy(false); return; }
   chat.turns.push({ role: "user", content: q });
-  const input = [{ role: "user", content: RULES + "\n\nDATA (JSON):\n" + JSON.stringify(context()) }, { role: "assistant", content: "รับทราบ พร้อมตอบจาก DATA" }].concat(chat.turns.slice(-8));
+  const input = [{ role: "user", content: RULES + "\n\nDATA (JSON):\n" + JSON.stringify(Object.assign(context(), extra && extra.chart ? { chart: extra.chart } : {})) }, { role: "assistant", content: "รับทราบ พร้อมตอบจาก DATA" }].concat(chat.turns.slice(-8));
   chat.ctl = new AbortController();
   try {
     const res = await chat.sample(input, { cache: false, signal: chat.ctl.signal, onText: ({ text: t }) => { bubble.innerHTML = md(t); $("#chat-log").scrollTop = 1e9; } });
@@ -3055,8 +3325,8 @@ const close = () => { $("#chat").classList.remove("open"); $("#chat").setAttribu
 
 CQA.AI = {
   init() {
-    $("#chat-suggest").innerHTML = SUGGEST.map(s => `<button type="button" class="sugg">${esc(s)}</button>`).join("");
-    $$(".sugg").forEach(b => b.addEventListener("click", () => send(b.textContent)));
+    CQA.AI.setPage("overview");
+    $("#chat-suggest").addEventListener("click", e => { const b = e.target.closest(".sugg"); if (b) send(b.textContent); });
     add("ai", md("ถามได้ทั้งตัวเลขและคำแนะนำ เช่น สรุปเรื่องเร่งด่วน, Complaint/NC, Supplier, CCP, Lab หรือความพร้อมของข้อมูล · คำตอบอ้างอิงตัวกรองที่เลือกอยู่"), true);
     $("#open-chat").addEventListener("click", () => ($("#chat").classList.contains("open") ? close() : open()));
     $("#close-chat").addEventListener("click", close);
@@ -3068,10 +3338,22 @@ CQA.AI = {
     if (cl && typeof cl.use === "function") {
       chat.ready = cl.use("sample").then(s => { chat.sample = s || null; chat.mode = s ? "ai" : "local"; setMode(); }).catch(() => { chat.sample = null; chat.mode = "local"; setMode(); });
       cl.use("downloads").then(d => { CQA.App.downloads = d || null; }).catch(() => { CQA.App.downloads = null; });
+      cl.use("comments").then(c => { CQA.App.comments = c || null; document.documentElement.classList.toggle("can-comment", !!c); }).catch(() => { CQA.App.comments = null; });
     } else chat.mode = "local";
     setMode();
   },
   ask(q) { open(); send(q); },
+  setPage(page) {
+    const list = SUGGEST_BY_PAGE[page] || SUGGEST;
+    const el = $("#chat-suggest"); if (el) el.innerHTML = list.map(s => `<button type="button" class="sugg"${chat.busy ? " disabled" : ""}>${esc(s)}</button>`).join("");
+  },
+  explainChart(id) {
+    const cv = document.getElementById(id), ch = cv && globalThis.Chart && Chart.getChart(cv); if (!ch) return;
+    const panel = cv.closest(".panel"), title = panel ? (panel.querySelector("h3") || {}).textContent.trim() : id, hint = panel ? ((panel.querySelector(".hint") || {}).textContent || "").replace(/·\s*คลิก.*เพื่อกรอง/, "").trim() : "";
+    const labels = ch.data.labels.map(String), time = labels.some(l => /\d{2}$/.test(l) && /[ก-ฮ]\.[ก-ฮ]\.?/.test(l));
+    const chart = { title, hint, page: (CQA.PAGES[CQA.App.state.page] || {}).title, labels, time, series: ch.data.datasets.map(d => ({ label: d.label || "", data: d.data.map(v => v == null ? null : +(+v).toFixed(4)) })) };
+    open(); send(`อธิบายกราฟ “${title}” และบอกสิ่งที่ควรทำ`, { chart });
+  },
 };
 })(globalThis.CQA = globalThis.CQA || {});
 
@@ -3092,6 +3374,28 @@ const App = CQA.App = {
     cf: { nature: "all", channel: "all" }, pg: "all", auditTab: "factory", supTab: "supplier", ccpPoint: "Metal Detector", catTopic: "all", catConf: "all", focus: false },
 };
 try { const s = JSON.parse(localStorage.getItem(ST_KEY) || "{}"); ["page", "period", "bu", "org", "wave", "role", "realOnly", "focus"].forEach(k => { if (s[k] !== undefined) App.state[k] = s[k]; }); } catch (e) { /* storage unavailable */ }
+/* ---------- มุมมองผู้ใช้ (persona) → หน้าแรกของฉัน ---------- */
+const PERSONA_KEY = "cqa.persona.v1", SEEN_KEY = "cqa.seen.v1";
+const PERSONAS = { exec: ["ผู้บริหาร CQA", "เริ่มที่ภาพรวม: KPI หลัก + Hot Issue"], owner: ["Domain owner / BU", "เริ่มที่หัวข้อและ BU ที่ดูแล"], data: ["ทีมข้อมูล / Axons", "เริ่มที่ Data Hub: ความพร้อมข้อมูลและ Wave"] };
+const storageOK = (() => { try { localStorage.setItem("cqa.t", "1"); localStorage.removeItem("cqa.t"); return true; } catch (e) { return false; } })();
+App.persona = (() => { try { return JSON.parse(localStorage.getItem(PERSONA_KEY)); } catch (e) { return null; } })();
+App.homeLabel = () => { const p = App.persona; if (!p) return "ภาพรวมผู้บริหาร"; if (p.type === "owner") return `${p.bu === "all" ? "ทุก BU" : p.bu} · ${(CQA.PAGES[p.page] || {}).title || ""}`; return PERSONAS[p.type][0]; };
+App.goHome = () => {
+  const p = App.persona;
+  if (p && p.type === "owner") { App.state.bu = p.bu || "all"; App.state.org = "all"; syncFilters(); App.navTo(p.page || "overview"); }
+  else App.navTo(p && p.type === "data" ? "hub" : "overview");
+};
+App.personaDialog = () => {
+  const p = App.persona || { type: "exec", bu: "all", page: "complaint" };
+  const pages = Object.entries(CQA.PAGES).filter(([k]) => !["overview", "catalog", "hub"].includes(k));
+  UI.openModal("เลือกมุมมองของคุณ", `<p class="hint" style="margin:0 0 12px">dashboard จะเปิดที่หน้าแรกตามมุมมองนี้ทุกครั้ง เปลี่ยนได้ภายหลังจากเมนูด้านซ้าย</p>
+    <form class="persona-form" data-personaform>
+      ${Object.entries(PERSONAS).map(([k, [t, d]]) => `<label class="persona-opt"><input type="radio" name="persona" value="${k}"${p.type === k ? " checked" : ""}><span><b>${t}</b><span class="muted small">${d}</span></span></label>`).join("")}
+      <div class="persona-owner"><label>BU ที่ดูแล <select id="pf-bu"><option value="all">ทุก BU</option>${M.BUS.map(b => `<option${p.bu === b ? " selected" : ""}>${esc(b)}</option>`).join("")}</select></label>
+        <label>หัวข้อหลัก <select id="pf-page">${pages.map(([k, v]) => `<option value="${k}"${p.page === k ? " selected" : ""}>${esc(v.title)}</option>`).join("")}</select></label></div>
+      <div class="ki-actions"><button type="submit" class="btn sm primary">เริ่มใช้งาน</button><button type="button" class="btn sm" data-modal-close>ข้ามไปก่อน</button></div>
+    </form>`);
+};
 const persist = () => { try { const s = App.state; localStorage.setItem(ST_KEY, JSON.stringify({ page: s.page, period: s.period, bu: s.bu, org: s.org, wave: s.wave, role: s.role, realOnly: s.realOnly, focus: s.focus })); } catch (e) { /* storage unavailable */ } };
 
 App.ctx = () => {
@@ -3118,9 +3422,9 @@ const NAV = [
 ];
 const buildRail = () => {
   let crit = new Set();
-  try { CQA.brief().items.filter(i => i.sev === "crit").forEach(i => crit.add(i.go.split(":")[0])); } catch (e) { crit = new Set(); }
-  $("#rail").innerHTML = NAV.map(([g, items]) => `<div class="rail-group">${esc(g)}</div>` + items.map(([p, label, no]) => `<button type="button" data-page="${p}"${p === App.state.page ? ' aria-current="page"' : ""}>${no === "ico" ? `<span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[p]}</svg></span>` : `<span class="no">${no}</span>`}<span>${esc(label)}</span>${crit.has(p) ? '<span class="rdot" data-tip="มีเรื่องระดับวิกฤต" aria-label="มีเรื่องระดับวิกฤต"></span>' : ""}</button>`).join("")).join("")
-    + `<p class="rail-note">ต้นแบบสำหรับทีม CQA · 16 หัวข้อ · 33 content · 47 KPI · ข้อมูลทุกชุดเป็น Mock จนกว่าจะนำเข้าข้อมูลจริง</p>`;
+  try { CQA.openItems().filter(i => i.sev === "crit").forEach(i => crit.add(i.go.split(":")[0])); } catch (e) { crit = new Set(); }
+  $("#rail").innerHTML = `<button type="button" class="rail-home" data-home><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></span><span>หน้าแรกของฉัน<span class="cell-sub">${esc(App.homeLabel())}</span></span></button>` + NAV.map(([g, items]) => `<div class="rail-group">${esc(g)}</div>` + items.map(([p, label, no]) => `<button type="button" data-page="${p}"${p === App.state.page ? ' aria-current="page"' : ""}>${no === "ico" ? `<span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[p]}</svg></span>` : `<span class="no">${no}</span>`}<span>${esc(label)}</span>${crit.has(p) ? '<span class="rdot" data-tip="มีเรื่องระดับวิกฤต" aria-label="มีเรื่องระดับวิกฤต"></span>' : ""}</button>`).join("")).join("")
+    + `<p class="rail-note"><button type="button" class="link-btn" data-persona-change>เปลี่ยนมุมมอง</button></p><p class="rail-note">ต้นแบบสำหรับทีม CQA · 16 หัวข้อ · 33 content · 47 KPI · ข้อมูลทุกชุดเป็น Mock จนกว่าจะนำเข้าข้อมูลจริง</p>`;
 };
 
 /* ---------- render ---------- */
@@ -3134,6 +3438,8 @@ App.render = (resetScroll, focusSel) => {
   buildRail();
   buildChips();
   buildPill();
+  if (CQA.AI && CQA.AI.setPage) CQA.AI.setPage(App.state.page);
+  document.body.classList.remove("rail-open");
   document.title = (page.title || "ภาพรวม") + " · CQA Executive Dashboard";
   window.scrollTo(0, y);
   if (focusSel) { const f = $(focusSel); if (f) f.focus({ preventScroll: true }); }
@@ -3148,6 +3454,13 @@ App.navTo = (go) => {
   $("#main").focus({ preventScroll: true });
 };
 
+/* ---------- drill-down จากกราฟ ---------- */
+App.drill = (type, key) => {
+  const s = App.state;
+  if (type === "bu") { if (!M.BUS.includes(key)) return; s.bu = key; s.org = "all"; UI.toast(`กรอง BU: ${key} — กด × ที่แถบตัวกรองเพื่อล้าง`); }
+  else if (type === "month") { if (!M.MONTHS.includes(key)) return; s.period = key; UI.toast(`ดูเฉพาะ ${U.monLabel(key)} — กด × ที่แถบตัวกรองเพื่อกลับเป็น YTD`); }
+  syncFilters(); persist(); App.render();
+};
 /* ---------- filters ---------- */
 const fillOrg = () => {
   const s = App.state, orgs = KPI.rows({ ds: "dim_org", agg: "count", field: "org_code", where: { active_flag: "Y" }, period: "stock" }, KPI.ctx({ bu: s.bu })).sort((a, b) => a.org_code.localeCompare(b.org_code));
@@ -3161,7 +3474,8 @@ const buildPill = () => {
   b.hidden = false;
   b.innerHTML = `<span class="dot ${lv.cls}" aria-hidden="true"></span><span>ภาพรวม: <b>${lv.label}</b></span><span class="sub">วิกฤต ${lv.crit} · สูง ${lv.high}</span>`;
   b.setAttribute("aria-label", `สถานะภาพรวม ${lv.label} วิกฤต ${lv.crit} สูง ${lv.high} — ไปหน้า Hot Issue`);
-  b.setAttribute("data-tip", "คำนวณจาก Hot Issue ในขอบเขตที่เลือก (เกณฑ์ความรุนแรง Proposed) ไม่ใช่สถานะ KPI ตาม Target · คลิกเพื่อดูรายการ");
+  b.setAttribute("data-tip", "คำนวณจาก Hot Issue ที่ยังไม่ปิดในขอบเขตที่เลือก (เกณฑ์ความรุนแรง Proposed) ไม่ใช่สถานะ KPI ตาม Target · คลิกเพื่อดูรายการ");
+  const bb = $("#bnav-hot"); if (bb) { bb.textContent = lv.crit + lv.high || ""; bb.hidden = !(lv.crit + lv.high); }
 };
 /* ---------- ตัวกรองที่ใช้อยู่ (กดเพื่อล้าง) ---------- */
 const buildChips = () => {
@@ -3222,6 +3536,16 @@ Object.assign(CQA.ACTS, {
     const fallback = () => { UI.openModal("คัดลอกสรุป", `<p class="hint" style="margin:0 0 8px">กด Ctrl+C (หรือค้างเพื่อคัดลอกบนมือถือ) แล้ววางใน LINE หรืออีเมล</p><textarea class="copy-area" id="copy-area" readonly>${esc(text)}</textarea>`); const ta = $("#copy-area"); ta.focus(); ta.select(); };
     try { navigator.clipboard.writeText(text).then(() => UI.toast("คัดลอกสรุปแล้ว — วางใน LINE หรืออีเมลได้เลย"), fallback); } catch (e) { fallback(); }
   },
+  "hot-ack": id => { CQA.hotSave(id, { status: "ack" }); UI.toast(CQA.Shared.mode === "shared" ? "รับทราบแล้ว — ทั้งทีมเห็นสถานะนี้" : "รับทราบแล้ว"); App.render(); },
+  "hot-edit": id => CQA.hotEdit(id),
+  org: code => UI.orgProfile(code),
+  "ai-chart": id => CQA.AI.explainChart(id),
+  comment: async (arg, el) => {
+    const c = App.comments; if (!c) { UI.toast("ใช้ความเห็นได้เมื่อเปิดผ่านลิงก์ claude.ai"); return; }
+    const target = (el && el.closest(".panel, .kcard, .brief")) || $("#main .page-head") || $("#main");
+    try { const r = await c.openComposer({ element: target }); if (r && !r.opened) UI.toast("เปิดช่องความเห็นไม่ได้ตอนนี้ — คลิกที่หน้าแล้วลองอีกครั้ง"); }
+    catch (e) { if (e && e.code === "unavailable") { document.documentElement.classList.remove("can-comment"); UI.toast("บัญชีนี้แสดงความเห็นในหน้านี้ไม่ได้"); } else if (e && e.code === "rate_limited") UI.toast("เปิดถี่เกินไป ลองอีกครั้งภายหลัง"); }
+  },
   tpl: ds => UI.download(`template_${ds}.csv`, U.toCSV(CQA.Adapter.templateRows(ds))),
   imp: ds => { pendingImport = ds; $("#file-input").value = ""; $("#file-input").click(); },
   reset: async ds => { await CQA.Adapter.resetDataset(ds); App.lastImport = null; UI.toast(`${ds} กลับเป็น Mock แล้ว`); App.render(); },
@@ -3236,18 +3560,57 @@ async function init() {
   initFilters();
   CQA.AI.init();
 
-  $("#rail").addEventListener("click", e => { const b = e.target.closest("[data-page]"); if (b) App.navTo(b.dataset.page); });
+  $("#rail").addEventListener("click", e => {
+    if (e.target.closest("[data-home]")) { App.goHome(); return; }
+    if (e.target.closest("[data-persona-change]")) { App.personaDialog(); return; }
+    const b = e.target.closest("[data-page]"); if (b) App.navTo(b.dataset.page);
+  });
+  $("#bnav").addEventListener("click", e => {
+    const b = e.target.closest("[data-bnav]"); if (!b) return;
+    const v = b.dataset.bnav;
+    if (v === "home") App.goHome();
+    else if (v === "hotissue") App.navTo("hotissue");
+    else if (v === "filters") { $("#fbar").classList.toggle("open"); document.body.classList.remove("rail-open"); }
+    else if (v === "menu") { document.body.classList.toggle("rail-open"); $("#fbar").classList.remove("open"); }
+    else if (v === "ai") $("#open-chat").click();
+  });
+  /* แตะนอกแผ่นเมนู (มือถือ) เพื่อปิด */
+  document.addEventListener("click", e => { if (document.body.classList.contains("rail-open") && !e.target.closest("#rail, #bnav")) document.body.classList.remove("rail-open"); });
+  const bc = $("#btn-comment"); if (bc) bc.addEventListener("click", e => CQA.ACTS.comment(null, null));
   $("#fbar").addEventListener("click", e => { const c = e.target.closest("[data-clear]"); if (c) clearFilter(c.dataset.clear); });
   $("#net-status").addEventListener("click", () => App.navTo("hotissue"));
   /* การ์ด KPI เป็น role=button: เปิดด้วย Enter / Space */
   $("#main").addEventListener("keydown", e => {
     if ((e.key === "Enter" || e.key === " ") && e.target.matches('[role="button"][data-go]')) { e.preventDefault(); if (e.target.dataset.go) App.navTo(e.target.dataset.go); }
+    if (e.key === "Enter" && e.target.matches("tr.row-act")) { const [n, a] = e.target.dataset.act.split(/:(.+)/); if (CQA.ACTS[n]) CQA.ACTS[n](a, e.target); }
   });
   /* modal: ปิดด้วย ×, คลิกพื้นหลัง, Esc · ปุ่มนำทางในข้อมูล KPI */
   $("#modal-x").addEventListener("click", UI.closeModal);
   $("#modal").addEventListener("click", e => {
     if (e.target.id === "modal") { UI.closeModal(); return; }
-    const mg = e.target.closest("[data-modal-go]"); if (mg) { const go = mg.dataset.modalGo; UI.closeModal(); App.navTo(go); }
+    const mg = e.target.closest("[data-modal-go]"); if (mg) { const go = mg.dataset.modalGo; UI.closeModal(); App.navTo(go); return; }
+    if (e.target.closest("[data-modal-close]")) { UI.closeModal(); return; }
+    const tc = e.target.closest("[data-thclear]"); if (tc) { CQA.TH.set(tc.dataset.thclear, null); UI.toast("ลบ Target แล้ว"); App.render(); UI.kinfo(tc.dataset.thclear); return; }
+    const ma = e.target.closest("[data-modal-act]");
+    if (ma) { const [n, a] = ma.dataset.modalAct.split(/:(.+)/); if (n === "filter-org") { const o = KPI.org(a); App.state.bu = o ? o.bu : "all"; fillOrg(); App.state.org = a; syncFilters(); persist(); UI.closeModal(); App.render(); UI.toast(`กรองทั้ง dashboard ด้วย ${a}`); } }
+  });
+  $("#modal").addEventListener("submit", e => {
+    e.preventDefault();
+    const f = e.target;
+    if (f.matches("[data-thform]")) {
+      const id = f.dataset.thform, t = $("#ki-target").value, tol = $("#ki-tol").value;
+      if (t === "") { UI.toast("ใส่ค่า Target ก่อนบันทึก"); return; }
+      CQA.TH.set(id, +t, tol === "" ? null : +tol, "owner"); UI.toast(CQA.Shared.mode === "shared" ? "บันทึก Target ให้ทั้งทีมแล้ว" : "บันทึก Target แล้ว"); App.render(); UI.kinfo(id);
+    } else if (f.matches("[data-hotform]")) {
+      const err = CQA.hotSave(f.dataset.hotform, { status: $("#hf-status").value, owner: $("#hf-owner").value.trim(), due: $("#hf-due").value, note: $("#hf-note").value.trim() });
+      if (err) { const el = $("#hf-err"); el.textContent = err; el.hidden = false; return; }
+      UI.closeModal(); UI.toast(CQA.Shared.mode === "shared" ? "บันทึกแล้ว — ทั้งทีมเห็นสถานะนี้" : "บันทึกแล้ว"); App.render();
+    } else if (f.matches("[data-personaform]")) {
+      const type = (f.querySelector("input[name=persona]:checked") || {}).value || "exec";
+      App.persona = { type, bu: $("#pf-bu").value, page: $("#pf-page").value };
+      try { localStorage.setItem(PERSONA_KEY, JSON.stringify(App.persona)); } catch (e2) { /* storage unavailable */ }
+      UI.closeModal(); App.goHome(); UI.toast("ตั้งหน้าแรกของฉันแล้ว: " + App.homeLabel());
+    }
   });
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#modal").hidden) UI.closeModal(); });
   const main = $("#main");
@@ -3257,7 +3620,7 @@ async function init() {
     const st = e.target.closest("[data-set]");
     if (st) { const [key, val] = st.dataset.set.split(/:(.+)/); const p = key.split("."); if (p.length === 2) App.state[p[0]][p[1]] = val; else App.state[key] = val; App.render(false, `[data-set="${CSS.escape(st.dataset.set)}"]`); return; }
     const a = e.target.closest("[data-act]");
-    if (a) { const [name, arg] = a.dataset.act.split(/:(.+)/); if (CQA.ACTS[name]) CQA.ACTS[name](arg); }
+    if (a) { const [name, arg] = a.dataset.act.split(/:(.+)/); if (CQA.ACTS[name]) CQA.ACTS[name](arg, a); }
   });
   main.addEventListener("change", e => {
     const t = e.target;
@@ -3287,8 +3650,8 @@ async function init() {
     catch (err) { UI.toast("ไฟล์ thresholds.json ไม่ถูกต้อง"); }
     e.target.value = "";
   });
-  $("#btn-print").addEventListener("click", () => window.print());
-  $("#btn-theme").addEventListener("click", () => {
+  const bp = $("#btn-print"); if (bp) bp.addEventListener("click", () => window.print());
+  const bt = $("#btn-theme"); if (bt) bt.addEventListener("click", () => {
     const r = document.documentElement, dark = r.getAttribute("data-theme") ? r.getAttribute("data-theme") === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
     r.setAttribute("data-theme", dark ? "light" : "dark"); try { localStorage.setItem(THEME_KEY, dark ? "light" : "dark"); } catch (e2) { /* storage unavailable */ }
     App.render();
@@ -3297,8 +3660,16 @@ async function init() {
   const setH = () => { document.documentElement.style.setProperty("--topbar-h", $("#topbar").offsetHeight + "px"); document.documentElement.style.setProperty("--fbar-h", $("#fbar").offsetHeight + "px"); };
   setH(); window.addEventListener("resize", setH);
 
-  App.render(true);
+  /* เรื่องใหม่ตั้งแต่ครั้งก่อนที่เปิด (เก็บต่อผู้ใช้ในเบราว์เซอร์) */
+  try {
+    const prev = JSON.parse(localStorage.getItem(SEEN_KEY) || "null"), ids = CQA.brief().items.map(i => i.id);
+    App.newIds = new Set(prev ? ids.filter(id => !prev.includes(id)) : []);
+    localStorage.setItem(SEEN_KEY, JSON.stringify([...new Set((prev || []).concat(ids))].slice(-500)));
+  } catch (e) { App.newIds = new Set(); }
+  if (App.persona) App.goHome(); else App.render(true);
   $("#boot").hidden = true;
+  /* ถามมุมมองครั้งแรกครั้งเดียว (ข้ามได้ เปลี่ยนภายหลังที่เมนู "เปลี่ยนมุมมอง") */
+  if (!App.persona && storageOK && !localStorage.getItem("cqa.persona.asked")) { try { localStorage.setItem("cqa.persona.asked", "1"); } catch (e) { /* storage unavailable */ } App.personaDialog(); }
 
   /* shared state (Target · Action items · Wave) — เปิดใน Claude จะซิงก์ทั้งทีม */
   let pending = false, raf = 0;

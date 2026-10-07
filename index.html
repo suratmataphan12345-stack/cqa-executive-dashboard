@@ -402,6 +402,41 @@ tr.row-act:hover td{background:var(--info-soft)}
 .bnav{display:none}
 .bbadge{position:absolute;top:2px;right:calc(50% - 22px);min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--bad);color:#fff;font-size:10.5px;font-weight:700;line-height:16px;text-align:center}
 
+/* ---------- Phase 3: แผนที่ · ความสด · Alert · Roadmap ---------- */
+.map-wrap{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.tilemap{flex:none;max-width:100%;overflow-x:auto}
+.tilemap svg{display:block;max-width:100%;height:auto}
+.tilemap text{font-size:11.5px;font-weight:600;font-family:var(--font);pointer-events:none}
+.tilemap .tile.has{cursor:pointer}
+.tilemap .tile.has:hover rect,.tilemap .tile.has:focus rect{stroke:var(--navy);stroke-width:2}
+.tilemap .tile:focus{outline:none}
+.tm-legend{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-2);margin-top:8px}
+.tm-legend i{display:inline-block;width:90px;height:8px;border-radius:4px}
+.map-side{flex:1 1 260px;min-width:0}
+.map-side h4{margin:0 0 6px;font-size:13.5px}
+.tb-btn.bell{position:relative}
+.bell-n{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--bad);color:#fff;font-size:10.5px;font-weight:700;line-height:17px;text-align:center}
+.cfg-in{width:100%;min-width:140px;border:1px solid var(--line-strong);border-radius:6px;padding:3px 6px;background:var(--surface);color:var(--ink)}
+.alert-msg{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:10px}
+.am-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.am-head .btn{margin-left:auto}
+.alert-msg pre,pre.sql{margin:0;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,Consolas,monospace;font-size:12px;line-height:1.5;background:var(--surface-2);border-radius:8px;padding:8px 10px;max-height:300px;overflow:auto;color:var(--ink)}
+pre.sql{margin:6px 0}
+.bluf{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 17px;margin-bottom:14px;box-shadow:var(--shadow)}
+.bluf h2{margin:0 0 4px;font-size:15.5px}
+.bluf p{margin:0;color:var(--ink-2);max-width:120ch}
+.phases{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.phase{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface-2);display:flex;flex-direction:column;gap:4px;min-width:0}
+.phase h4{margin:0;font-size:13.5px}
+.phase ul{margin:2px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)}
+.phase li{margin:2px 0}
+.ph-when{font-size:12px;font-weight:700;color:var(--accent-ink)}
+.ph-owner{margin-top:auto;font-size:11.5px;color:var(--ink-3)}
+.fresh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px 12px}
+.fg-item{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;padding:3px 0;border-bottom:1px solid var(--line)}
+@media (max-width:1180px){ .phases{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:860px){ .phases{grid-template-columns:minmax(0,1fr)} }
+
 /* ---------- responsive ---------- */
 @media (max-width:1180px){
   .g-21,.g-12,.g-3{grid-template-columns:minmax(0,1fr)}
@@ -488,6 +523,7 @@ tr.row-act:hover td{background:var(--info-soft)}
   </div>
   <div class="tb-actions">
     <button type="button" class="net-pill" id="net-status" hidden></button>
+    <button class="tb-btn bell" id="btn-alerts" type="button" aria-label="Alert Center" data-tip="Alert Center: แจ้งเตือนระดับสูง"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg><span class="bell-n" id="bell-n" hidden></span></button>
     <button class="tb-btn cm-btn" id="btn-comment" type="button" data-tip="ให้ความเห็นต่อหน้านี้ (เก็บ requirement สำหรับ BRD)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg><span>ความเห็น</span></button>
     <span class="proto-badge" id="proto-badge" data-tip="ต้นแบบ: ข้อมูลทุกชุดเป็น Mock ตาม schema และ seed ยอดรวมจาก PDF — นำเข้า CSV จริงได้ที่หน้า Data Hub">Prototype · Mock Data</span>
     <button class="tb-btn" id="btn-print" type="button" data-tip="พิมพ์ / บันทึกเป็น PDF สำหรับประชุม">
@@ -514,6 +550,7 @@ tr.row-act:hover td{background:var(--info-soft)}
   <label class="toggle" data-tip="ซ่อนการ์ด/KPI ที่ยังใช้ Mock Data (แสดงเฉพาะ dataset ที่นำเข้าข้อมูลจริงแล้ว)"><input type="checkbox" id="f-realonly"> เฉพาะข้อมูลจริง</label>
   <label class="f"><span class="fl">บทบาท</span> <select id="f-role" aria-label="บทบาท">
     <option value="exec">ผู้บริหาร CQA (เห็น Restricted)</option>
+    <option value="domain">Domain owner (Restricted เฉพาะ BU)</option>
     <option value="internal">ผู้ใช้ทั่วไป (Internal)</option>
   </select></label>
   <span class="spacer"></span>
@@ -697,7 +734,7 @@ CQA.U = U;
 const copy = v => v == null ? v : JSON.parse(JSON.stringify(v));
 const Shared = CQA.Shared = {
   db: null, mode: "local", readOnly: false, mem: {}, fns: [], q: {},
-  PATH: { thresholds: "shared/thresholds", actions: "shared/actions", waveq: "shared/waveq" },
+  PATH: { thresholds: "shared/thresholds", actions: "shared/actions", waveq: "shared/waveq", alerts: "shared/alerts", parity: "shared/parity" },
   key: n => "cqa." + n + ".v1",
   get(name, d) {
     if (!(name in this.mem)) { try { const s = globalThis.localStorage && localStorage.getItem(this.key(name)); this.mem[name] = s ? JSON.parse(s) : null; } catch (e) { this.mem[name] = null; } }
@@ -937,6 +974,105 @@ M.REF = {
   fsqcPct: 82.70, fsqcFactories: 59, fsqcPeople: 1532, costTarget: 346.82, costActual: 249.19,
   reports: 964, paper: 657, digitize: 306, automate: 1,
 };
+
+/* =====================================================================
+   Phase 3 — เส้นทางสู่ Production
+   ===================================================================== */
+
+/* รอบข้อมูลและ SLA ความสด (วัน) ต่อ dataset — เทียบกับวันปิดงวดรายงาน
+   series = มีข้อมูลต่อเนื่องตามวันที่ · snapshot = ภาพ ณ วันที่โหลด · event = เกิดตามเหตุการณ์ (วัดจากเวลาโหลด) */
+M.CADENCE = {
+  dim_org: ["snapshot", null, 40, "รายเดือน"], dim_date: ["system", null, null, "สร้างในระบบ"], dim_store: ["snapshot", null, 40, "รายเดือน"], dim_vehicle: ["snapshot", null, 40, "รายเดือน"],
+  fact_certificate: ["event", null, 40, "ตามเหตุการณ์"], fact_incident: ["event", null, 2, "ตามเหตุการณ์"], fact_complaint: ["series", "received_date", 7, "รายสัปดาห์"],
+  fact_production_volume: ["series", "period_month", 40, "รายเดือน (D+10)"], fact_ncr: ["series", "issue_date", 3, "รายวัน"], fact_ra_case: ["event", null, 40, "ตามเหตุการณ์"],
+  fact_regulation_update: ["event", null, 40, "ตามเหตุการณ์"], fact_ra_work: ["series", "work_date", 40, "รายเดือน"], dim_supplier: ["snapshot", null, 40, "รายเดือน"],
+  fact_scar: ["series", "issue_date", 7, "รายสัปดาห์"], fact_po: ["series", "po_date", 3, "รายวัน"], fact_rm_risk: ["snapshot", null, 40, "รายเดือน"],
+  fact_audit: ["series", "audit_date", 31, "รายเดือน"], fact_retail_audit: ["series", "audit_date", 7, "รายสัปดาห์"], fact_lg_audit: ["series", "audit_date", 7, "รายสัปดาห์"],
+  fact_ccp_check: ["series", "check_datetime", 1, "รายวัน"], fact_lab_expense: ["series", "period_month", 40, "รายเดือน (D+10)"], fact_lab_sample: ["series", "received_date", 3, "รายวัน"],
+  fact_pathogen_result: ["series", "test_date", 3, "รายวัน"], fact_report_inventory: ["snapshot", null, 100, "รายไตรมาส"], fact_fsqc: ["series", "survey_year", 400, "รายปี"],
+  fact_cost_project: ["series", "period_month", 40, "รายเดือน (D+10)"],
+};
+
+/* 77 จังหวัด: ชื่อ (ตรงกับข้อมูล) · ตัวย่อ · ละติจูด · ลองจิจูด — ใช้วาง Tile map */
+M.PROVINCES = [
+  ["แม่ฮ่องสอน", "มส", 19.3, 97.97], ["เชียงใหม่", "ชม", 18.79, 98.98], ["เชียงราย", "ชร", 19.91, 99.84], ["พะเยา", "พย", 19.17, 99.9], ["ลำพูน", "ลพ", 18.58, 99.01], ["ลำปาง", "ลป", 18.29, 99.49],
+  ["น่าน", "นน", 18.78, 100.78], ["แพร่", "พร", 18.14, 100.14], ["อุตรดิตถ์", "อต", 17.62, 100.1], ["ตาก", "ตก", 16.88, 99.13], ["สุโขทัย", "สท", 17.01, 99.82], ["พิษณุโลก", "พล", 16.82, 100.26],
+  ["พิจิตร", "พจ", 16.44, 100.35], ["เพชรบูรณ์", "พช", 16.42, 101.16], ["กำแพงเพชร", "กพ", 16.48, 99.52], ["นครสวรรค์", "นว", 15.7, 100.14], ["อุทัยธานี", "อน", 15.38, 100.02],
+  ["เลย", "ลย", 17.49, 101.72], ["หนองคาย", "นค", 17.88, 102.74], ["บึงกาฬ", "บก", 18.36, 103.65], ["อุดรธานี", "อด", 17.41, 102.79], ["สกลนคร", "สน", 17.16, 104.15], ["นครพนม", "นพ", 17.41, 104.78],
+  ["หนองบัวลำภู", "นภ", 17.2, 102.44], ["ขอนแก่น", "ขก", 16.44, 102.83], ["กาฬสินธุ์", "กส", 16.43, 103.51], ["มุกดาหาร", "มห", 16.54, 104.72], ["ชัยภูมิ", "ชย", 15.81, 102.03],
+  ["มหาสารคาม", "มค", 16.18, 103.3], ["ร้อยเอ็ด", "รอ", 16.05, 103.65], ["ยโสธร", "ยส", 15.79, 104.15], ["อำนาจเจริญ", "อจ", 15.86, 104.63], ["นครราชสีมา", "นม", 14.97, 102.1],
+  ["บุรีรัมย์", "บร", 14.99, 103.1], ["สุรินทร์", "สร", 14.88, 103.49], ["ศรีสะเกษ", "ศก", 15.12, 104.32], ["อุบลราชธานี", "อบ", 15.24, 104.85],
+  ["ชัยนาท", "ชน", 15.19, 100.13], ["สิงห์บุรี", "สห", 14.89, 100.4], ["ลพบุรี", "ลบ", 14.8, 100.65], ["อ่างทอง", "อท", 14.59, 100.45], ["สุพรรณบุรี", "สพ", 14.47, 100.12], ["สระบุรี", "สบ", 14.53, 100.91],
+  ["อยุธยา", "อย", 14.35, 100.57], ["นครนายก", "นย", 14.21, 101.21], ["ปทุมธานี", "ปท", 14.02, 100.53], ["นนทบุรี", "นบ", 13.86, 100.51], ["กรุงเทพฯ", "กท", 13.75, 100.5], ["นครปฐม", "นฐ", 13.82, 100.06],
+  ["สมุทรปราการ", "สป", 13.6, 100.6], ["สมุทรสาคร", "สค", 13.55, 100.27], ["สมุทรสงคราม", "สส", 13.41, 100.0], ["ปราจีนบุรี", "ปจ", 14.05, 101.37], ["สระแก้ว", "สก", 13.82, 102.06],
+  ["ฉะเชิงเทรา", "ฉช", 13.69, 101.07], ["ชลบุรี", "ชบ", 13.36, 100.98], ["ระยอง", "รย", 12.68, 101.28], ["จันทบุรี", "จบ", 12.61, 102.1], ["ตราด", "ตร", 12.24, 102.52],
+  ["กาญจนบุรี", "กจ", 14.0, 99.55], ["ราชบุรี", "รบ", 13.54, 99.82], ["เพชรบุรี", "พบ", 13.11, 99.94], ["ประจวบคีรีขันธ์", "ปข", 11.81, 99.8],
+  ["ชุมพร", "ชพ", 10.49, 99.18], ["ระนอง", "รน", 9.96, 98.64], ["สุราษฎร์ธานี", "สฎ", 9.14, 99.33], ["พังงา", "พง", 8.45, 98.53], ["กระบี่", "กบ", 8.09, 98.91], ["ภูเก็ต", "ภก", 7.89, 98.4],
+  ["นครศรีธรรมราช", "นศ", 8.43, 99.96], ["ตรัง", "ตง", 7.56, 99.61], ["พัทลุง", "พท", 7.62, 100.08], ["สตูล", "สต", 6.62, 100.07], ["สงขลา", "สข", 7.19, 100.6],
+  ["ปัตตานี", "ปน", 6.87, 101.25], ["ยะลา", "ยล", 6.54, 101.28], ["นราธิวาส", "นธ", 6.43, 101.82],
+];
+
+/* การตัดสินใจ (ข้อเสนอของต้นแบบ — รอ sign-off) · why = เหตุผลจากข้อเท็จจริงใน spec */
+M.DECISIONS = [
+  { topic: "ช่องทางแสดงผล Production", decision: "Power BI เชื่อม BigQuery (KPI mart) เป็นช่องทางทางการ · ต้นแบบนี้ใช้เป็นภาพอ้างอิงใน BRD และใช้ทดสอบกับผู้ใช้ (UAT) จนกว่า Power BI จะครบตาม parity checklist แล้วจึงปิด", why: "$PBI จาก 33 content แสดงผลผ่าน Power BI อยู่แล้ว · Power BI ต่อ BigQuery ได้โดยตรง มี RLS และ mobile app ในตัว · ไม่ต้องดูแลสองระบบ" },
+  { topic: "ที่เก็บสูตร KPI", decision: "KPI mart ใน BigQuery สร้างจาก kpi_catalog ชุดเดียว (SQL ที่ต้นแบบนี้สร้างให้) · view ส่งตัวตั้งและตัวหารรายเดือน ให้ Power BI รวมเป็น YTD เอง", why: "แก้ปัญหาเลขไม่ตรงกัน เช่น Complaint 7,112 กับ 6,977 และ NC 14.47 กับ 14.52 ตามหลักการ Single KPI engine" },
+  { topic: "Hot Issue workflow", decision: "Microsoft Lists บน SharePoint กลาง + Power Automate · Power BI อ่านสถานะผ่าน connector และฝังฟอร์มด้วย Power Apps visual", why: "NCR ใช้ Microsoft List อยู่แล้ว · สอดคล้อง Action #6 (SharePoint กลาง) · มีประวัติการแก้ไขและสิทธิ์ตาม M365" },
+  { topic: "การแจ้งเตือน", decision: "Power Automate ส่ง Microsoft Teams (channel ต่อ Domain) และ Email ถึง Data owner ทุกวัน 07:00 หลัง refresh · เรื่องระดับวิกฤตส่งทันที", why: "LINE Notify ปิดบริการแล้วตั้งแต่ 31 มี.ค. 2025 · Teams/Email อยู่ใน M365 ขององค์กร ตรวจย้อนหลังได้" },
+  { topic: "สิทธิ์ข้อมูล Restricted", decision: "BigQuery Row Access Policy บน fact_incident (ชั้น Clean เติมคอลัมน์ bu) + Power BI RLS ชุดเดียวกัน 4 กลุ่ม: cqa_exec · domain_owner_<BU> · viewer · data_team", why: "คำขอข้อ (4) ของทีมบริหาร (p.51) · คุมที่ต้นทางจึงไม่รั่วผ่านช่องทางอื่น" },
+  { topic: "SLA ความสดของข้อมูล", decision: "รายวัน ≤ 1–3 วัน · รายสัปดาห์ ≤ 7 วัน · รายเดือน ≤ 10 วันหลังปิดเดือน (D+10) · แสดงป้ายความสดทุกหน้าและแจ้งเตือน Data owner เมื่อเกิน", why: "ผู้บริหารต้องรู้ว่าตัวเลขเป็นของวันไหนก่อนตัดสินใจ · รอบ SLA อิงรอบต้นทางในตาราง Data Source Mapping" },
+  { topic: "แผนที่", decision: "ต้นแบบใช้ Tile map รายจังหวัด · Production ใช้ Shape map ของ Power BI กับรหัสจังหวัดจาก Org_code กลาง", why: "Tile ขนาดเท่ากันทุกจังหวัด อ่านง่ายบนมือถือ ไม่ต้องใช้ไฟล์ขอบเขตจากภายนอก · ต้องรอ Org_code master (p.51 ข้อ 1)" },
+];
+
+/* แผนงาน (อิงกำหนด Action items 14–16 ต.ค. 2569 และเป้า One Source QA Data Hub ภายในปี 2027) */
+M.PHASES = [
+  { when: "ต.ค. 69", name: "Sign-off", items: ["KPI definition + Target ชุดแรก (Action #1, #3)", "Mapping 33 content + Data owner ครบ (Action #2)", "BRD final จากต้นแบบนี้ (Action #4)", "Feasibility + จัดลำดับ Wave (Action #5)", "มาตรฐาน SharePoint กลาง + Access control (Action #6)"], owner: "PENPAKA · PALIWAN · CHALITA · BOONKIAT" },
+  { when: "พ.ย.–ธ.ค. 69", name: "Foundation + Wave 1", items: ["GCP QA Hub: Raw → Clean → KPI mart", "Org_code master ใช้ร่วมทุก dataset", "เชื่อม $W1 content Wave 1 (Axons Lab/Move, QSC, SQM, ICCM, MS List, MES/CE pilot)", "Power BI Executive overview v1 + RLS + Alert v1"], owner: "Axons Data Platform · BOONKIAT" },
+  { when: "ม.ค.–มี.ค. 70", name: "Wave 2", items: ["Excel → Standard template บน SharePoint → scheduled load ($W2 content)", "Hot Issue workflow บน Microsoft Lists", "Parity checklist ครบ → ปิดต้นแบบ"], owner: "Data owner แต่ละ dataset · CHALITA" },
+  { when: "เม.ย.–มิ.ย. 70", name: "Wave 3", items: ["เปลี่ยน Mock เป็นข้อมูลจริง ($W3 content: Hot issue, External/Internal audit, Digital inventory)", "ขยาย CCP เกิน Korat Line 7 + ใส่ limit ตาม HACCP plan", "Roadmap Paper → Digital (Action #7)"], owner: "PENPAKA · K.Kanyarat · CQA แต่ละ Function" },
+  { when: "ก.ค.–ธ.ค. 70", name: "AI + One Source", items: ["Risk forecast / Decision guide / Chatbot บน KPI mart", "One Source QA Data Hub ครบตามเป้าปี 2027"], owner: "CQA + Axons" },
+];
+
+/* ฟีเจอร์ของต้นแบบ → วิธีทำใน Power BI (ใช้ติดตาม parity) */
+M.PARITY = [
+  ["KPI หลัก + การ์ด KPI", "Card visual + conditional formatting จากตาราง thresholds"],
+  ["สีสถานะตาม Target (ไม่มีเป้า = เทา)", "Measure Status แบบ target-gated อ่านจากตาราง thresholds"],
+  ["Hot Issue + เกณฑ์ความรุนแรง", "View hot_issue_rules ใน BigQuery → Table visual"],
+  ["Hot Issue workflow (รับทราบ/มอบหมาย/ปิด)", "Microsoft Lists + Power Apps visual + Power Automate"],
+  ["Drill-down คลิก BU/เดือน", "Cross-filter + Drillthrough"],
+  ["Profile หน่วยงาน", "Drillthrough page ระดับหน่วยงาน"],
+  ["ปุ่ม i: นิยาม/สูตร/ที่มา", "Report page tooltip + ลิงก์ KPI catalog"],
+  ["ป้าย ◆ ผิดปกติ ±2σ", "DAX: AVERAGEX/STDEVX.S ของเดือนก่อนหน้า"],
+  ["กฎ n < 30", "Measure flag + format สีจาง"],
+  ["ป้ายความสดของข้อมูล", "ตาราง dq_freshness จาก BigQuery (max date, load time)"],
+  ["คัดลอกสรุป / Daily brief", "Power Automate ส่งสรุป 07:00 ทาง Teams/Email"],
+  ["Alert ตามเกณฑ์", "Power Automate + กฎจาก alert_rules.json"],
+  ["หน้าแรกตามบทบาท", "Power BI App audiences"],
+  ["สิทธิ์ Restricted", "RLS roles + BigQuery Row Access Policy"],
+  ["แผนที่รายจังหวัด", "Shape map + รหัสจังหวัด"],
+  ["มือถือ", "Mobile layout ต่อหน้า"],
+  ["ความเห็นต่อ dashboard", "Power BI comments / Teams"],
+  ["ถาม AI", "Copilot ใน Power BI (ตรวจ license) หรือ Chatbot ใน AI phase"],
+];
+
+/* คำถามที่ต้องมีคนตัดสิน — ต่อยอดจาก Known issues */
+M.OPEN = [
+  ["อนุมัติเกณฑ์ความรุนแรง Hot Issue (Proposed)", "ผู้บริหาร CQA", "2026-10-14"],
+  ["Target และ Tolerance ของ KPI ทุกตัว", "Data owner ทุกคน", "2026-10-14"],
+  ["ผู้รับแจ้งเตือนและ channel Teams ต่อ Domain", "CQA Domain owner", "2026-10-31"],
+  ["SLA ความสดของข้อมูลต่อ dataset", "Data owner + Axons", "2026-10-31"],
+  ["License Power BI สำหรับผู้ชม (Pro / Premium capacity)", "BOONKIAT + IT", "2026-10-31"],
+  ["หน่วยและปีของ VOL สำหรับ Complaint/NC rate", "Data owner Complaint/NC", "2026-10-14"],
+  ["นับ Claim/Enquiry ใน Complaint หรือไม่", "Data owner Complaint", "2026-10-14"],
+  ["นิยาม Lab utilization และแหล่งข้อมูล DC", "ทีม Mockup (Action #4)", "2026-10-31"],
+];
+
+/* กลุ่มสิทธิ์ (RLS) */
+M.ACCESS = [
+  { role: "cqa_exec", label: "ผู้บริหาร CQA", internal: "ทุก BU", restricted: "ทุก BU", who: "ผู้บริหาร CQA" },
+  { role: "domain_owner_<BU>", label: "Domain owner", internal: "ทุก BU", restricted: "เฉพาะ BU ตัวเอง", who: "Domain owner / QA ของ BU" },
+  { role: "viewer", label: "ผู้ใช้ทั่วไป", internal: "ทุก BU", restricted: "ไม่เห็น", who: "ผู้ใช้อื่นในองค์กร" },
+  { role: "data_team", label: "ทีมข้อมูล / Axons", internal: "ทุก BU", restricted: "ไม่เห็นเนื้อหา", who: "Axons Data Platform" },
+];
 
 CQA.META = M;
 })(globalThis.CQA = globalThis.CQA || {});
@@ -1626,7 +1762,7 @@ E.ctx = (o) => {
   return Object.assign({ from: to.slice(0, 7) + "-01", to, asOf: to, ytdFrom: to.slice(0, 4) + "-01-01", year: +to.slice(0, 4), bu: "all", org: "all", restricted: true, where: {} }, o, { asOf: o.asOf || to });
 };
 E.monthCtx = (ctx, ym) => Object.assign({}, ctx, { from: ym + "-01", to: U.monthEnd(ym), asOf: U.monthEnd(ym), year: +ym.slice(0, 4) });
-const ctxKey = c => [c.from, c.to, c.asOf, c.ytdFrom, c.year, c.bu, c.org, c.restricted ? 1 : 0, JSON.stringify(c.where || {})].join("|");
+const ctxKey = c => [c.from, c.to, c.asOf, c.ytdFrom, c.year, c.bu, c.org, c.restricted ? 1 : 0, c.restrictedBU || "", JSON.stringify(c.where || {})].join("|");
 
 /* ---------------- filters ---------------- */
 const resolve = (v, ctx) => v === "$ASOF" ? ctx.asOf : v;
@@ -1682,7 +1818,11 @@ E.select = (spec, ctx) => {
     else if (p === "asof" || p === "latest_asof") { if (!leq(r[f], ctx.asOf)) continue; }
     else if (p === "open") { if (!leq(r[f], ctx.asOf)) continue; const c = r[spec.closed]; if (c && c <= ctx.asOf) continue; }
     else if (p === "year") { if (+r[f] !== ctx.year) continue; }
-    if (sens && !ctx.restricted && r[sens] === "Restricted") { hidden++; continue; }
+    if (sens && !ctx.restricted && r[sens] === "Restricted") {
+      /* Domain owner: เห็น Restricted เฉพาะ BU ของตัวเอง (จำลอง Row Access Policy) */
+      const own = ctx.restrictedBU && meta.scope && meta.scope.org && (E.org(r[meta.scope.org]) || {}).bu === ctx.restrictedBU;
+      if (!own) { hidden++; continue; }
+    }
     out.push(r);
   }
   let rows = out;
@@ -1829,6 +1969,99 @@ CQA.statusOf = (id, value) => {
 };
 })(globalThis.CQA = globalThis.CQA || {});
 
+/* ==== 05b_sql.js ==== */
+/* =====================================================================
+   05b_sql.js — สร้าง BigQuery SQL ของ KPI mart จาก kpi_catalog (แหล่งสูตรเดียว)
+   - flow / ytd / year  → VIEW รายเดือน (ส่ง numerator + denominator ให้ Power BI รวม YTD เอง)
+   - stock / asof / open / latest_* → TABLE FUNCTION (as_of DATE)
+   - RLS: Row Access Policy ของ fact_incident + Power BI DAX roles
+   ใช้ {{project}} และ {{domain}} เป็นตัวแปรที่ทีม Axons แทนค่าเอง
+   ===================================================================== */
+(function (CQA) {
+"use strict";
+const M = CQA.META;
+const S = CQA.SQL = {};
+const T = (layer, ds) => "`{{project}}.qa_hub_" + layer + "." + ds + "`";
+const lit = v => typeof v === "number" ? String(v) : "'" + String(v).replace(/\\/g, "\\\\").replace(/'/g, "\\'") + "'";
+const ftype = (ds, f) => ((M.DS[ds].fields.find(x => x.name === f)) || {}).type;
+const snake = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+
+/* วันที่ของแถวในรูป DATE (ใช้เทียบกับ as_of) และงวดเดือน YYYY-MM */
+const dateOf = (ds, f, a) => { const t = ftype(ds, f), c = (a ? a + "." : "") + f; return t === "DATETIME" ? `DATE(${c})` : (t === "STRING" ? `LAST_DAY(PARSE_DATE('%Y-%m', ${c}))` : t === "INT" ? `DATE(${c}, 12, 31)` : c); };
+const monthOf = (ds, f, a) => { const t = ftype(ds, f), c = (a ? a + "." : "") + f; return t === "STRING" ? c : t === "DATETIME" ? `FORMAT_DATETIME('%Y-%m', ${c})` : t === "INT" ? `CAST(${c} AS STRING)` : `FORMAT_DATE('%Y-%m', ${c})`; };
+const val = v => v === "$ASOF" ? "as_of" : lit(v);
+const cond = (f, c) => {
+  const col = "f." + f;
+  if (c && typeof c === "object") {
+    const out = [];
+    if (c.in) out.push(`${col} IN (${c.in.map(lit).join(", ")})`);
+    if (c.ne !== undefined) out.push(c.ne === "" ? `COALESCE(CAST(${col} AS STRING), '') != ''` : `${col} != ${lit(c.ne)}`);
+    if (c.gte !== undefined) out.push(`${col} >= ${val(c.gte)}`);
+    if (c.lte !== undefined) out.push(`${col} <= ${val(c.lte)}`);
+    if (c.gt !== undefined) out.push(`${col} > ${val(c.gt)}`);
+    if (c.lt !== undefined) out.push(`${col} < ${val(c.lt)}`);
+    return out.join(" AND ");
+  }
+  return `${col} = ${lit(c)}`;
+};
+const usesAsOf = s => s && (["stock", "asof", "open", "latest_asof"].includes(s.period || "stock") && (s.period !== "stock" || JSON.stringify(s.where || {}).includes("$ASOF")));
+
+function measure(name, s, fn) {
+  const sc = M.DS[s.ds].scope || {}, p = s.period || "stock", where = s.where ? Object.entries(s.where).map(([f, c]) => cond(f, c)) : [];
+  const join = sc.org ? `\n  JOIN ${T("clean", "dim_org")} o ON o.org_code = f.${sc.org}` : "";
+  const bu = sc.org ? "o.bu" : sc.bu ? "f." + sc.bu : "'ALL'";
+  let src = `${T("clean", s.ds)} f`, grain;
+  if (p === "flow" || p === "ytd") grain = monthOf(s.ds, s.date, "f");
+  else if (p === "year") grain = monthOf(s.ds, s.date, "f");
+  else if (p === "latest_flow") { grain = monthOf(s.ds, s.date, "f"); src = `(\n    SELECT * FROM ${T("clean", s.ds)}\n    QUALIFY ROW_NUMBER() OVER (PARTITION BY ${s.key}, ${monthOf(s.ds, s.date)} ORDER BY ${s.date} DESC) = 1\n  ) f`; }
+  else if (p === "latest_asof") { grain = "FORMAT_DATE('%Y-%m', as_of)"; src = `(\n    SELECT * FROM ${T("clean", s.ds)}\n    WHERE ${dateOf(s.ds, s.date)} <= as_of\n    QUALIFY ROW_NUMBER() OVER (PARTITION BY ${s.key} ORDER BY ${s.date} DESC) = 1\n  ) f`; }
+  else if (p === "asof") { grain = "FORMAT_DATE('%Y-%m', as_of)"; where.push(`${dateOf(s.ds, s.date, "f")} <= as_of`); }
+  else if (p === "open") { grain = "FORMAT_DATE('%Y-%m', as_of)"; where.push(`${dateOf(s.ds, s.date, "f")} <= as_of`, `(f.${s.closed} IS NULL OR f.${s.closed} > as_of)`); }
+  else grain = fn ? "FORMAT_DATE('%Y-%m', as_of)" : "FORMAT_DATE('%Y-%m', CURRENT_DATE())";
+  const agg = s.agg === "count" ? `COUNT(f.${s.field})` : s.agg === "count_distinct" ? `COUNT(DISTINCT f.${s.field})` : `SUM(f.${s.field})`;
+  const extra = s.agg === "avg" ? `, COUNT(f.${s.field}) AS n` : "";
+  return `${name} AS (\n  SELECT ${grain} AS period, ${bu} AS bu, ${agg} AS v${extra}\n  FROM ${src}${join}${where.length ? "\n  WHERE " + where.join("\n    AND ") : ""}\n  GROUP BY 1, 2\n)`;
+}
+
+S.kpi = k => {
+  const fn = usesAsOf(k.num) || usesAsOf(k.den);
+  const id = "kpi_" + k.id.toLowerCase();
+  const head = [`-- ${k.id} · ${k.name} · หน่วย ${k.unit} · ${{ down: "ต่ำดี", up: "สูงดี", info: "ข้อมูลประกอบ" }[k.dir]} · ${k.conf} · Wave ${k.wave} · ${k.ref}`, `-- นิยาม: ${k.def}`];
+  if (k.ask) head.push(`-- ต้องยืนยัน: ${k.ask}`);
+  const point = ["stock", "asof", "open", "latest_asof"].includes(k.num.period || "stock");
+  head.push(point ? "-- ค่า ณ วันที่ (as_of / snapshot): ใช้ค่างวดล่าสุด ห้ามรวมข้ามงวด" : k.den || k.num.agg === "avg" ? `-- รวมหลายงวด/YTD: SUM(numerator) / SUM(denominator)${k.mult !== 1 ? " × " + k.mult : ""} (ห้ามเฉลี่ยคอลัมน์ value)` : "-- รวมหลายงวด/YTD: SUM(numerator)" + (k.mult !== 1 ? " × " + k.mult : ""));
+  const create = fn ? `CREATE OR REPLACE TABLE FUNCTION \`{{project}}.qa_hub_mart.${id}\`(as_of DATE) AS` : `CREATE OR REPLACE VIEW \`{{project}}.qa_hub_mart.${id}\` AS`;
+  let body;
+  if (k.den) body = `WITH\n${measure("num", k.num, fn)},\n${measure("den", k.den, fn)}\nSELECT COALESCE(num.period, den.period) AS period, COALESCE(num.bu, den.bu) AS bu,\n  num.v AS numerator, den.v AS denominator,\n  SAFE_DIVIDE(num.v, den.v) * ${k.mult} AS value\nFROM num\nFULL OUTER JOIN den ON num.period = den.period AND num.bu = den.bu`;
+  else if (k.num.agg === "avg") body = `WITH\n${measure("num", k.num, fn)}\nSELECT period, bu, v AS numerator, n AS denominator, SAFE_DIVIDE(v, n) AS value\nFROM num`;
+  else body = `WITH\n${measure("num", k.num, fn)}\nSELECT period, bu, v AS numerator, NULL AS denominator, ${k.mult === 1 ? "v" : "v * " + k.mult} AS value\nFROM num`;
+  return head.join("\n") + "\n" + create + "\n" + body + ";";
+};
+
+S.all = () => [
+  "-- =====================================================================",
+  "-- CQA Executive Dashboard — KPI mart (BigQuery) สร้างจาก kpi_catalog",
+  "-- แทน {{project}} ด้วย GCP project ของ QA Hub · ชั้น qa_hub_clean = ข้อมูลที่ map Org_code แล้ว",
+  "-- ทุก view/function คืน period (YYYY-MM), bu, numerator, denominator, value",
+  "-- =====================================================================",
+  "",
+].join("\n") + CQA.KPIS.map(S.kpi).join("\n\n") + "\n";
+
+/* ---------- RLS: BigQuery Row Access Policy + Power BI roles ---------- */
+S.rls = () => {
+  const tbl = T("clean", "fact_incident");
+  const lines = [
+    "-- =====================================================================\n-- Row-level security สำหรับ Negative Hot Issue (sensitivity = 'Restricted')\n-- เงื่อนไข: ชั้น Clean เติมคอลัมน์ bu ลง fact_incident (join dim_org) · แทน {{project}} และ {{domain}}\n-- =====================================================================",
+    `CREATE OR REPLACE ROW ACCESS POLICY cqa_exec_all ON ${tbl}\n  GRANT TO ("group:cqa-exec@{{domain}}")\n  FILTER USING (TRUE);`,
+    `CREATE OR REPLACE ROW ACCESS POLICY internal_only ON ${tbl}\n  GRANT TO ("group:cqa-viewer@{{domain}}", "group:cqa-data-team@{{domain}}")\n  FILTER USING (sensitivity = 'Internal');`,
+  ];
+  M.BUS.forEach(b => lines.push(`CREATE OR REPLACE ROW ACCESS POLICY owner_${snake(b)} ON ${tbl}\n  GRANT TO ("group:cqa-owner-${snake(b).replace(/_/g, "-")}@{{domain}}")\n  FILTER USING (sensitivity = 'Internal' OR bu = ${lit(b)});`));
+  const pbi = ["-- Power BI RLS (Manage roles) — ใช้ชื่อกลุ่มเดียวกับ BigQuery", "-- cqa_exec           : (ไม่กรอง)", "-- viewer, data_team  : fact_incident[sensitivity] = \"Internal\""];
+  M.BUS.forEach(b => pbi.push(`-- domain_owner_${snake(b)} : fact_incident[sensitivity] = "Internal" || fact_incident[bu] = "${b}"`));
+  return lines.join("\n\n") + "\n\n" + pbi.join("\n") + "\n";
+};
+})(globalThis.CQA = globalThis.CQA || {});
+
 /* ==== 06_adapter.js ==== */
 /* =====================================================================
    06_adapter.js — Data adapter (ข้อ 1 กฎข้อ 8: แยก data layer ออกจาก UI)
@@ -1924,6 +2157,44 @@ A.restoreImports = async () => {
 A.templateRows = (ds, n = 3) => {
   const def = M.DS[ds], cols = def.fields.map(f => f.name);
   return [cols].concat(store.rows(ds).slice(0, n).map(r => cols.map(c => r[c] == null ? "" : r[c])));
+};
+
+/* ---------------- ความสดและคุณภาพของข้อมูลต่อ dataset ----------------
+   series: ล่าช้า = วันปิดงวดรายงาน − วันที่ข้อมูลล่าสุด เทียบ SLA ตามรอบต้นทาง (M.CADENCE)
+   snapshot/event: วัดจากเวลาโหลดล่าสุด · ครบถ้วน = % แถวที่ field บังคับไม่ว่าง · ครอบคลุม = เดือนที่มีข้อมูล / เดือนในปี */
+let qKey = null, qVal = null;
+A.quality = (ds, asOf) => {
+  asOf = asOf || M.AS_OF;
+  const key = CQA.KPI.ver + "|" + asOf;
+  if (qKey !== key) { qKey = key; qVal = {}; }
+  if (qVal[ds]) return qVal[ds];
+  const def = M.DS[ds], rows = store.rows(ds), meta = store.meta(ds), [type, dateF, sla, label] = M.CADENCE[ds] || ["system", null, null, "—"];
+  const req = def.fields.filter(f => f.req).map(f => f.name), n = rows.length, step = n > 20000 ? Math.ceil(n / 20000) : 1;
+  let full = 0, checked = 0;
+  for (let i = 0; i < n; i += step) { checked++; const r = rows[i]; if (req.every(f => r[f] !== "" && r[f] != null)) full++; }
+  const q = { ds, type, label, sla, rows: n, completeness: checked ? full / checked * 100 : null, loaded: meta.loaded_at, source: meta.source, mock: meta.is_mock, maxDate: null, lag: null, months: null, monthsExpected: null };
+  if (type === "series" && n) {
+    const ms = new Set(); let mx = "";
+    for (const r of rows) {
+      const v = r[dateF]; if (v == null || v === "") continue;
+      const s = String(v), d = dateF === "survey_year" ? s + "-06-30" : s.length === 7 ? U.monthEnd(s) : s.slice(0, 10);
+      if (d <= asOf && d > mx) mx = d;
+      if (dateF !== "survey_year" && d.slice(0, 4) === asOf.slice(0, 4) && d <= asOf) ms.add(d.slice(0, 7));
+    }
+    q.maxDate = mx || null;
+    q.lag = dateF === "survey_year" ? (mx && mx.slice(0, 4) >= String(+asOf.slice(0, 4) - 1) ? 0 : 999) : (mx ? U.diffDays(mx, asOf) : null);
+    if (dateF !== "survey_year") { q.months = ms.size; q.monthsExpected = +asOf.slice(5, 7); }
+  }
+  /* สถานะ: ok = ตามรอบ · warn = ล่าช้าไม่เกิน 2 เท่าของ SLA หรือครอบคลุมไม่ครบ · bad = เกิน 2 เท่า หรือไม่มีข้อมูล */
+  if (!n && type !== "system") { q.status = "bad"; q.note = "ไม่มีข้อมูล"; }
+  else if (type === "series") {
+    q.status = q.lag == null ? "bad" : q.lag <= sla ? "ok" : q.lag <= sla * 2 ? "warn" : "bad";
+    q.note = q.lag == null ? "ไม่มีข้อมูลในปีนี้" : q.lag <= sla ? "ตามรอบ" : `ล่าช้า ${q.lag} วัน (SLA ${sla} วัน)`;
+    if (q.status === "ok" && q.months != null && q.months < q.monthsExpected) { q.status = "warn"; q.note = `มีข้อมูล ${q.months}/${q.monthsExpected} เดือน`; }
+  } else { q.status = "ok"; q.note = type === "system" ? "สร้างในระบบ" : "วัดจากเวลาโหลด"; }
+  if (q.completeness != null && q.completeness < 98 && q.status === "ok") { q.status = "warn"; q.note = `field บังคับว่าง ${U.nf(100 - q.completeness, 1)}%`; }
+  qVal[ds] = q;
+  return q;
 };
 
 /* ---------------- IndexedDB (เก็บไฟล์ที่นำเข้าไว้ในเบราว์เซอร์นี้) ---------------- */
@@ -2128,7 +2399,8 @@ UI.kinfo = id => {
     ${row("หัวข้อ / content", `${topic.no}. ${esc(topic.outline || "")} · ${esc(k.content)} ${esc(c.content || "")} <span class="muted">(${esc(k.ref)})</span>`)}
     ${row("ต้นทาง", `${esc(c.source || "—")} <span class="muted">· ${esc(c.stype || "")} · แสดงผล ${esc(c.display || "")}</span>`)}
     ${row("Data owner · ผู้จัดทำ", `${esc(c.owner || "— ยังไม่ระบุ")} · ${esc(c.dashBy || "—")}`)}
-    ${row("Dataset · ความสด", dss.map(ds => { const m = CQA.store.meta(ds); return `<div><code>${ds}</code> ${UI.mockTag(m.is_mock)} <span class="muted small">${esc(m.source || "")} · โหลด ${esc(m.loaded_at || "—")} · ${U.nf(CQA.store.rows(ds).length)} แถว</span></div>`; }).join(""))}
+    ${row("Dataset · ความสด", dss.map(ds => { const m = CQA.store.meta(ds), q = CQA.Adapter.quality(ds); return `<div><code>${ds}</code> ${UI.mockTag(m.is_mock)} ${UI.freshChip(q)} <span class="muted small">${esc(m.source || "")} · ${U.nf(CQA.store.rows(ds).length)} แถว · ครบถ้วน ${U.nf(q.completeness, 1)}%</span></div>`; }).join(""))}
+    ${row("SQL (KPI mart)", `<details class="kd"><summary>ดู BigQuery SQL ที่สร้างจากสูตรเดียวกัน</summary><pre class="sql" id="ki-sql">${esc(CQA.SQL.kpi(k))}</pre><button type="button" class="btn sm" data-modal-act="copy-sql:${k.id}">คัดลอก SQL</button></details>`)}
     ${row("Target", k.dir === "info" ? "ข้อมูลประกอบ (ไม่มีสีสถานะ)" : `${th ? `${UI.fv(k, th.target)}${th.tolerance != null ? ` · tolerance ${th.tolerance}` : ""}${th.source === "demo" ? " (เป้าสาธิต)" : ""} · ${UI.statusText(k, res.value)}` : "ยังไม่มี"}
       ${ro ? `<div class="muted small">บัญชีของคุณดูได้อย่างเดียว</div>` : `<form class="ki-form" data-thform="${k.id}"><label>Target <input type="number" step="any" id="ki-target" value="${th && th.target != null ? th.target : ""}" placeholder="${k.dir === "down" ? "ไม่เกิน" : "ไม่ต่ำกว่า"}"></label><label>Tolerance <input type="number" step="0.01" min="0" id="ki-tol" value="${th && th.tolerance != null ? th.tolerance : ""}" placeholder="เช่น 0.1"></label><button type="submit" class="btn sm primary">บันทึก Target</button>${th ? `<button type="button" class="btn sm ghost" data-thclear="${k.id}">ลบ</button>` : ""}<span class="muted small">${CQA.Shared.mode === "shared" ? "บันทึกให้ทั้งทีม" : "บันทึกในเบราว์เซอร์นี้"} · tolerance 0.1 = ยอมให้เกินเป้า 10% ก่อนเป็นสีแดง</span></form>`}`)}
     ${k.dir === "info" ? "" : row("แนวโน้มผิดปกติ (SPC)", sp ? `${sp.flag ? `<span class="chip spc">◆ ผิดปกติ ±2σ</span> ` : `<span class="chip neutral">อยู่ในช่วงปกติ</span> `}<span class="muted small">${U.monLabel(sp.ym)} = ${UI.fv(k, sp.last)} · ช่วงปกติจาก ${sp.n} เดือนก่อนหน้า ${UI.fv(k, sp.lo)}–${UI.fv(k, sp.hi)} (เฉลี่ย ${UI.fv(k, sp.mean)})</span>` : `<span class="muted small">ข้อมูลรายเดือนยังไม่พอ (ต้อง ≥ 5 เดือน)</span>`)}
@@ -2147,11 +2419,13 @@ UI.pageHead = (topicNos, title, desc, actions) => {
   const owners = [...new Set(cs.map(c => c.owner).filter(Boolean))].join(", ") || "— (ยังไม่ระบุ)";
   const by = [...new Set(cs.map(c => c.dashBy).filter(Boolean))].join(", ") || "—";
   const mock = cs.some(c => c.ds.some(ds => CQA.store.meta(ds).is_mock));
+  const qs = [...new Set(cs.flatMap(c => c.ds))].map(ds => CQA.Adapter.quality(ds));
+  const worst = qs.find(q => q.status === "bad") || qs.find(q => q.status === "warn") || qs.filter(q => q.type === "series").sort((a, b) => (a.maxDate || "").localeCompare(b.maxDate || ""))[0] || qs[0];
   const statusSrc = cs.some(c => c.status === "mock") ? `<span class="chip warn" data-tip="ต้นทางของบาง content ยังเป็น Mock Data (ตาม mapping)">ต้นทางบางส่วนเป็น Mock</span>` : "";
   return `<div class="page-head"><div>
       <h1>${topicNos.map(n => `<span class="tno">${n}</span>`).join("")} ${esc(title)}</h1>
       <p>${desc}</p>
-      <div class="meta-row"><span>ต้นทาง: <b>${esc(src)}</b></span><span>${waves}</span><span>Data owner: <b>${esc(owners)}</b></span><span>ผู้จัดทำ: <b>${esc(by)}</b></span>${statusSrc}${mock ? `<span class="tag-mock">MOCK DATA</span>` : `<span class="tag-real">REAL</span>`}</div>
+      <div class="meta-row"><span>ข้อมูล: ${worst ? UI.freshChip(worst) : "–"}</span><span>ต้นทาง: <b>${esc(src)}</b></span><span>${waves}</span><span>Data owner: <b>${esc(owners)}</b></span><span>ผู้จัดทำ: <b>${esc(by)}</b></span>${statusSrc}${mock ? `<span class="tag-mock">MOCK DATA</span>` : `<span class="tag-real">REAL</span>`}</div>
     </div>${actions ? `<div class="head-actions">${actions}</div>` : ""}</div>`;
 };
 
@@ -2346,6 +2620,52 @@ UI.orgProfile = code => {
     </div>
     <div class="ki-actions"><button type="button" class="btn sm primary" data-modal-act="filter-org:${code}">กรองทั้ง dashboard ด้วยหน่วยงานนี้</button><button type="button" class="btn sm" data-modal-go="complaint">ไปหน้า Complaint</button></div>`;
   UI.openModal(`${o.org_code} · ${o.org_name}`, body, true);
+};
+
+/* ---------- ป้ายความสดของข้อมูล ---------- */
+UI.freshText = q => q.type === "series" ? (q.maxDate ? (q.ds === "fact_fsqc" ? `ปี ${+q.maxDate.slice(0, 4) + 543}` : `ถึง ${U.dateTH(q.maxDate)}`) : "ไม่มีข้อมูล") : q.type === "system" ? "สร้างในระบบ" : `โหลด ${q.loaded || "—"}`;
+UI.freshChip = q => `<span class="chip ${q.status === "ok" ? "ok" : q.status === "warn" ? "warn" : "bad"}" data-tip="${esc(`${q.ds} · รอบ ${q.label}${q.sla ? " · SLA ≤ " + q.sla + " วัน" : ""} · ${q.note} · ครบถ้วน ${U.nf(q.completeness, 1)}%${q.months != null ? ` · มีข้อมูล ${q.months}/${q.monthsExpected} เดือน` : ""}`)}">${q.status === "ok" ? "✓" : "!"} ${esc(UI.freshText(q))}</span>`;
+
+/* ---------- Tile map รายจังหวัด (ไม่ใช้ไฟล์ขอบเขตภายนอก) ---------- */
+let TILES = null;
+UI.tilePos = () => {
+  if (TILES) return TILES;
+  const LON0 = 97.5, LAT0 = 20.5, CW = 0.9, CH = 0.8, used = new Set(), out = [];
+  const yOf = lat => lat >= 12 ? (LAT0 - lat) / CH : (LAT0 - 12) / CH + (12 - lat) / 1.1;
+  M.PROVINCES.forEach(([name, abbr, lat, lon]) => {
+    const fx = (lon - LON0) / CW, fy = yOf(lat);
+    let best = null;
+    for (let r = 0; r <= 4 && !best; r++) {
+      for (let dx = -r; dx <= r; dx++) for (let dy = -r; dy <= r; dy++) {
+        const x = Math.round(fx) + dx, y = Math.round(fy) + dy, k = x + "," + y;
+        if (x < 0 || y < 0 || used.has(k)) continue;
+        const d = (x - fx) ** 2 + (y - fy) ** 2;
+        if (!best || d < best.d) best = { x, y, d };
+      }
+    }
+    used.add(best.x + "," + best.y);
+    out.push({ name, abbr, x: best.x, y: best.y });
+  });
+  const mx = Math.min(...out.map(t => t.x)), my = Math.min(...out.map(t => t.y));
+  out.forEach(t => { t.x -= mx; t.y -= my; });
+  TILES = out; return out;
+};
+/* values: Map ชื่อจังหวัด → { v, n, low } · fmt: แสดงค่า · title: ชื่อค่าใน tooltip */
+UI.tileMap = (values, o = {}) => {
+  const tiles = UI.tilePos(), S = 34, G = 4, W = Math.max(...tiles.map(t => t.x)) + 1, Hh = Math.max(...tiles.map(t => t.y)) + 1;
+  const vals = [...values.values()].filter(x => x && x.v != null && !x.low).map(x => x.v), lo = Math.min(...vals), hi = Math.max(...vals);
+  const fmt = o.fmt || (v => U.fmtValue(v));
+  const cells = tiles.map(t => {
+    const d = values.get(t.name), has = d && d.v != null;
+    const a = has && !d.low ? (hi > lo ? (d.v - lo) / (hi - lo) : 1) : 0;
+    const fill = !has ? "var(--surface-2)" : d.low ? "color-mix(in srgb, var(--c1) 12%, var(--surface))" : `color-mix(in srgb, var(--c1) ${Math.round(18 + a * 70)}%, var(--surface))`;
+    const ink = has && !d.low && a > 0.55 ? "#fff" : has ? "var(--ink)" : "var(--ink-3)";
+    const tip = `${t.name}${has ? ` · ${o.title || "ค่า"} ${fmt(d.v)}${d.n != null ? ` (n=${U.nf(d.n)})` : ""}${d.low ? " · ตัวอย่างน้อย" : ""}` : " · ไม่มีข้อมูล"}`;
+    return `<g class="tile${has ? " has" : ""}" transform="translate(${t.x * (S + G)},${t.y * (S + G)})"${has ? ` data-act="prov:${esc(t.name)}" tabindex="0" role="button"` : ""} data-tip="${esc(tip)}"><rect width="${S}" height="${S}" rx="5" fill="${fill}" stroke="${has ? "none" : "var(--line)"}"/><text x="${S / 2}" y="${S / 2 + 4}" text-anchor="middle" fill="${ink}">${t.abbr}</text></g>`;
+  }).join("");
+  const w = W * (S + G), h = Hh * (S + G);
+  return `<div class="tilemap"><svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="${esc(o.label || "แผนที่รายจังหวัด")}">${cells}</svg>
+    <div class="tm-legend"><span>${vals.length ? fmt(lo) : ""}</span><i style="background:linear-gradient(90deg, color-mix(in srgb, var(--c1) 18%, var(--surface)), color-mix(in srgb, var(--c1) 88%, var(--surface)))"></i><span>${vals.length ? fmt(hi) : ""}</span><span class="muted">· เทา = ไม่มีหน่วยงาน · จาง = n น้อย</span></div></div>`;
 };
 })(globalThis.CQA = globalThis.CQA || {});
 
@@ -2623,6 +2943,14 @@ P.network = { title: "เครือข่าย", topics: [1], render(el) {
   const vLg = KPI.group(H.num("K04"), ctx, r => r.lg_code + "|" + r.business), lgs = [...new Set([...vLg.keys()].map(k => k.split("|")[0]))].sort();
   const lgReg = {}; KPI.rows(H.num("K04"), ctx).forEach(v => { lgReg[v.lg_code] = v.region; });
   const certSpec = H.num("K05"), certCat = KPI.group(certSpec, ctx, "category");
+  /* แผนที่รายจังหวัด: เลือกตัวชี้วัดได้ */
+  const mm = CQA.App.state.mapMetric || "orgs", provOf = r => (KPI.org(r.org_code) || {}).province, MAPK = { complaint: "K10", nc: "K12", audit: "K25" };
+  const mval = new Map();
+  if (mm === "orgs") KPI.group(org, ctx, r => r.province).forEach((v, k) => mval.set(k, { v, n: v }));
+  else KPI.series(MAPK[mm], ctx, provOf).forEach(x => { if (x.key && x.value != null) mval.set(x.key, { v: x.value, n: x.den, low: MAPK[mm] === "K25" && x.den < KPI.MIN_N }); });
+  const mk = MAPK[mm] ? CQA.KPI_BY_ID[MAPK[mm]] : null, mfmt = mm === "orgs" ? (v => U.nf(v)) : mm === "audit" ? (v => U.nf(v, 1) + "%") : (v => U.nf(v, 2));
+  const mtitle = mm === "orgs" ? "หน่วยงาน" : mk.name;
+  const mrank = [...mval.entries()].filter(([, d]) => !d.low).sort((a, b) => mk && mk.dir === "up" ? a[1].v - b[1].v : b[1].v - a[1].v).slice(0, 10);
   const soon = KPI.rows(H.S("fact_certificate", "count", "cert_id", { where: { expiry_date: { gte: ctx.asOf, lte: U.addDays(ctx.asOf, 90) } }, period: "stock" }), ctx).sort((a, b) => a.expiry_date.localeCompare(b.expiry_date));
   el.innerHTML = UI.pageHead([1], "จำนวนโรงงาน / DC / จุดขาย / ร้านอาหาร ตลาดสด", "โครงสร้างเครือข่ายที่ CQA ดูแล · โรงงานแยกธุรกิจและตลาด · จุดขาย · รถขนส่ง LG · มาตรฐานที่ได้รับรอง")
   + UI.strip(["K01", "K02", "K03", "K04", "K05"].map(id => UI.tile(id)))
@@ -2631,6 +2959,9 @@ P.network = { title: "เครือข่าย", topics: [1], render(el) {
         bus.map(b => ({ bu: b, p: byPt.get(b + "|Primary") || 0, s: byPt.get(b + "|Secondary") || 0, t: tot(b), d: (byBuMkt.get(b + "|ภายในประเทศ") || 0) / (tot(b) || 1) * 100 })), { maxh: 330 }))}</div>`
   + `<div class="grid g-2">${UI.panel("จุดขายแยกธุรกิจ", "K03 · Retail &amp; Restaurant ที่เปิดดำเนินการ (p.12)", UI.box("ch-store"))}
      ${UI.panel("จุดขายแยกรูปแบบร้าน", "ตาม QSC Performance App", UI.table([{ h: "ธุรกิจ", v: "bu" }, { h: "รูปแบบร้าน", v: "t" }, { h: "จำนวน", v: "n", r: 1, fmt: U.nf }], [...stType.entries()].map(([k, n]) => { const [bu, tp] = k.split("|"); return { bu, t: tp, n }; }).sort((a, b) => b.n - a.n), { maxh: 280, foot: ["รวม", "", U.nf(U.sum([...stType.values()]))] }))}</div>`
+  + UI.panel(`แผนที่รายจังหวัด — ${esc(mtitle)}`, `${mm === "orgs" ? "จำนวนหน่วยงานที่ active" : "คำนวณจาก KPI engine แยกตามจังหวัดของหน่วยงาน · " + esc(H.periodLabel())} · คลิกจังหวัดเพื่อดูรายชื่อหน่วยงาน · Tile map: 1 ช่อง = 1 จังหวัด วางตามตำแหน่งโดยประมาณ`,
+      `<div class="map-wrap">${UI.tileMap(mval, { fmt: mfmt, title: mtitle, label: "แผนที่ " + mtitle })}<div class="map-side"><h4>${mk ? (mk.dir === "up" ? "10 จังหวัดที่ค่าต่ำสุด" : "10 จังหวัดที่ค่าสูงสุด") : "10 จังหวัดที่มีหน่วยงานมากสุด"}</h4>${UI.hbars(mrank.map(([k, d]) => ({ label: k, value: d.v, tip: `n=${U.nf(d.n)}` })), { fmt: mfmt })}<p class="foot">เปลี่ยนเป็น Shape map ของ Power BI ใน Production เมื่อมีรหัสจังหวัดจาก Org_code กลาง</p></div></div>`,
+      H.seg("mapMetric", [["orgs", "หน่วยงาน"], ["complaint", "Complaint rate"], ["nc", "NC rate"], ["audit", "Audit ผ่าน"]], mm))
   + `<div class="grid g-2">${UI.panel("รถขนส่ง LG แยก LG code", "K04 · CPFGS / ธุรกิจห้าดาว (p.13)", UI.box("ch-lg"))}
      ${UI.panel("หน่วยงานแยกภาค", "แทนแผนที่ตามจังหวัด (province) — เพิ่มแผนที่ได้เมื่อมี Org_code กลาง", UI.hbars(H.sorted(byReg).map(([k, v]) => ({ label: k, value: v })), { fmt: U.nf }))}</div>`
   + `<div class="grid g-12">${UI.panel("Certificate ที่ยังมีผล แยกหมวด", "K05 ณ วันที่รายงาน (p.15)", UI.hbars(H.sorted(certCat).map(([k, v]) => ({ label: k, value: v })), { fmt: U.nf }))}
@@ -3063,7 +3394,7 @@ P.catalog = { title: "KPI Catalog & Target", render(el) {
   el.innerHTML = `<div class="page-head"><div><h1>KPI Catalog &amp; Target</h1>
       <p>แหล่งสูตรเดียวของทั้ง dashboard (47 KPI) · Data owner กรอก <b>Target</b> และ <b>Tolerance</b> ได้ที่นี่ → จุดสถานะทุกหน้าเปลี่ยนตามทันที · Export/Import เป็น thresholds.json ได้ ${CQA.saveScope()}</p>
       <div class="meta-row"><span>Status logic: ไม่มี Target = <span class="dot gray"></span> เทา · ↓ต่ำดี: ค่า ≤ เป้า = เขียว · ≤ เป้า×(1+tol) = เหลือง · เกินกว่านั้น = แดง (↑สูงดี กลับด้าน) · ไม่กำหนด tolerance = แสดงได้แค่ถึง/ไม่ถึงเป้า · KPI ข้อมูลประกอบไม่มีสี · ตัวหารที่เป็นจำนวนนับน้อยกว่า ${KPI.MIN_N} แสดงจางและไม่ให้สี</span></div></div>
-    <div class="head-actions">${UI.csvBtn("export-kpi", "Export KPI (CSV)")}<button type="button" class="btn sm" data-act="th-export">Export thresholds.json</button><button type="button" class="btn sm" data-act="th-import"${ro()}>Import thresholds.json</button><button type="button" class="btn sm" data-act="demo-targets"${ro()}>เป้าหมายสาธิต</button><button type="button" class="btn sm ghost" data-act="th-clear"${ro()}>ล้าง Target</button></div></div>
+    <div class="head-actions">${UI.csvBtn("export-kpi", "Export KPI (CSV)")}<button type="button" class="btn sm" data-act="export-sql" data-tip="BigQuery SQL ของ KPI mart ทั้ง 47 ตัว สร้างจากสูตรเดียวกับ dashboard">KPI mart SQL</button><button type="button" class="btn sm" data-act="th-export">Export thresholds.json</button><button type="button" class="btn sm" data-act="th-import"${ro()}>Import thresholds.json</button><button type="button" class="btn sm" data-act="demo-targets"${ro()}>เป้าหมายสาธิต</button><button type="button" class="btn sm ghost" data-act="th-clear"${ro()}>ล้าง Target</button></div></div>
   ${demo ? `<div class="banner"><span class="grow"><b>กำลังใช้เป้าหมายสาธิต (Demo)</b> — ไม่ใช่ค่าที่อนุมัติ ใช้เพื่อดูการทำงานของสีสถานะเท่านั้น · สถานะทุกจุดจะมีคำว่า "เป้าสาธิต" กำกับ</span><button type="button" class="btn sm" data-act="th-clear">ล้างเป้าสาธิต</button></div>` : ""}
   <div class="panel"><div class="panel-head"><div><h3>รายการ KPI <span class="chip neutral">${ks.length}</span></h3><p class="hint">ค่า = ตาม filter ปัจจุบัน (${esc(H.periodLabel())} · ${esc(CQA.App.scopeText())}) · คลิก "สูตร" เพื่อดูนิยาม/สูตร/ประเด็นที่ต้องยืนยัน</p></div>
     <div class="head-actions"><label class="f small muted">หัวข้อ <select data-setsel="catTopic"><option value="all">ทั้งหมด</option>${M.TOPICS.map(t => `<option value="${t.no}"${st.catTopic === String(t.no) ? " selected" : ""}>${t.no}. ${esc(t.short)}</option>`).join("")}</select></label>
@@ -3124,6 +3455,15 @@ P.hub = { title: "Data Hub", render(el) {
       <div class="col hub"><h4>3. GCP QA Hub (BigQuery)</h4><ul><li>Raw: เก็บตามต้นทาง</li><li>Clean: map Org_code · QC · dedupe</li><li>KPI mart: สูตร KPI ชุดเดียว (= kpi_catalog)</li><li>Governance: Data owner · RLS · DQ · Catalog</li></ul></div>
       <div class="col"><h4>4. Consumption</h4><ul><li>Power BI / Web dashboard (หน้านี้)</li><li>Alert: หลุดเกณฑ์ → owner</li><li>AI ถัดไป: Risk forecast · Decision guide · Chatbot</li></ul></div></div>
       <div class="arch-flow">Data adapter ปัจจุบัน: <span class="chip info">${esc(CQA.Adapter.adapters.mock.label)}</span> → เตรียมไว้: <span class="chip dash">${esc(CQA.Adapter.adapters.bigquery.label)}</span> · เปลี่ยน adapter ได้โดยไม่แก้หน้า dashboard</div>`)}
+  ${UI.panel("ความสดและคุณภาพของข้อมูล", `เทียบกับวันปิดงวดรายงาน ${U.dateTH(M.AS_OF)} · SLA ตามรอบต้นทาง (ข้อเสนอ) · ครบถ้วน = % แถวที่ field บังคับไม่ว่าง · ครอบคลุม = เดือนที่มีข้อมูลในปีนี้`, UI.table([
+      { h: "Dataset", v: d => `<code>${d.name}</code>`, html: 1 },
+      { h: "รอบ / SLA", v: d => { const q = CQA.Adapter.quality(d.name); return `${esc(q.label)}<span class="cell-sub">${q.sla ? "≤ " + q.sla + " วัน" : "—"} · ${q.type}</span>`; }, html: 1 },
+      { h: "ข้อมูลล่าสุด", v: d => UI.freshChip(CQA.Adapter.quality(d.name)), html: 1 },
+      { h: "ครบถ้วน", v: d => U.nf(CQA.Adapter.quality(d.name).completeness, 1) + "%", r: 1 },
+      { h: "ครอบคลุม", v: d => { const q = CQA.Adapter.quality(d.name); return q.months == null ? "—" : `${q.months}/${q.monthsExpected} เดือน`; }, r: 1 },
+      { h: "หมายเหตุ", v: d => CQA.Adapter.quality(d.name).note },
+    ], M.DATASETS, { maxh: 420 }))}
+  ${UI.panel("สิทธิ์การเข้าถึง (Row-level security)", "ต้นแบบจำลองด้วยตัวเลือก 'บทบาท' · Production คุมที่ BigQuery Row Access Policy + Power BI RLS ชุดเดียวกัน (fact_incident ที่ sensitivity = Restricted)", UI.table([{ h: "กลุ่มสิทธิ์", v: a => `<code>${a.role}</code>`, html: 1 }, { h: "ผู้ใช้", v: "who" }, { h: "ข้อมูล Internal", v: "internal" }, { h: "Negative Hot Issue (Restricted)", v: "restricted" }], M.ACCESS), `<button type="button" class="btn sm" data-act="export-rls">RLS SQL</button><button type="button" class="btn sm" data-act="export-sql">KPI mart SQL</button>`)}
   ${UI.panel(`Datasets <span class="chip neutral">${M.DATASETS.length}</span>`, "ดาวน์โหลด Template (header ตาม schema + ตัวอย่าง 3 แถว) → กรอกข้อมูลจริง → นำเข้า CSV → KPI ที่ใช้ dataset นั้นเปลี่ยนจาก MOCK เป็น REAL ทันที (ไฟล์ที่นำเข้าเห็นเฉพาะในเบราว์เซอร์ของผู้นำเข้า — ข้อมูลจริงที่ทั้งทีมใช้ร่วมกันต้องมาจาก GCP QA Hub) · * = บังคับ · + = field ที่เสนอเพิ่ม",
     UI.table([
       { h: "Dataset", v: d => `<b>${d.name}</b><span class="cell-sub">${esc(d.grain)}</span><details class="kd"><summary>${d.fields.length} fields</summary><div>${d.fields.map(f => `<code>${f.name}${f.req ? "*" : ""}${f.ext ? "+" : ""}</code> <span class="muted">${f.type}</span> ${esc(f.desc)}`).join("<br>")}</div></details>`, html: 1 },
@@ -3148,6 +3488,144 @@ P.hub = { title: "Data Hub", render(el) {
   <div class="grid g-21">${UI.panel("Action items (ณ 6 ต.ค. 2569) " + CQA.saveScope(), "ลำดับที่แนะนำ: " + esc(M.ACTION_ORDER), UI.table([{ h: "#", v: "no" }, { h: "Action", v: "action" }, { h: "Owner", v: "owner" }, { h: "กำหนด", v: a => `${U.dateTH(a.due)}<span class="cell-sub">อีก ${U.diffDays(today, a.due)} วัน</span>`, html: 1, nowrap: 1 }, { h: "สถานะ", v: a => `<select data-actst="${a.no}"${ro()}>${ST.map(s => `<option${(as[a.no] || ST[0]) === s ? " selected" : ""}>${s}</option>`).join("")}</select>`, html: 1 }], M.ACTIONS))}
     ${UI.panel("People & roles", "ข้อ 13", UI.table([{ h: "ชื่อ", v: r => r[0] }, { h: "บทบาท", v: r => r[1] }], M.PEOPLE))}</div>`;
 } };
+})(globalThis.CQA = globalThis.CQA || {});
+
+/* ==== 08e_pages.js ==== */
+/* =====================================================================
+   08e_pages.js — Phase 3: Alert Center · เส้นทางสู่ Production (+ BRD export)
+   ===================================================================== */
+(function (CQA) {
+"use strict";
+const U = CQA.U, M = CQA.META, KPI = CQA.KPI, UI = CQA.UI, H = CQA.H, P = CQA.PAGES, esc = U.esc;
+const SH = CQA.Shared;
+const today = () => U.ymd(new Date());
+
+/* =====================================================================
+   Alert engine — กฎแจ้งเตือน (ต้นแบบ: แสดงตัวอย่างข้อความ · Production: Power Automate)
+   ===================================================================== */
+const LV = { high: ["สูง", 0, "bad"], med: ["ปานกลาง", 1, "warn"], info: ["แจ้งให้ทราบ", 2, "neutral"] };
+CQA.alertCfg = () => SH.get("alerts", {});
+const contentOf = id => M.CONTENTS.find(c => c.id === id) || {};
+const defaultTo = c => c.owner || c.dashBy || "CQA Domain owner";
+const recipient = cid => { const cfg = CQA.alertCfg()[cid] || {}, c = contentOf(cid); return { to: cfg.to || defaultTo(c), channel: cfg.channel || "Teams + Email", on: cfg.on !== false }; };
+const topicPage = k => (M.TOPICS.find(t => t.no === k.topic) || {}).page || "overview";
+CQA.alerts = () => {
+  const ctx = H.ctx(), out = [];
+  const add = (o, cid) => { const r = recipient(cid); if (r.on) out.push(Object.assign(o, { content: cid, to: o.to || r.to, channel: r.channel })); };
+  CQA.KPIS.forEach(k => {
+    if (k.dir === "info") return;
+    const v = KPI.value(k, ctx); if (v.lowN || v.value == null) return;
+    const st = CQA.statusOf(k, v.value), th = CQA.TH.get(k.id);
+    if (st.cls === "bad" || st.cls === "warn") add({ level: st.cls === "bad" ? "high" : "med", type: "เกินเป้า", title: `${k.name} ${st.label}`, detail: `${UI.fv(k, v.value)} ${k.unit} · เป้า ${th ? UI.fv(k, th.target) : "—"} (${UI.dirText(k)})`, kpi: k.id, go: topicPage(k) }, k.content);
+    const sp = KPI.spc(k, ctx);
+    if (sp && sp.flag) add({ level: "med", type: "ผิดปกติ ±2σ", title: `${k.name} ผิดปกติทางสถิติ`, detail: `${U.monLabel(sp.ym)} = ${UI.fv(k, sp.last)} นอกช่วง ${UI.fv(k, sp.lo)}–${UI.fv(k, sp.hi)}`, kpi: k.id, go: topicPage(k) }, k.content);
+  });
+  CQA.openItems().forEach(it => {
+    const w = CQA.wfOf(it.id) || {}, cid = (M.CONTENTS.find(c => c.topic === (M.TOPICS.find(t => t.page === it.go.split(":")[0]) || {}).no) || {}).id || "2.1";
+    if ((it.sev === "crit" || it.sev === "high") && (w.status || "new") === "new") add({ level: it.sev === "crit" ? "high" : "med", type: "Hot Issue ยังไม่รับทราบ", title: it.title, detail: it.body, go: "hotissue", hot: it.id, to: it.owner }, cid);
+    if (w.due && w.due < today()) add({ level: "high", type: "Hot Issue เลยกำหนด", title: it.title, detail: `ครบกำหนด ${U.dateTH(w.due)}`, go: "hotissue", hot: it.id, to: w.owner || it.owner }, cid);
+  });
+  M.DATASETS.forEach(d => {
+    const q = CQA.Adapter.quality(d.name); if (q.status === "ok") return;
+    const c = M.CONTENTS.find(x => x.ds.includes(d.name)); if (!c) return;
+    add({ level: q.status === "bad" ? "high" : "info", type: "ข้อมูลไม่ตามรอบ", title: `${d.name}: ${q.note}`, detail: `รอบ ${q.label} · ${UI.freshText(q)} · ต้นทาง ${d.source}`, go: "hub" }, c.id);
+  });
+  return out.sort((a, b) => LV[a.level][1] - LV[b.level][1]);
+};
+CQA.alertMessage = (to, list) => [`[CQA Alert] ถึง ${to} · ${U.dateTH(today())} 07:00 · ${H.periodLabel()}`, ...list.map((a, i) => `${i + 1}) [${LV[a.level][0]}] ${a.title} — ${a.detail}`), "ดูรายละเอียด: " + (globalThis.claude ? M.LINKS.artifact : M.LINKS.github), "* ต้นแบบ — ข้อมูล Mock"].join("\n");
+CQA.alertRules = () => ({
+  version: "2026-10", generated: new Date().toISOString(), schedule: { daily: "07:00 Asia/Bangkok หลัง refresh KPI mart", critical: "ส่งทันทีเมื่อ Hot Issue ระดับวิกฤต" },
+  conditions: { target_breach: "status = หลุดเป้า/ใกล้เกณฑ์ ตาม thresholds (ไม่มี target = ไม่แจ้ง)", spc_2sigma: "เดือนล่าสุดนอก mean ± 2σ ของเดือนก่อนหน้า (≥ 4 เดือน)", hot_issue_unacknowledged: "Hot Issue วิกฤต/สูง ที่ยังไม่รับทราบ", hot_issue_overdue: "เลยวันครบกำหนดที่มอบหมาย", data_freshness: "dataset ล่าช้าเกิน SLA ตามรอบต้นทาง", min_sample: "ข้ามเมื่อ n < " + KPI.MIN_N },
+  thresholds: Object.fromEntries(CQA.KPIS.filter(k => CQA.TH.get(k.id)).map(k => [k.id, CQA.TH.get(k.id)])),
+  rules: M.CONTENTS.map(c => { const r = recipient(c.id); return { content_id: c.id, content: c.content, kpis: c.kpis, datasets: c.ds, recipients: r.to, channel: r.channel, enabled: r.on }; }),
+});
+
+P.alerts = { title: "Alert Center", render(el) {
+  const list = CQA.alerts(), cfg = CQA.alertCfg(), ro = SH.mode === "shared" && SH.readOnly ? " disabled" : "";
+  const byTo = new Map(); list.forEach(a => { if (!byTo.has(a.to)) byTo.set(a.to, []); byTo.get(a.to).push(a); });
+  const n = l => list.filter(a => a.level === l).length;
+  el.innerHTML = `<div class="page-head"><div><h1>Alert Center</h1>
+      <p>กฎแจ้งเตือนเมื่อ KPI หลุดเป้า · ผิดปกติ ±2σ · Hot Issue ยังไม่รับทราบหรือเลยกำหนด · ข้อมูลไม่ตามรอบ — ต้นแบบนี้แสดงข้อความที่จะส่ง ส่วนการส่งจริงทำผ่าน Power Automate (Teams + Email) ตามการตัดสินใจใน "เส้นทางสู่ Production"</p>
+      <div class="meta-row"><span>ขอบเขต: <b>${esc(H.periodLabel())} · ${esc(CQA.App.scopeText())}</b></span><span>รอบส่ง: <b>ทุกวัน 07:00</b> · วิกฤตส่งทันที</span><span>${CQA.saveScope ? CQA.saveScope() : ""}</span></div></div>
+    <div class="head-actions"><button type="button" class="btn sm primary" data-act="export-alert-rules">Export alert_rules.json</button></div></div>
+  ${CQA.TH.count() ? "" : `<div class="banner"><span class="grow"><b>ยังไม่มี Target</b> — กฎ "เกินเป้า" จึงยังไม่ทำงาน (ไม่แจ้งเตือนจากการเดา) ตอนนี้แจ้งได้เฉพาะ ผิดปกติ ±2σ, Hot Issue และความสดของข้อมูล</span><button type="button" class="btn sm" data-go="catalog">ตั้ง Target</button></div>`}
+  ${UI.strip([UI.plainTile("แจ้งเตือนทั้งหมด", U.nf(list.length), "รายการ", "ตามขอบเขตที่เลือก"), UI.plainTile("ระดับสูง", U.nf(n("high")), "", "ส่งทันที/ด่วน"), UI.plainTile("ระดับปานกลาง", U.nf(n("med")), "", "รวมในรอบ 07:00"), UI.plainTile("ผู้รับ", U.nf(byTo.size), "คน/ทีม", "ตามกฎด้านล่าง")])}
+  ${UI.panel("รายการแจ้งเตือนตอนนี้", "เรียงตามระดับ · คลิกเพื่อไปหน้าที่เกี่ยวข้อง", UI.table([
+      { h: "ระดับ", v: a => `<span class="chip ${LV[a.level][2]}">${LV[a.level][0]}</span>`, html: 1 },
+      { h: "ประเภท", v: "type" }, { h: "เรื่อง", v: a => `<b>${esc(a.title)}</b><span class="cell-sub">${esc(a.detail)}</span>`, html: 1 },
+      { h: "ส่งถึง", v: a => `${esc(a.to)}<span class="cell-sub">${esc(a.channel)}</span>`, html: 1 },
+      { h: "", v: a => `<button type="button" class="link-btn" data-go="${a.go}">ดู</button>`, html: 1 },
+    ], list, { maxh: 420, empty: "ไม่มีเรื่องที่ต้องแจ้งเตือนในขอบเขตนี้" }))}
+  <div class="grid g-12">
+  ${UI.panel("ตัวอย่างข้อความที่จะส่ง (รอบ 07:00)", "รวมตามผู้รับ · คัดลอกไปทดสอบใน Teams/Email ได้", byTo.size ? [...byTo.entries()].map(([to, l]) => `<div class="alert-msg"><div class="am-head"><b>${esc(to)}</b><span class="muted small">${l.length} รายการ</span><button type="button" class="btn sm" data-act="copy-alert:${esc(to)}">คัดลอก</button></div><pre>${esc(CQA.alertMessage(to, l))}</pre></div>`).join("") : `<div class="empty">ไม่มีข้อความในรอบนี้</div>`)}
+  ${UI.panel("กฎการแจ้งเตือนต่อ content", "ผู้รับเริ่มต้น = Data owner หรือผู้จัดทำใน mapping (ว่าง = CQA Domain owner) · แก้ได้และบันทึกร่วมกันทั้งทีมในลิงก์ claude.ai", UI.table([
+      { h: "ID", v: "id" }, { h: "Content", v: c => `${esc(c.content)}<span class="cell-sub">${c.kpis.join(" ")}</span>`, html: 1 },
+      { h: "ผู้รับ", v: c => `<input type="text" class="cfg-in" data-alertcfg="${c.id}:to" value="${esc((cfg[c.id] || {}).to || "")}" placeholder="${esc(defaultTo(c))}"${ro} aria-label="ผู้รับ ${c.id}">`, html: 1 },
+      { h: "ช่องทาง", v: c => `<select data-alertcfg="${c.id}:channel"${ro} aria-label="ช่องทาง ${c.id}">${["Teams + Email", "Teams", "Email"].map(o => `<option${((cfg[c.id] || {}).channel || "Teams + Email") === o ? " selected" : ""}>${o}</option>`).join("")}</select>`, html: 1 },
+      { h: "เปิด", c: 1, v: c => `<input type="checkbox" data-alertcfg="${c.id}:on"${(cfg[c.id] || {}).on === false ? "" : " checked"}${ro} aria-label="เปิดแจ้งเตือน ${c.id}">`, html: 1 },
+    ], M.CONTENTS, { maxh: 520 }))}
+  </div>`;
+} };
+
+/* =====================================================================
+   เส้นทางสู่ Production
+   ===================================================================== */
+const PARITY_ST = ["ยังไม่เริ่ม", "กำลังทำ", "เสร็จ"];
+const counts = () => {
+  const pbi = M.CONTENTS.filter(c => c.display === "Power BI").length, w = [1, 2, 3].map(x => M.CONTENTS.filter(c => c.wave === x).length);
+  return { pbi, w };
+};
+const fill = s => { const c = counts(); return s.replace("$PBI", c.pbi).replace("$W1", c.w[0]).replace("$W2", c.w[1]).replace("$W3", c.w[2]); };
+P.roadmap = { title: "เส้นทางสู่ Production", render(el) {
+  const par = SH.get("parity", {}), ro = SH.mode === "shared" && SH.readOnly ? " disabled" : "", c = counts();
+  const real = M.DATASETS.filter(d => !CQA.store.meta(d.name).is_mock).length, fresh = M.DATASETS.filter(d => CQA.Adapter.quality(d.name).status === "ok").length;
+  const done = M.PARITY.filter(p => par[p[0]] === "เสร็จ").length;
+  el.innerHTML = `<div class="page-head"><div><h1>เส้นทางสู่ Production</h1>
+      <p>ข้อเสนอการตัดสินใจ แผนงาน และสิ่งที่ต้องทำให้ครบก่อนปิดต้นแบบ — ใช้ประกอบ BRD (Action #4) และ Feasibility (Action #5) · ทุกข้อเป็นข้อเสนอที่รอ sign-off</p></div>
+    <div class="head-actions"><button type="button" class="btn sm primary" data-act="export-brd">ดาวน์โหลด BRD (Markdown)</button><button type="button" class="btn sm" data-act="export-sql">KPI mart SQL</button><button type="button" class="btn sm" data-act="export-rls">RLS SQL</button></div></div>
+  <section class="bluf"><h2>ข้อเสนอโดยสรุป</h2><p>ใช้ <b>Power BI บน BigQuery KPI mart</b> เป็นช่องทางทางการ (สูตรชุดเดียวจาก kpi_catalog) · ย้าย Hot Issue workflow ไป <b>Microsoft Lists + Power Automate</b> · แจ้งเตือนผ่าน <b>Teams และ Email</b> · คุมสิทธิ์ Restricted ด้วย <b>BigQuery Row Access Policy + Power BI RLS</b> · ต้นแบบนี้ใช้เป็นภาพอ้างอิงและทดสอบกับผู้ใช้จนกว่า Power BI จะครบ ${M.PARITY.length} ฟีเจอร์ในรายการ parity</p></section>
+  ${UI.strip([UI.plainTile("Content แสดงใน Power BI อยู่แล้ว", c.pbi, "/ 33", "ตาม Data Source Mapping"), UI.plainTile("Wave 1 / 2 / 3", `${c.w[0]} / ${c.w[1]} / ${c.w[2]}`, "content", "ตามสูตรในไฟล์ mapping"), UI.plainTile("Dataset เป็นข้อมูลจริง", real, "/ 26", "ที่เหลือยังเป็น Mock"), UI.plainTile("KPI ที่มี Target", CQA.TH.count(), "/ 47", "รอ Data owner"), UI.plainTile("Parity กับ Power BI", done, "/ " + M.PARITY.length, "ฟีเจอร์ที่ทำแล้ว")])}
+  ${UI.panel("การตัดสินใจที่เสนอ", "เหตุผลอ้างอิงข้อเท็จจริงใน spec และ mapping", UI.table([{ h: "เรื่อง", v: d => `<b>${esc(d.topic)}</b>`, html: 1 }, { h: "ข้อเสนอ", v: d => fill(d.decision) }, { h: "เหตุผล", v: d => fill(d.why) }], M.DECISIONS))}
+  <section class="panel" data-comment-target><div class="panel-head"><div><h3>แผนงาน</h3><p class="hint">อิงกำหนด Action items 14–16 ต.ค. 2569 และเป้า One Source QA Data Hub ภายในปี 2027</p></div></div>
+    <div class="phases">${M.PHASES.map((p, i) => `<div class="phase"><div class="ph-when">${esc(p.when)}</div><h4>${i + 1}. ${esc(p.name)}</h4><ul>${p.items.map(x => `<li>${esc(fill(x))}</li>`).join("")}</ul><div class="ph-owner">${esc(p.owner)}</div></div>`).join("")}</div></section>
+  <div class="grid g-21">
+  ${UI.panel(`Parity checklist <span class="chip neutral">${done}/${M.PARITY.length}</span>`, "ฟีเจอร์ในต้นแบบ → วิธีทำใน Power BI · อัปเดตสถานะได้ " + (CQA.saveScope ? CQA.saveScope() : ""), UI.table([{ h: "ฟีเจอร์ในต้นแบบ", v: p => p[0] }, { h: "วิธีทำใน Power BI", v: p => p[1] }, { h: "สถานะ", v: p => `<select data-parity="${esc(p[0])}"${ro} aria-label="สถานะ ${esc(p[0])}">${PARITY_ST.map(s => `<option${(par[p[0]] || PARITY_ST[0]) === s ? " selected" : ""}>${s}</option>`).join("")}</select>`, html: 1 }], M.PARITY, { maxh: 560 }))}
+  ${UI.panel("เรื่องที่รอการตัดสินใจ", "ต่อยอดจาก Known issues ในหน้า Data Hub", UI.table([{ h: "เรื่อง", v: o => o[0] }, { h: "ผู้ตัดสิน", v: o => o[1] }, { h: "กำหนด", v: o => { const d = U.diffDays(today(), o[2]); return `${U.dateTH(o[2])}<span class="cell-sub ${d < 0 ? "d-bad" : ""}">${d < 0 ? "เลยมา " + -d : "อีก " + d} วัน</span>`; }, html: 1, nowrap: 1 }], M.OPEN))}
+  </div>
+  ${UI.panel("ความพร้อมของข้อมูลก่อนเชื่อม Production", `ป้ายความสดตามรอบต้นทาง — ตามรอบ ${fresh}/26 dataset · รายละเอียดในหน้า Data Hub`, `<div class="fresh-grid">${M.DATASETS.map(d => { const q = CQA.Adapter.quality(d.name); return `<div class="fg-item"><code>${d.name}</code>${UI.freshChip(q)}</div>`; }).join("")}</div>`, `<button type="button" class="btn sm" data-go="hub">ไปหน้า Data Hub</button>`)}`;
+} };
+
+/* =====================================================================
+   BRD (Markdown) — รวมทุกอย่างที่ต้นแบบรู้ เพื่อเป็นร่าง BRD (Action #4)
+   ===================================================================== */
+CQA.brdMarkdown = () => {
+  const L = [], c = counts(), par = SH.get("parity", {});
+  const t = (head, rows) => { L.push("| " + head.join(" | ") + " |", "|" + head.map(() => "---").join("|") + "|"); rows.forEach(r => L.push("| " + r.map(x => String(x == null ? "" : x).replace(/\|/g, "/").replace(/\n/g, " ")).join(" | ") + " |")); L.push(""); };
+  L.push("# BRD (ร่าง) — CQA Executive Quality Dashboard", "", `> สร้างจากต้นแบบ ${U.dateTH(today())} · ข้อมูลในต้นแบบเป็น Mock · ทุกข้อเป็นข้อเสนอรอ sign-off`, "");
+  L.push("## 1. วัตถุประสงค์และขอบเขต", "", "มุมมองด้านคุณภาพของการบริหารงานประกันคุณภาพสำหรับผู้บริหาร CQA และ Domain owner — 16 หัวข้อ · 33 content · 47 KPI", "");
+  t(["No", "BU", "หัวข้อ", "Content"], M.TOPICS.map(x => [x.no, x.bu, x.outline, x.content]));
+  L.push("## 2. ผู้ใช้และสิทธิ์", "");
+  t(["กลุ่มสิทธิ์", "ผู้ใช้", "ข้อมูล Internal", "ข้อมูล Restricted"], M.ACCESS.map(a => [a.role, a.who, a.internal, a.restricted]));
+  L.push("## 3. การตัดสินใจที่เสนอ", "");
+  t(["เรื่อง", "ข้อเสนอ", "เหตุผล"], M.DECISIONS.map(d => [d.topic, fill(d.decision), fill(d.why)]));
+  L.push("## 4. ข้อกำหนดหน้าจอ (อ้างอิงต้นแบบ)", "", "- หน้าภาพรวมผู้บริหาร: สถานะภาพรวม · KPI หลัก 5 ตัว · Hot Issue พร้อม workflow · การ์ด KPI 16 ใบตาม 3 กลุ่ม · โหมดเฉพาะเรื่องที่ต้องดู · คัดลอกสรุป", "- หน้ารายละเอียด 13 หน้า ครอบคลุม 16 หัวข้อ · drill-down คลิก BU/เดือน · profile หน่วยงาน · แผนที่รายจังหวัด", "- ทุก KPI: ปุ่ม i (นิยาม สูตร ที่มา ความสด Target) · สีสถานะเฉพาะเมื่อมี Target · n < 30 แสดงจาง · ป้าย ◆ ผิดปกติ ±2σ", "- KPI Catalog & Target · Data Hub · Alert Center · หน้าแรกตามบทบาท · รองรับมือถือ", "");
+  L.push("## 5. KPI Catalog", "");
+  t(["ID", "KPI", "หน่วย", "ทิศทาง", "ความถี่", "Confidence", "Wave", "Target", "ต้องยืนยัน"], CQA.KPIS.map(k => { const th = CQA.TH.get(k.id); return [k.id, k.name, k.unit, UI.dirText(k), k.freq, k.conf, k.wave, th ? th.target + (th.tolerance != null ? " (tol " + th.tolerance + ")" : "") : "—", k.ask || ""]; }));
+  L.push("SQL ของ KPI mart สร้างอัตโนมัติจาก catalog (ไฟล์ kpi_mart.sql)", "");
+  L.push("## 6. แหล่งข้อมูลและ SLA ความสด", "");
+  t(["Dataset", "ต้นทาง", "รอบ", "SLA (วัน)", "สถานะต้นแบบ"], M.DATASETS.map(d => { const q = CQA.Adapter.quality(d.name); return [d.name, d.source, q.label, q.sla || "—", q.note]; }));
+  L.push("## 7. กฎแจ้งเตือน", "", "- รอบส่ง: ทุกวัน 07:00 หลัง refresh · Hot Issue วิกฤตส่งทันที · ช่องทาง Teams + Email (Power Automate)", "- เงื่อนไข: หลุดเป้า/ใกล้เกณฑ์ (มี Target เท่านั้น) · ผิดปกติ ±2σ · Hot Issue วิกฤต/สูงที่ยังไม่รับทราบ · เลยกำหนด · ข้อมูลล่าช้าเกิน SLA · ข้ามเมื่อ n < 30", "");
+  L.push("## 8. Parity checklist (ต้นแบบ → Power BI)", "");
+  t(["ฟีเจอร์", "วิธีทำใน Power BI", "สถานะ"], M.PARITY.map(p => [p[0], p[1], par[p[0]] || "ยังไม่เริ่ม"]));
+  L.push("## 9. แผนงาน", "");
+  t(["ช่วงเวลา", "ระยะ", "งาน", "ผู้รับผิดชอบ"], M.PHASES.map(p => [p.when, p.name, p.items.map(fill).join(" · "), p.owner]));
+  L.push("## 10. ประเด็นข้อมูลที่รู้แล้ว", "");
+  t(["#", "ประเด็น", "ผลกระทบ", "ต้องถามใคร"], M.ISSUES.map(i => [i.no, i.issue, i.impact, i.ask]));
+  L.push("## 11. เรื่องที่รอการตัดสินใจ", "");
+  t(["เรื่อง", "ผู้ตัดสิน", "กำหนด"], M.OPEN.map(o => [o[0], o[1], U.dateTH(o[2])]));
+  L.push(`_Content แสดงใน Power BI อยู่แล้ว ${c.pbi}/33 · Wave 1/2/3 = ${c.w.join("/")}_`, "");
+  return L.join("\n");
+};
 })(globalThis.CQA = globalThis.CQA || {});
 
 /* ==== 09_ai.js ==== */
@@ -3220,6 +3698,13 @@ const localChart = c => {
   lines.push("คลิกแท่งหรือเดือนบนกราฟเพื่อกรองทั้ง dashboard ได้");
   return lines.join("\n");
 };
+A.alert = () => {
+  const l = CQA.alerts(), hi = l.filter(a => a.level === "high");
+  return [`**แจ้งเตือนตอนนี้ ${l.length} รายการ** (ระดับสูง ${hi.length}) · ${scope()}`, ...l.slice(0, 5).map(a => `- [${a.type}] ${a.title} → ${a.to}`),
+    CQA.TH.count() ? "" : "- กฎ \"เกินเป้า\" ยังไม่ทำงานเพราะยังไม่มี Target (ระบบไม่แจ้งจากการเดา)", "รอบส่งจริง: ทุกวัน 07:00 ผ่าน Power Automate (Teams + Email) · วิกฤตส่งทันที"].filter(Boolean).join("\n");
+};
+A.prod = () => ["**เส้นทางสู่ Production (ข้อเสนอ)**", ...M.DECISIONS.slice(0, 5).map(d => `- ${d.topic}: ${d.decision.split(" · ")[0]}`),
+  `เรื่องที่ต้องตัดสินใจก่อน: ${M.OPEN.filter(o => o[2] <= "2026-10-14").map(o => o[0]).join(", ")}`].join("\n");
 A.hot = () => {
   const open = CQA.openItems(), un = open.filter(i => CQA.wfStatus(i.id) === "new"), over = open.filter(i => { const w = CQA.wfOf(i.id); return w && w.due && w.due < U.ymd(new Date()); });
   return [`**Hot Issue ที่เปิดอยู่ ${open.length} เรื่อง** (${scope()})`,
@@ -3229,6 +3714,8 @@ A.hot = () => {
 };
 const local = q => {
   const s = q.toLowerCase();
+  if (/แจ้งเตือน|alert/.test(s)) return A.alert();
+  if (/production|power ?bi|roadmap|แผน|ตัดสินใจ|bigquery/.test(s)) return A.prod();
   if (/hot ?issue|ผู้รับผิดชอบ|มอบหมาย|เลยกำหนด|วิกฤต/.test(s)) return A.hot();
   if (/complaint|ร้องเรียน/.test(s)) return A.complaint();
   if (/\bnc\b|ncr|non.?conform/.test(s)) return A.nc();
@@ -3262,6 +3749,9 @@ const context = () => {
     hotIssues: CQA.brief().items.slice(0, 12).map(i => { const w = CQA.wfOf(i.id) || {}; return { severity: i.sev, bu: i.bu, title: i.title, detail: i.body, suggestedOwner: i.owner, status: (CQA.WF[w.status || "new"] || [""])[0], assignedTo: w.owner || null, due: w.due || null, note: w.note || null }; }),
     dataIssues: M.ISSUES.map(i => ({ no: i.no, issue: i.issue, impact: i.impact })),
     gaps: ["DC count", "Lab utilization"], actionOrder: M.ACTION_ORDER,
+    alerts: CQA.alerts ? CQA.alerts().slice(0, 12).map(a => ({ level: a.level, type: a.type, title: a.title, detail: a.detail, to: a.to })) : [],
+    dataFreshness: M.DATASETS.map(d => CQA.Adapter.quality(d.name)).filter(q => q.status !== "ok").map(q => ({ dataset: q.ds, note: q.note })),
+    productionDecisions: M.DECISIONS.map(d => ({ topic: d.topic, decision: d.decision })), openDecisions: M.OPEN.map(o => ({ question: o[0], owner: o[1], due: o[2] })),
   };
 };
 
@@ -3278,6 +3768,9 @@ const SUGGEST_BY_PAGE = {
   pathogen: ["ตรวจพบเชื้ออะไรบ้างในผลิตภัณฑ์ Cooked", "Pathogen แนวโน้มเป็นอย่างไร"],
   cost: ["Cost reduction ขาดเป้าเท่าไร", "โครงการไหน achievement ต่ำสุด"],
   catalog: ["KPI ไหนยังไม่พร้อมใช้จริง", "ควรตั้ง Target ตัวไหนก่อน"],
+  alerts: ["ตอนนี้มีแจ้งเตือนอะไรบ้าง ส่งถึงใคร", "ทำไมกฎเกินเป้ายังไม่ทำงาน"],
+  roadmap: ["สรุปแผนสู่ Production", "ต้องตัดสินใจเรื่องอะไรก่อน 14 ต.ค."],
+  network: ["จังหวัดไหน Complaint rate สูงสุด", "สรุปเครือข่ายโรงงานและจุดขาย"],
   hub: ["KPI ไหนยังไม่พร้อมใช้จริง", "dataset ไหนควรเชื่อมข้อมูลจริงก่อน"],
 };
 const SUGGEST = ["สรุปเรื่องที่ต้องตัดสินใจวันนี้", "ทำไม Complaint rate เดือนล่าสุดสูงขึ้น", "Supplier กลุ่มไหนน่าห่วง", "CCP Line 7 ต้องทำอะไรก่อน", "KPI ไหนยังไม่พร้อมใช้จริง"];
@@ -3371,7 +3864,7 @@ const ST_KEY = "cqa.state.v1", THEME_KEY = "cqa.theme";
 const App = CQA.App = {
   downloads: null, lastImport: null,
   state: { page: "overview", period: "ytd", bu: "all", org: "all", wave: "all", realOnly: false, role: "exec",
-    cf: { nature: "all", channel: "all" }, pg: "all", auditTab: "factory", supTab: "supplier", ccpPoint: "Metal Detector", catTopic: "all", catConf: "all", focus: false },
+    cf: { nature: "all", channel: "all" }, pg: "all", auditTab: "factory", supTab: "supplier", mapMetric: "orgs", ccpPoint: "Metal Detector", catTopic: "all", catConf: "all", focus: false },
 };
 try { const s = JSON.parse(localStorage.getItem(ST_KEY) || "{}"); ["page", "period", "bu", "org", "wave", "role", "realOnly", "focus"].forEach(k => { if (s[k] !== undefined) App.state[k] = s[k]; }); } catch (e) { /* storage unavailable */ }
 /* ---------- มุมมองผู้ใช้ (persona) → หน้าแรกของฉัน ---------- */
@@ -3401,14 +3894,18 @@ const persist = () => { try { const s = App.state; localStorage.setItem(ST_KEY, 
 App.ctx = () => {
   const s = App.state, last = M.MONTHS[M.MONTHS.length - 1];
   const o = s.period === "ytd" ? { from: M.YEAR + "-01-01", to: U.monthEnd(last) } : { from: s.period + "-01", to: U.monthEnd(s.period) };
-  return KPI.ctx(Object.assign(o, { bu: s.bu, org: s.org, restricted: s.role === "exec" }));
+  /* Domain owner: เห็น Restricted เฉพาะ BU ของตัวเอง (BU ที่กรองอยู่ หรือ BU ในมุมมองของฉัน) */
+  const ownBU = s.role === "domain" ? (s.bu !== "all" ? s.bu : (App.persona && App.persona.bu && App.persona.bu !== "all" ? App.persona.bu : null)) : null;
+  return KPI.ctx(Object.assign(o, { bu: s.bu, org: s.org, restricted: s.role === "exec", restrictedBU: ownBU }));
 };
-App.scopeText = () => { const s = App.state; return (s.org !== "all" ? (KPI.org(s.org) || {}).org_name || s.org : s.bu !== "all" ? "BU " + s.bu : "ทุก BU") + (s.role === "exec" ? "" : " · สิทธิ์ Internal"); };
+App.scopeText = () => { const s = App.state; return (s.org !== "all" ? (KPI.org(s.org) || {}).org_name || s.org : s.bu !== "all" ? "BU " + s.bu : "ทุก BU") + (s.role === "exec" ? "" : s.role === "domain" ? " · สิทธิ์ Domain owner" : " · สิทธิ์ Internal"); };
 
 /* ---------- navigation ---------- */
 const IC = {
   overview: '<rect x="3" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"/>',
   catalog: '<path d="M4 5h16M4 12h16M4 19h10"/>',
+  alerts: '<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>',
+  roadmap: '<path d="M4 19h16"/><path d="M4 15l4-4 4 3 6-7"/><circle cx="18" cy="7" r="1.5"/>',
   hub: '<ellipse cx="12" cy="5.5" rx="8" ry="2.8"/><path d="M4 5.5v6c0 1.6 3.6 2.8 8 2.8s8-1.2 8-2.8v-6"/><path d="M4 11.5v6c0 1.6 3.6 2.8 8 2.8s8-1.2 8-2.8v-6"/>',
 };
 const NAV = [
@@ -3418,7 +3915,7 @@ const NAV = [
   ["การผลิต", [["ccp", "CCP & Key Step", "8–10"]]],
   ["ห้องปฏิบัติการ", [["lab", "Lab Perf. & Cost", "11–12"], ["pathogen", "Pathogen", "13"]]],
   ["คน ดิจิทัล ต้นทุน", [["digital", "Digital", "14"], ["people", "People (FSQC)", "15"], ["cost", "Cost Reduction", "16"]]],
-  ["Foundation", [["catalog", "KPI Catalog & Target", "ico"], ["hub", "Data Hub", "ico"]]],
+  ["Foundation", [["catalog", "KPI Catalog & Target", "ico"], ["hub", "Data Hub", "ico"], ["alerts", "Alert Center", "ico"], ["roadmap", "เส้นทางสู่ Production", "ico"]]],
 ];
 const buildRail = () => {
   let crit = new Set();
@@ -3475,6 +3972,7 @@ const buildPill = () => {
   b.innerHTML = `<span class="dot ${lv.cls}" aria-hidden="true"></span><span>ภาพรวม: <b>${lv.label}</b></span><span class="sub">วิกฤต ${lv.crit} · สูง ${lv.high}</span>`;
   b.setAttribute("aria-label", `สถานะภาพรวม ${lv.label} วิกฤต ${lv.crit} สูง ${lv.high} — ไปหน้า Hot Issue`);
   b.setAttribute("data-tip", "คำนวณจาก Hot Issue ที่ยังไม่ปิดในขอบเขตที่เลือก (เกณฑ์ความรุนแรง Proposed) ไม่ใช่สถานะ KPI ตาม Target · คลิกเพื่อดูรายการ");
+  try { const nh = CQA.alerts().filter(a => a.level === "high").length, bn = $("#bell-n"); bn.textContent = nh || ""; bn.hidden = !nh; $("#btn-alerts").setAttribute("aria-label", `Alert Center: แจ้งเตือนระดับสูง ${nh} รายการ`); } catch (e) { /* ignore */ }
   const bb = $("#bnav-hot"); if (bb) { bb.textContent = lv.crit + lv.high || ""; bb.hidden = !(lv.crit + lv.high); }
 };
 /* ---------- ตัวกรองที่ใช้อยู่ (กดเพื่อล้าง) ---------- */
@@ -3485,7 +3983,7 @@ const buildChips = () => {
   if (s.org !== "all") chip("org", "หน่วยงาน: " + s.org);
   if (s.wave !== "all") chip("wave", "Wave " + s.wave);
   if (s.realOnly) chip("realOnly", "เฉพาะข้อมูลจริง");
-  if (s.role !== "exec") chip("role", "สิทธิ์: Internal");
+  if (s.role !== "exec") chip("role", s.role === "domain" ? "สิทธิ์: Domain owner" : "สิทธิ์: Internal");
   if (s.page === "complaint" && s.cf.nature !== "all") chip("cf.nature", "Nature: " + s.cf.nature);
   if (s.page === "complaint" && s.cf.channel !== "all") chip("cf.channel", "ช่องทาง: " + s.cf.channel);
   if (s.page === "pathogen" && s.pg !== "all") chip("pg", "ผลิตภัณฑ์: " + s.pg);
@@ -3517,11 +4015,16 @@ const initFilters = () => {
   on("#f-bu", el => { s.bu = el.value; fillOrg(); });
   on("#f-org", el => { s.org = el.value; });
   on("#f-wave", el => { s.wave = el.value; });
-  on("#f-role", el => { s.role = el.value; UI.toast(el.value === "exec" ? "บทบาทผู้บริหาร: แสดงข้อมูล Restricted" : "บทบาท Internal: ซ่อน Negative incident ที่เป็น Restricted"); });
+  on("#f-role", el => { s.role = el.value; UI.toast(el.value === "exec" ? "บทบาทผู้บริหาร: แสดงข้อมูล Restricted" : el.value === "domain" ? "บทบาท Domain owner: เห็น Restricted เฉพาะ BU ที่เลือก (หรือ BU ในมุมมองของฉัน)" : "บทบาท Internal: ซ่อน Negative incident ที่เป็น Restricted"); });
   on("#f-realonly", el => { s.realOnly = el.checked; });
   $("#brand-sub").textContent = `Food Safety & Quality Monitoring · ข้อมูลถึง ${U.dateTH(M.AS_OF)} · อัปเดต ${M.UPDATED}`;
 };
 
+/* ---------- คัดลอกข้อความ (clipboard หรือกล่องข้อความสำรอง) ---------- */
+const copyText = (text, ok) => {
+  const fallback = () => { UI.openModal("คัดลอกข้อความ", `<p class="hint" style="margin:0 0 8px">กด Ctrl+C (หรือค้างเพื่อคัดลอกบนมือถือ)</p><textarea class="copy-area" id="copy-area" readonly>${esc(text)}</textarea>`); const ta = $("#copy-area"); ta.focus(); ta.select(); };
+  try { navigator.clipboard.writeText(text).then(() => UI.toast(ok), fallback); } catch (e) { fallback(); }
+};
 /* ---------- actions ---------- */
 let pendingImport = null;
 Object.assign(CQA.ACTS, {
@@ -3538,6 +4041,15 @@ Object.assign(CQA.ACTS, {
   },
   "hot-ack": id => { CQA.hotSave(id, { status: "ack" }); UI.toast(CQA.Shared.mode === "shared" ? "รับทราบแล้ว — ทั้งทีมเห็นสถานะนี้" : "รับทราบแล้ว"); App.render(); },
   "hot-edit": id => CQA.hotEdit(id),
+  "export-sql": () => UI.download("kpi_mart.sql", CQA.SQL.all(), "text/plain;charset=utf-8"),
+  "export-rls": () => UI.download("rls_policies.sql", CQA.SQL.rls(), "text/plain;charset=utf-8"),
+  "export-brd": () => UI.download("CQA_BRD_draft.md", CQA.brdMarkdown(), "text/markdown;charset=utf-8"),
+  "export-alert-rules": () => UI.download("alert_rules.json", JSON.stringify(CQA.alertRules(), null, 2), "application/json"),
+  "copy-alert": to => { const l = CQA.alerts().filter(a => a.to === to); copyText(CQA.alertMessage(to, l), "คัดลอกข้อความแจ้งเตือนแล้ว"); },
+  prov: name => {
+    const orgs = KPI.rows({ ds: "dim_org", agg: "count", field: "org_code", where: { active_flag: "Y", province: name }, period: "stock" }, App.ctx());
+    UI.openModal(`จังหวัด${name} · ${orgs.length} หน่วยงาน`, `<p class="hint" style="margin:0 0 8px">คลิกแถวเพื่อดู profile หน่วยงาน</p>` + UI.table([{ h: "รหัส", v: "org_code" }, { h: "หน่วยงาน", v: "org_name" }, { h: "BU", v: "bu" }, { h: "ตลาด", v: "market" }, { h: "ประเภท", v: "plant_type" }], orgs, { rowAct: r => "org:" + r.org_code, empty: "ไม่มีหน่วยงานในขอบเขตที่เลือก" }));
+  },
   org: code => UI.orgProfile(code),
   "ai-chart": id => CQA.AI.explainChart(id),
   comment: async (arg, el) => {
@@ -3579,6 +4091,7 @@ async function init() {
   const bc = $("#btn-comment"); if (bc) bc.addEventListener("click", e => CQA.ACTS.comment(null, null));
   $("#fbar").addEventListener("click", e => { const c = e.target.closest("[data-clear]"); if (c) clearFilter(c.dataset.clear); });
   $("#net-status").addEventListener("click", () => App.navTo("hotissue"));
+  $("#btn-alerts").addEventListener("click", () => App.navTo("alerts"));
   /* การ์ด KPI เป็น role=button: เปิดด้วย Enter / Space */
   $("#main").addEventListener("keydown", e => {
     if ((e.key === "Enter" || e.key === " ") && e.target.matches('[role="button"][data-go]')) { e.preventDefault(); if (e.target.dataset.go) App.navTo(e.target.dataset.go); }
@@ -3592,6 +4105,8 @@ async function init() {
     if (e.target.closest("[data-modal-close]")) { UI.closeModal(); return; }
     const tc = e.target.closest("[data-thclear]"); if (tc) { CQA.TH.set(tc.dataset.thclear, null); UI.toast("ลบ Target แล้ว"); App.render(); UI.kinfo(tc.dataset.thclear); return; }
     const ma = e.target.closest("[data-modal-act]");
+    if (ma && ma.dataset.modalAct.startsWith("copy-sql:")) { copyText(CQA.SQL.kpi(CQA.KPI_BY_ID[ma.dataset.modalAct.slice(9)]), "คัดลอก SQL แล้ว"); return; }
+    const ga = !ma && e.target.closest("[data-act]"); if (ga) { const [n, a] = ga.dataset.act.split(/:(.+)/); if (CQA.ACTS[n]) CQA.ACTS[n](a, ga); return; }
     if (ma) { const [n, a] = ma.dataset.modalAct.split(/:(.+)/); if (n === "filter-org") { const o = KPI.org(a); App.state.bu = o ? o.bu : "all"; fillOrg(); App.state.org = a; syncFilters(); persist(); UI.closeModal(); App.render(); UI.toast(`กรองทั้ง dashboard ด้วย ${a}`); } }
   });
   $("#modal").addEventListener("submit", e => {
@@ -3627,6 +4142,8 @@ async function init() {
     if (t.matches("[data-th]")) { const [id, f] = t.dataset.th.split(":"), cur = CQA.TH.get(id) || {}; const nv = t.value === "" ? null : +t.value; const tgt = f === "target" ? nv : cur.target, tol = f === "tolerance" ? nv : cur.tolerance; CQA.TH.set(id, tgt, tol, "owner"); App.render(false, `[data-th="${t.dataset.th}"]`); return; }
     if (t.matches("[data-wq]")) { const [id, q] = t.dataset.wq.split(":"); CQA.setWaveAnswer(id, q, t.checked); App.render(false, `[data-wq="${t.dataset.wq}"]`); return; }
     if (t.matches("[data-actst]")) { CQA.setActionStatus(t.dataset.actst, t.value).then(ok => { if (ok) UI.toast("บันทึกสถานะให้ทีมแล้ว"); else if (CQA.Shared.mode === "local") UI.toast("บันทึกสถานะในเบราว์เซอร์นี้แล้ว"); }); return; }
+    if (t.matches("[data-alertcfg]")) { const [cid, f] = t.dataset.alertcfg.split(":"), cfg = JSON.parse(JSON.stringify(CQA.Shared.get("alerts", {}))); cfg[cid] = Object.assign({}, cfg[cid], { [f]: f === "on" ? t.checked : t.value.trim() }); CQA.Shared.set("alerts", cfg); UI.toast(CQA.Shared.mode === "shared" ? "บันทึกกฎแจ้งเตือนให้ทั้งทีมแล้ว" : "บันทึกกฎแจ้งเตือนแล้ว"); App.render(false, `[data-alertcfg="${t.dataset.alertcfg}"]`); return; }
+    if (t.matches("[data-parity]")) { const par = JSON.parse(JSON.stringify(CQA.Shared.get("parity", {}))); par[t.dataset.parity] = t.value; CQA.Shared.set("parity", par); UI.toast("บันทึกสถานะ parity แล้ว"); App.render(false); return; }
     if (t.matches("[data-setbool]")) { App.state[t.dataset.setbool] = t.checked; persist(); App.render(false, `[data-setbool="${t.dataset.setbool}"]`); return; }
     if (t.matches("[data-setsel]")) { App.state[t.dataset.setsel] = t.value; App.render(false, `[data-setsel="${t.dataset.setsel}"]`); }
   });

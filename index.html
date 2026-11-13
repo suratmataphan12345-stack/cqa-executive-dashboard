@@ -3099,14 +3099,17 @@ UI.line = (id, labels, series, o = {}) => {
       pointRadius: s.points != null ? s.points : (labels.length > 40 ? 0 : 3), pointHoverRadius: 5, pointBackgroundColor: s.pointColors || s.color || t.c[i], pointBorderColor: t.surface, pointBorderWidth: 2, borderDash: s.dash || [] })) },
     options: {
       interaction: { mode: "index", intersect: false },
+      layout: { padding: { top: o.labels ? 18 : 4, right: o.labels ? 10 : 4 } },
       onClick: o.onClick ? (e, els) => { if (els.length) o.onClick(els[0].index); } : undefined,
       onHover: o.onClick ? (e, els) => { e.native.target.style.cursor = els.length ? "pointer" : "default"; } : undefined,
       plugins: {
         legend: { display: series.length > 1 },
         tooltip: { callbacks: { label: c => ` ${c.dataset.label ? c.dataset.label + ": " : ""}${c.parsed.y == null ? "–" : fmt(c.parsed.y)}${o.unit ? " " + o.unit : ""}` } },
         hlines: o.lines ? { lines: o.lines } : null,
+        /* ค่าที่จุด (ใช้เมื่อจุดน้อย เช่น W1–W5) */
+        endLabels: o.labels ? { fmt } : null,
       },
-      scales: { x: axis(t, { grid: false, title: o.xUnit }), y: axis(t, { cb: o.pct ? v => v + "%" : (o.ycb || (v => U.compact(v))), beginAtZero: o.zero !== false, min: o.min, max: o.max, smax: o.smax, int: o.int, title: o.yUnit }) },
+      scales: { x: Object.assign(axis(t, { grid: false, title: o.xUnit }), o.labels ? { offset: true } : {}), y: axis(t, { cb: o.pct ? v => v + "%" : (o.ycb || (v => U.compact(v))), beginAtZero: o.zero !== false, min: o.min, max: o.max, smax: o.smax, int: o.int, title: o.yUnit }) },
     },
   });
 };
@@ -3486,7 +3489,7 @@ H.weekly = (id, ctx, cid, what, req) => {
   return {
     html: `<div class="grid g-12">${UI.panel(`${esc(what)} ราย Week — ${U.monLabel(ym)} ${UI.reqChips([req])}`, `จำนวนครั้งรายสัปดาห์ในเดือน · W1 = วันที่ 1–7 … W5 = 29–สิ้นเดือน · 7 วันล่าสุด <b>${U.nf(last7)}</b> ${esc(k.unit)}`, UI.box(cid, "sm"))}
       ${UI.panel(`${esc(what)} ราย Week ทุกเดือน`, "เดือน × สัปดาห์ (YTD) · เซลล์เข้ม = จำนวนมาก", table)}</div>`,
-    draw: () => UI.bar(cid, wk.map(w => `${w.label} (${+w.from.slice(8)}–${+w.to.slice(8)})`), [{ label: what, data: wk.map(w => w.value) }], { fmt: U.nf, labels: true, xUnit: "week", int: true }),
+    draw: () => UI.line(cid, wk.map(w => `${w.label} (${+w.from.slice(8)}–${+w.to.slice(8)})`), [{ label: what, data: wk.map(w => w.value), fill: true, points: 4 }], { fmt: U.nf, labels: true, xUnit: "week", int: true }),
   };
 };
 H.periodLabel = () => { const st = CQA.App.state; return st.period === "ytd" ? "YTD ม.ค.–" + U.monLabel(H.ctx().to.slice(0, 7)) : U.monLabel(st.period); };

@@ -4589,18 +4589,18 @@ P.overview = { title: "QA Scorecard", render(el) {
   const k10 = V("K10"), s10 = H.sts("K10", k10), k12 = V("K12"), s12 = H.sts("K12", k12);
   const dser = KPI.daily("K38", ctx, 30), ccpLast = dser.length ? dser[dser.length - 1] : { value: 0, key: ctx.to }, ccp7 = U.sum(dser.slice(-7).map(x => x.value || 0));
   const ccpTop = H.sorted(KPI.group(H.num("K38"), c7, "ccp_point"), 1)[0];
-  const k49 = V("K49"), s49 = H.sts("K49", k49), k50 = V("K50").value, w51 = KPI.weekly("K51", wctx), k51w = KPI.value("K51", c7).value;
+  const k49 = V("K49"), s49 = H.sts("K49", k49), k50 = V("K50").value, k51w = KPI.value("K51", c7).value;
   const PM = [["K52", "Salmonella", "FG ไก่ดิบ (ไม่รวม FPP)"], ["K53", "L. monocytogenes", "Cooked products"], ["K54", "Vibrio", "กุ้งสุก + ดิบ"]];
   const pmRows = PM.map(([id, n, s], i) => { const t = tr(id); return `<div class="mm-row"><span class="mm-l"><b>${n}</b><span>${s}</span></span>${UI.svgLine(t.map(x => x.value), { w: 170, h: 30, unit: i === PM.length - 1 ? "month" : null, tips: H.mtips(id, t), zero: true, color: `var(--c${i + 1})`, aria: n + " รายเดือน" })}<span class="mm-n" data-tip="${esc(H.periodShort())}">${U.nf(V(id).value)}</span></div>`; }).join("");
   const raSel = KPI.rows(H.num("K48"), dctx), raN = raSel.filter(r => r.polarity !== "Positive").length, raP = raSel.length - raN;
   const raLast = KPI.rows(Object.assign({}, H.num("K48"), { period: "asof" }), dctx).sort((a, b) => b.case_date.localeCompare(a.case_date))[0];
   /* R03 · R05: กราฟเล็ก = จำนวนครั้งราย Week ของเดือนล่าสุด (ชุดเดียวกับกราฟ "ราย Week" ในหน้ารายละเอียด)
      สัปดาห์สุดท้ายที่ยังไม่ครบ 7 วัน แสดงเป็นเส้นประ + จุดกลวง เพื่อไม่ให้อ่านว่าลดลงจริง */
-  const weekMini = (id, unit) => {
+  const weekMini = (id, unit, label, color) => {
     const wk = KPI.weekly(id, Object.assign({}, ctx, { from: ym + "-01" })), last = wk[wk.length - 1], part = !!last && last.days < 7;
     if (!wk.length) return `<div class="mini-empty">ไม่มีข้อมูลในช่วงนี้</div>`;
-    return `<div class="cap"${part ? ` data-tip="${esc(`${last.label} ยังไม่ครบสัปดาห์ (มีข้อมูล ${last.days} วัน) — เส้นประ`)}"` : ""}>ครั้งราย Week · ${U.monLabel(ym)}${part ? ` · ${last.label} = ${last.days} วัน` : ""}</div>`
-      + UI.svgLine(wk.map(x => x.value), { h: 66, unit: "week", zero: true, dots: true, partialLast: part, xlabels: wk.map(x => x.label), vlabels: wk.map(x => U.nf(x.value)),
+    return `<div class="cap"${part ? ` data-tip="${esc(`${last.label} ยังไม่ครบสัปดาห์ (มีข้อมูล ${last.days} วัน) — เส้นประ`)}"` : ""}>${label || "ครั้งราย Week"} · ${U.monLabel(ym)}${part ? ` · ${last.label} = ${last.days} วัน` : ""}</div>`
+      + UI.svgLine(wk.map(x => x.value), { h: 66, unit: "week", zero: true, dots: true, partialLast: part, xlabels: wk.map(x => x.label), vlabels: wk.map(x => U.nf(x.value)), color,
           tips: wk.map(x => `${x.label} (${+x.from.slice(8)}–${+x.to.slice(8)} ${U.monLabel(x.ym)}): ${U.nf(x.value)} ${unit}${x.days < 7 ? ` · ยังไม่ครบสัปดาห์ (${x.days} วัน)` : ""}`), aria: `${KB(id).name} ราย Week ${U.monLabel(ym)}` });
   };
   /* 7 วันล่าสุด เทียบ 7 วันก่อนหน้า (ลูกศร: เพิ่มขึ้น = แย่ลง สำหรับ Complaint / NC) */
@@ -4620,7 +4620,7 @@ P.overview = { title: "QA Scorecard", render(el) {
     + `</div><div class="sc-grid">`
     + tile({ title: "Pathogen — FG for Release", req: ["R08", "R09"], go: "pathogen", info: "K49", value: fv("K49", k49.value), unit: "%", status: s49, std: H.stdText("K49", k49.value), attn: ATTN.includes(s49.cls) || k51w > 0,
         subs: [["Not good (Hold)", `${U.nf(k50)} lot · ${U.nf(k50 / (k49.den || 1) * 100, 2)}%`], ["พบเชื้อ 3 ชนิด · 7 วันล่าสุด", `${U.nf(k51w)} /week`]],
-        chart: `<div class="cap">พบ Salmonella + LM + Vibrio ราย week (ไม่รวม Swab)</div>` + UI.svgBars(w51.map(x => x.value), { unit: "week", color: "var(--c2)", tips: w51.map(x => `${U.monLabel(x.ym)} ${x.label} (${U.dateTH(x.from)}–${U.dateTH(x.to)}): ${x.value} ครั้ง`), aria: "พบเชื้อ 3 ชนิดรายสัปดาห์" }), freq: "ตามรอบตรวจ · รายสัปดาห์", pending: "นิยาม FG for Release" })
+        chart: weekMini("K51", "ครั้ง", "พบเชื้อราย Week", "var(--c2)"), freq: "ตามรอบตรวจ · รายสัปดาห์", pending: "นิยาม FG for Release" })
     + tile({ title: "Pathogen รายเดือน", req: ["R10", "R11", "R12"], go: "pathogen", info: "K52", value: null, attn: PM.some(([id]) => (KPI.value(id, mctx).value || 0) > 0),
         chart: `<div class="cap">จำนวนครั้งที่พบ · ไม่แสดงตัวเลขบนกราฟ (ตัวเลขด้านขวา = ${esc(H.periodShort())})</div><div class="mm">${pmRows}</div>`, freq: "รายเดือน" })
     + tile({ title: "Regulatory Hot Issue", req: ["R13"], go: "ra", info: "K48", value: U.nf(KPI.value("K48", dctx).value), unit: `เรื่อง · ${U.dateTH(day)}`, attn: raN > 0,

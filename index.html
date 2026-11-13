@@ -545,6 +545,7 @@ svg.mini text{font-family:var(--font)}
 .ml-base{stroke:var(--line-strong);stroke-width:1}
 .ml-unit{font-size:10px;fill:var(--ink-3)}
 .ml-x{font-size:9.5px;fill:var(--ink-3)}
+.ml-v{font-size:10px;font-weight:600;fill:var(--ink-2)}
 .ml-hit{fill:transparent;cursor:default}
 .mini-empty{font-size:12px;color:var(--ink-3);padding:10px 0}
 .mini-legend{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:11px;color:var(--ink-2);margin-top:3px}
@@ -3241,8 +3242,9 @@ UI.reqChips = ids => (ids || []).map(id => { const r = (M.REQ_BY_ID || {})[id]; 
 
 /* ---------- กราฟเส้นเล็ก (SVG) ----------
    o: { w, h, unit: "month"|"week"|"day", ref: [ค่าเส้นอ้างอิง], tips: [ข้อความ hover ต่อจุด], zero, color, labels: [ซ้าย, ขวา], dots } */
+/* เพิ่มเติม: xlabels = ป้ายใต้ทุกจุด · vlabels = ตัวเลขเหนือทุกจุด · partialLast = ช่วงสุดท้ายยังไม่ครบ (เส้นประ + จุดกลวง) */
 UI.svgLine = (vals, o = {}) => {
-  const w = o.w || 240, h = o.h || 52, pl = 3, pr = o.unit ? 34 : 6, pt = 5, pb = o.labels ? 14 : 5;
+  const w = o.w || 240, h = o.h || 52, pl = o.xlabels || o.vlabels ? 12 : 3, pr = o.unit ? 34 : 6, pt = o.vlabels ? 14 : 5, pb = o.labels || o.xlabels ? 14 : 5;
   const pts = vals.map((v, i) => [i, v]).filter(p => p[1] != null && isFinite(p[1]));
   if (!pts.length) return `<div class="mini-empty">ไม่มีข้อมูลในช่วงนี้</div>`;
   const refs = (o.ref || []).filter(x => x != null && isFinite(x));
@@ -3250,14 +3252,19 @@ UI.svgLine = (vals, o = {}) => {
   if (o.zero !== false) lo = Math.min(0, lo);
   if (hi - lo < 1e-9) hi = lo + (Math.abs(lo) || 1);
   const n = Math.max(1, vals.length - 1), X = i => pl + (w - pl - pr) * i / n, Y = v => pt + (h - pt - pb) * (1 - (v - lo) / (hi - lo));
-  const d = pts.map((p, j) => (j ? "L" : "M") + X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1)).join(" ");
-  const last = pts[pts.length - 1], col = o.color || "var(--c1)";
+  const path = arr => arr.map((p, j) => (j ? "L" : "M") + X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1)).join(" ");
+  const part = !!o.partialLast && pts.length > 1, last = pts[pts.length - 1], col = o.color || "var(--c1)";
+  const line = `<path d="${path(part ? pts.slice(0, -1) : pts)}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`
+    + (part ? `<path d="${path(pts.slice(-2))}" fill="none" stroke="${col}" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round"/>` : "");
   const ref = refs.map(y => `<line class="ml-ref" x1="${pl}" x2="${w - pr}" y1="${Y(y).toFixed(1)}" y2="${Y(y).toFixed(1)}"/>`).join("");
   const hit = (o.tips || []).map((tp, i) => vals[i] == null || !isFinite(vals[i]) ? "" : `<circle class="ml-hit" cx="${X(i).toFixed(1)}" cy="${Y(vals[i]).toFixed(1)}" r="7" data-tip="${esc(tp)}"/>`).join("");
-  const dots = o.dots ? pts.map(p => `<circle cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="1.8" fill="${col}"/>`).join("") : "";
+  const dots = o.dots ? pts.slice(0, -1).map(p => `<circle cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="2.2" fill="${col}"/>`).join("") : "";
+  const end = part ? `<circle cx="${X(last[0]).toFixed(1)}" cy="${Y(last[1]).toFixed(1)}" r="3" fill="var(--surface)" stroke="${col}" stroke-width="1.8"/>` : `<circle cx="${X(last[0]).toFixed(1)}" cy="${Y(last[1]).toFixed(1)}" r="3.2" fill="${col}" stroke="var(--surface)" stroke-width="1.5"/>`;
   const unit = o.unit ? `<text class="ml-unit" x="${w - 2}" y="${h - pb - 1}" text-anchor="end">${esc(o.unit)}</text>` : "";
-  const lab = o.labels ? `<text class="ml-x" x="${pl}" y="${h - 2}">${esc(o.labels[0])}</text><text class="ml-x" x="${w - pr}" y="${h - 2}" text-anchor="end">${esc(o.labels[1])}</text>` : "";
-  return `<svg class="mini" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(o.aria || "แนวโน้ม")}">${ref}<path d="${d}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>${dots}<circle cx="${X(last[0]).toFixed(1)}" cy="${Y(last[1]).toFixed(1)}" r="3.2" fill="${col}" stroke="var(--surface)" stroke-width="1.5"/>${unit}${lab}${hit}</svg>`;
+  const lab = o.xlabels ? o.xlabels.map((l, i) => `<text class="ml-x" x="${X(i).toFixed(1)}" y="${h - 2}" text-anchor="middle">${esc(l)}</text>`).join("")
+    : o.labels ? `<text class="ml-x" x="${pl}" y="${h - 2}">${esc(o.labels[0])}</text><text class="ml-x" x="${w - pr}" y="${h - 2}" text-anchor="end">${esc(o.labels[1])}</text>` : "";
+  const vlab = o.vlabels ? pts.map(p => `<text class="ml-v" x="${X(p[0]).toFixed(1)}" y="${(Y(p[1]) - 5).toFixed(1)}" text-anchor="middle">${esc(o.vlabels[p[0]])}</text>`).join("") : "";
+  return `<svg class="mini" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(o.aria || "แนวโน้ม")}">${ref}${line}${dots}${end}${vlab}${unit}${lab}${hit}</svg>`;
 };
 
 /* ---------- กราฟแท่งเล็ก (SVG) — รองรับค่าติดลบ (เช่น กำไร/ขาดทุน) ----------
@@ -4586,11 +4593,26 @@ P.overview = { title: "QA Scorecard", render(el) {
   const pmRows = PM.map(([id, n, s], i) => { const t = tr(id); return `<div class="mm-row"><span class="mm-l"><b>${n}</b><span>${s}</span></span>${UI.svgLine(t.map(x => x.value), { w: 170, h: 30, unit: i === PM.length - 1 ? "month" : null, tips: H.mtips(id, t), zero: true, color: `var(--c${i + 1})`, aria: n + " รายเดือน" })}<span class="mm-n" data-tip="${esc(H.periodShort())}">${U.nf(V(id).value)}</span></div>`; }).join("");
   const raSel = KPI.rows(H.num("K48"), dctx), raN = raSel.filter(r => r.polarity !== "Positive").length, raP = raSel.length - raN;
   const raLast = KPI.rows(Object.assign({}, H.num("K48"), { period: "asof" }), dctx).sort((a, b) => b.case_date.localeCompare(a.case_date))[0];
+  /* R03 · R05: กราฟเล็ก = จำนวนครั้งราย Week ของเดือนล่าสุด (ชุดเดียวกับกราฟ "ราย Week" ในหน้ารายละเอียด)
+     สัปดาห์สุดท้ายที่ยังไม่ครบ 7 วัน แสดงเป็นเส้นประ + จุดกลวง เพื่อไม่ให้อ่านว่าลดลงจริง */
+  const weekMini = (id, unit) => {
+    const wk = KPI.weekly(id, Object.assign({}, ctx, { from: ym + "-01" })), last = wk[wk.length - 1], part = !!last && last.days < 7;
+    if (!wk.length) return `<div class="mini-empty">ไม่มีข้อมูลในช่วงนี้</div>`;
+    return `<div class="cap"${part ? ` data-tip="${esc(`${last.label} ยังไม่ครบสัปดาห์ (มีข้อมูล ${last.days} วัน) — เส้นประ`)}"` : ""}>ครั้งราย Week · ${U.monLabel(ym)}${part ? ` · ${last.label} = ${last.days} วัน` : ""}</div>`
+      + UI.svgLine(wk.map(x => x.value), { h: 66, unit: "week", zero: true, dots: true, partialLast: part, xlabels: wk.map(x => x.label), vlabels: wk.map(x => U.nf(x.value)),
+          tips: wk.map(x => `${x.label} (${+x.from.slice(8)}–${+x.to.slice(8)} ${U.monLabel(x.ym)}): ${U.nf(x.value)} ${unit}${x.days < 7 ? ` · ยังไม่ครบสัปดาห์ (${x.days} วัน)` : ""}`), aria: `${KB(id).name} ราย Week ${U.monLabel(ym)}` });
+  };
+  /* 7 วันล่าสุด เทียบ 7 วันก่อนหน้า (ลูกศร: เพิ่มขึ้น = แย่ลง สำหรับ Complaint / NC) */
+  const p7 = Object.assign({}, ctx, { from: U.addDays(ctx.to, -13), to: U.addDays(ctx.to, -7) });
+  const last7 = (id, unit) => {
+    const a = KPI.value(id, c7).value || 0, b = KPI.value(id, p7).value || 0, pct = b ? (a - b) / b : null, flat = pct != null && Math.abs(pct) < 0.005;
+    return `${U.nf(a)} ${unit}${pct == null ? "" : ` <span class="${flat ? "d-flat" : pct > 0 ? "d-bad" : "d-good"}" data-tip="${esc(`เทียบ 7 วันก่อนหน้า (${U.dateTH(p7.from)} – ${U.dateTH(p7.to)}): ${U.nf(b)} ${unit}`)}">${flat ? "ทรงตัว" : (pct > 0 ? "▲ " : "▼ ") + U.nf(Math.abs(pct) * 100, 1) + "%"}</span>`}`;
+  };
   const row2 = sec("quality") + `<div class="sc-grid">`
     + tile({ title: "Complaint", req: ["R03", "R04"], go: "complaint", info: "K10", value: fv("K10", k10.value), unit: "ฉบับ/1,000 ตัน", status: s10, std: H.stdText("K10", k10.value), attn: ATTN.includes(s10.cls),
-        subs: [["7 วันล่าสุด", `${U.nf(KPI.value("K09", c7).value)} เรื่อง`], [`จำนวน ${H.periodShort()}`, `${U.nf(V("K09").value)} ฉบับ`]], chart: line("K10"), freq: "Rate รายเดือน · ครั้งรายสัปดาห์", pending: "STD และตัวหาร Rate" })
+        subs: [["7 วันล่าสุด", last7("K09", "เรื่อง")], [`จำนวน ${H.periodShort()}`, `${U.nf(V("K09").value)} ฉบับ`]], chart: weekMini("K09", "เรื่อง"), freq: "Rate รายเดือน · ครั้งรายสัปดาห์", pending: "STD และตัวหาร Rate" })
     + tile({ title: "NC", req: ["R05", "R06"], go: "nc", info: "K12", value: fv("K12", k12.value), unit: "ฉบับ/1,000,000 kg", status: s12, std: H.stdText("K12", k12.value), attn: ATTN.includes(s12.cls),
-        subs: [["7 วันล่าสุด", `${U.nf(KPI.value("K11", c7).value)} ใบ`], [`จำนวน ${H.periodShort()}`, `${U.nf(V("K11").value)} ใบ`]], chart: line("K12"), freq: "Rate รายเดือน · ครั้งรายสัปดาห์", pending: "STD และตัวหาร Rate" })
+        subs: [["7 วันล่าสุด", last7("K11", "ใบ")], [`จำนวน ${H.periodShort()}`, `${U.nf(V("K11").value)} ใบ`]], chart: weekMini("K11", "ใบ"), freq: "Rate รายเดือน · ครั้งรายสัปดาห์", pending: "STD และตัวหาร Rate" })
     + tile({ title: "CCP Deviation", req: ["R07"], go: "ccp", info: "K38", value: U.nf(ccpLast.value), unit: `ครั้ง · ${U.dateTH(ccpLast.key)}`, attn: ccp7 >= 2,
         subs: [["7 วันล่าสุด", `${U.nf(ccp7)} ครั้ง`], ["จุดที่หลุดมากสุด (7 วัน)", ccpTop ? `${esc(ccpTop[0])} · ${ccpTop[1]}` : "–"]],
         chart: UI.svgLine(dser.map(x => x.value), { unit: "day", zero: true, tips: dser.map(x => `${U.dateTH(x.key)}: ${x.value} ครั้ง`), labels: dser.length ? [U.dateTH(dser[0].key), U.dateTH(dser[dser.length - 1].key)] : ["", ""], color: "var(--c2)", aria: "CCP หลุดเกณฑ์รายวัน 30 วัน" }), freq: "รายวัน", pending: "Pilot Korat Line 7 เท่านั้น" })
